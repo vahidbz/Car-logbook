@@ -32,14 +32,25 @@
 html,body{background:var(--bg)}
 body{font-family:Vazirmatn,system-ui,sans-serif;color:var(--text);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
 button,input,select,textarea{font:inherit;color:inherit}
+button{-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
 .wrap{max-width:560px;margin:0 auto;padding:calc(16px + env(safe-area-inset-top)) 16px 120px}
 
-/* Header */
-header{display:flex;align-items:center;justify-content:space-between;padding:8px 0 16px}
-.brand small{display:block;color:var(--muted);font-size:12px}
-.brand h1{font-size:20px;font-weight:800;letter-spacing:-.2px}
-.icon-btn{width:40px;height:40px;border-radius:12px;border:1px solid var(--border);background:var(--surface);display:grid;place-items:center;cursor:pointer}
+/* Header / vehicle switcher */
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0 16px}
+.veh-btn{display:flex;align-items:center;gap:12px;border:0;background:transparent;cursor:pointer;text-align:right;min-width:0;padding:4px;margin:-4px;border-radius:14px}
+.veh-btn:active{background:var(--surface-2)}
+.veh-btn .txt{min-width:0}
+.veh-btn small{display:block;color:var(--muted);font-size:12px}
+.veh-btn h1{font-size:19px;font-weight:800;letter-spacing:-.2px;display:flex;align-items:center;gap:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.veh-btn h1 svg{flex:none;width:18px;height:18px;stroke:var(--muted)}
+.icon-btn{flex:none;width:40px;height:40px;border-radius:12px;border:1px solid var(--border);background:var(--surface);display:grid;place-items:center;cursor:pointer}
 .icon-btn svg{width:20px;height:20px;stroke:var(--text)}
+
+/* Avatar */
+.avatar{flex:none;border-radius:50%;display:grid;place-items:center;color:#fff;overflow:hidden;position:relative}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.avatar svg{width:56%;height:56%}
 
 /* Odometer */
 .odo{background:var(--text);color:var(--bg);border-radius:var(--radius);padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
@@ -73,7 +84,8 @@ header{display:flex;align-items:center;justify-content:space-between;padding:8px
 .tabs button{flex:1;border:0;background:transparent;padding:7px 4px;border-radius:9px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer}
 .tabs button.on{background:var(--surface);color:var(--text);box-shadow:var(--shadow)}
 .list{margin-top:12px;display:flex;flex-direction:column;gap:8px}
-.item{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;display:flex;gap:12px;align-items:flex-start}
+.item{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;text-align:right;width:100%}
+.item:active{background:var(--surface-2)}
 .item .ico{flex:none;width:38px;height:38px;border-radius:11px;display:grid;place-items:center}
 .item .ico svg{width:19px;height:19px}
 .ico.oil{background:#fff4e5;color:#b54708} .ico.belt{background:#e8efff;color:#1d4ed8}
@@ -85,21 +97,21 @@ header{display:flex;align-items:center;justify-content:space-between;padding:8px
 .item .meta{font-size:12.5px;color:var(--muted);margin-top:2px;display:flex;flex-wrap:wrap;gap:4px 10px}
 .item .meta em{font-style:normal;color:var(--text);font-weight:600}
 .item .note{font-size:12.5px;margin-top:6px;color:var(--muted)}
-.item .del{border:0;background:transparent;color:var(--muted);cursor:pointer;padding:4px;border-radius:8px}
-.item .del:hover{color:var(--bad);background:var(--bad-weak)}
+.item .chev{flex:none;align-self:center;color:var(--muted)}
 .empty-state{text-align:center;padding:36px 16px;color:var(--muted);font-size:14px;border:1px dashed var(--border);border-radius:var(--radius)}
 
 /* FAB */
-.fab{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:var(--primary);color:#fff;border:0;border-radius:99px;padding:14px 26px;font-weight:700;font-size:15px;box-shadow:0 8px 24px rgba(29,78,216,.35);cursor:pointer;display:flex;align-items:center;gap:8px}
+.fab{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:var(--primary);color:#fff;border:0;border-radius:99px;padding:14px 26px;font-weight:700;font-size:15px;box-shadow:0 8px 24px rgba(29,78,216,.35);cursor:pointer;display:flex;align-items:center;gap:8px;white-space:nowrap}
 .fab svg{width:18px;height:18px;stroke:#fff}
 
-/* Dialog */
-/* custom modal (no native <dialog> — more reliable in Safari & embedded previews) */
+/* Modal / bottom sheet with sticky footer */
 .modal{position:fixed;inset:0;z-index:50;display:none;background:rgba(10,14,22,.5)}
 .modal.open{display:block}
 body.locked{overflow:hidden}
-.sheet{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:560px;max-height:92vh;overflow:auto;background:var(--surface);border-radius:22px 22px 0 0;padding:8px 20px calc(20px + env(safe-area-inset-bottom));animation:up .22s ease-out}
+.sheet{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:560px;max-height:92vh;max-height:92dvh;display:flex;flex-direction:column;background:var(--surface);border-radius:22px 22px 0 0;animation:up .22s ease-out;overflow:hidden}
 @keyframes up{from{transform:translate(-50%,40px);opacity:.4}}
+.sheet-body{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:8px 20px 16px}
+.sheet-foot{flex:none;display:flex;gap:10px;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--border);background:var(--surface)}
 .grab{width:40px;height:4px;border-radius:9px;background:var(--border);margin:6px auto 14px}
 .sheet h2{font-size:18px;font-weight:800;margin-bottom:16px}
 .seg{display:flex;gap:6px;background:var(--surface-2);padding:4px;border-radius:12px;margin-bottom:16px}
@@ -109,7 +121,7 @@ body.locked{overflow:hidden}
 .field{margin-bottom:14px}
 .field>span{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
 .field>span i{font-style:normal;font-weight:400;color:var(--muted);font-size:12px}
-.input,select.input,textarea.input{width:100%;border:1px solid var(--border);background:var(--bg);border-radius:12px;padding:11px 13px;outline:none;font-size:15px}
+.input,select.input,textarea.input{width:100%;border:1px solid var(--border);background:var(--bg);border-radius:12px;padding:11px 13px;outline:none;font-size:16px}
 .input:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-weak)}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .date3{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:8px}
@@ -118,24 +130,44 @@ body.locked{overflow:hidden}
 .chips button{border:1px solid var(--border);background:transparent;border-radius:99px;padding:4px 11px;font-size:12.5px;cursor:pointer;direction:ltr}
 .chips button.on{border-color:var(--primary);color:var(--primary);background:var(--primary-weak)}
 .hint{font-size:12px;color:var(--muted);margin-top:5px}
-.actions{display:flex;gap:10px;margin-top:20px}
 .btn{flex:1;border:0;border-radius:12px;padding:13px;font-weight:700;cursor:pointer;font-size:15px}
 .btn.primary{background:var(--primary);color:#fff}
 .btn.ghost{background:var(--surface-2)}
 .btn.danger{background:var(--bad-weak);color:var(--bad)}
+.btn.icon{flex:0 0 50px;display:grid;place-items:center;padding:0}
+.btn.icon svg{width:20px;height:20px}
+.btn-row{display:flex;gap:10px}
 .err{color:var(--bad);font-size:12.5px;margin-top:4px;display:none}
-.settings-group{border-top:1px solid var(--border);padding-top:16px;margin-top:6px}
-.toast{position:fixed;top:16px;left:50%;transform:translate(-50%,-80px);background:var(--text);color:var(--bg);padding:10px 18px;border-radius:12px;font-size:14px;font-weight:600;transition:transform .25s;z-index:99}
+
+/* Vehicles list */
+.veh-list{display:flex;flex-direction:column;gap:8px}
+.veh-row{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--border);border-radius:14px;background:var(--surface);cursor:pointer}
+.veh-row.on{border-color:var(--primary);background:var(--primary-weak)}
+.veh-row .info{flex:1;min-width:0}
+.veh-row b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.veh-row small{color:var(--muted);font-size:12px}
+.veh-row .edit{flex:none;border:0;background:transparent;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;cursor:pointer;color:var(--muted)}
+.veh-row .edit:active{background:var(--surface-2)}
+.add-veh{width:100%;margin-top:10px;border:1px dashed var(--border);background:transparent;border-radius:14px;padding:14px;font-weight:700;color:var(--primary);cursor:pointer}
+
+/* Vehicle form: avatar picker */
+.av-pick{display:flex;align-items:center;gap:16px;margin-bottom:16px}
+.av-pick .ctrl{flex:1;display:flex;flex-direction:column;gap:10px;min-width:0}
+.swatches{display:flex;flex-wrap:wrap;gap:8px}
+.swatches button{width:28px;height:28px;border-radius:50%;border:0;cursor:pointer;box-shadow:inset 0 0 0 2px rgba(255,255,255,.25)}
+.swatches button.on{outline:2px solid var(--text);outline-offset:2px}
+.photo-btns{display:flex;gap:8px}
+.photo-btns button{border:1px solid var(--border);background:var(--surface);border-radius:10px;padding:6px 12px;font-size:13px;font-weight:600;cursor:pointer}
+.photo-btns .rm{color:var(--bad)}
+
+.toast{position:fixed;top:calc(16px + env(safe-area-inset-top));left:50%;transform:translate(-50%,-120px);background:var(--text);color:var(--bg);padding:10px 18px;border-radius:12px;font-size:14px;font-weight:600;transition:transform .25s;z-index:99}
 .toast.show{transform:translate(-50%,0)}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <div class="brand">
-      <small>دفترچه سرویس دیجیتال</small>
-      <h1 id="carName">خودروی من</h1>
-    </div>
+    <button class="veh-btn" id="openVehicles" aria-label="انتخاب وسیله"></button>
     <button class="icon-btn" id="openSettings" aria-label="تنظیمات">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
     </button>
@@ -143,7 +175,7 @@ body.locked{overflow:hidden}
 
   <div class="odo">
     <div>
-      <div class="label">کیلومتر فعلی خودرو</div>
+      <div class="label">کیلومتر فعلی</div>
       <div class="value" id="odoValue">۰<span>km</span></div>
     </div>
     <button id="openOdo">به‌روزرسانی</button>
@@ -156,7 +188,7 @@ body.locked{overflow:hidden}
   <div class="tabs" id="tabs">
     <button data-f="all" class="on">همه</button>
     <button data-f="oil">روغن موتور</button>
-    <button data-f="belt">تسمه تایم</button>
+    <button data-f="belt" id="tabBelt">تسمه تایم</button>
   </div>
   <div class="list" id="list"></div>
 </div>
@@ -166,74 +198,78 @@ body.locked{overflow:hidden}
   ثبت سرویس جدید
 </button>
 
-<!-- Add service -->
+<!-- Add / edit service -->
 <div class="modal" id="dlgAdd" role="dialog" aria-modal="true">
   <form class="sheet" id="formAdd" novalidate>
-    <div class="grab"></div>
-    <h2>ثبت سرویس</h2>
-    <div class="seg">
-      <label><input type="radio" name="type" value="oil" checked>تعویض روغن</label>
-      <label><input type="radio" name="type" value="belt">تسمه تایم</label>
-    </div>
-
-    <div class="field">
-      <span>تاریخ سرویس <i>(شمسی)</i></span>
-      <div class="date3">
-        <input class="input" name="jy" inputmode="numeric" placeholder="سال">
-        <input class="input" name="jm" inputmode="numeric" placeholder="ماه">
-        <input class="input" name="jd" inputmode="numeric" placeholder="روز">
+    <div class="sheet-body">
+      <div class="grab"></div>
+      <h2 id="addTitle">ثبت سرویس</h2>
+      <div class="seg">
+        <label><input type="radio" name="type" value="oil" checked>تعویض روغن</label>
+        <label><input type="radio" name="type" value="belt"><span id="segBelt">تسمه تایم</span></label>
       </div>
-      <div class="err" id="errDate">تاریخ معتبر نیست</div>
-    </div>
 
-    <div class="field">
-      <span>کیلومتر هنگام سرویس</span>
-      <input class="input" name="km" inputmode="numeric" placeholder="مثلاً ۸۵۰۰۰">
-      <div class="err" id="errKm">کیلومتر را وارد کنید</div>
-    </div>
-
-    <div id="oilFields">
       <div class="field">
-        <span>نوع روغن</span>
-        <input class="input" name="oilBrand" placeholder="برند، مثلاً بهران، اسپیدی، توتال…">
-        <div class="chips" id="viscChips"></div>
-        <input type="hidden" name="oilVisc">
+        <span>تاریخ سرویس <i>(شمسی)</i></span>
+        <div class="date3">
+          <input class="input" name="jy" inputmode="numeric" placeholder="سال">
+          <input class="input" name="jm" inputmode="numeric" placeholder="ماه">
+          <input class="input" name="jd" inputmode="numeric" placeholder="روز">
+        </div>
+        <div class="err" id="errDate">تاریخ معتبر نیست</div>
       </div>
+
+      <div class="field">
+        <span>کیلومتر هنگام سرویس</span>
+        <input class="input" name="km" inputmode="numeric" placeholder="مثلاً ۸۵۰۰۰">
+        <div class="err" id="errKm">کیلومتر را وارد کنید</div>
+      </div>
+
+      <div id="oilFields">
+        <div class="field">
+          <span>نوع روغن</span>
+          <input class="input" name="oilBrand" placeholder="برند، مثلاً بهران، اسپیدی، توتال…">
+          <div class="chips" id="viscChips"></div>
+          <input type="hidden" name="oilVisc">
+        </div>
+        <div class="row">
+          <div class="field">
+            <span>فیلتر روغن</span>
+            <select class="input" name="filter"><option value="yes">عوض شد</option><option value="no">عوض نشد</option></select>
+          </div>
+          <div class="field">
+            <span>حجم <i>(لیتر)</i></span>
+            <input class="input" name="liters" inputmode="decimal" placeholder="۴">
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <span>تعویض بعدی در کیلومتر</span>
+        <input class="input" name="nextKm" inputmode="numeric">
+        <div class="hint" id="nextHint"></div>
+      </div>
+
       <div class="row">
         <div class="field">
-          <span>فیلتر روغن</span>
-          <select class="input" name="filter"><option value="yes">عوض شد</option><option value="no">عوض نشد</option></select>
+          <span>هزینه <i>(تومان)</i></span>
+          <input class="input" name="cost" inputmode="numeric" placeholder="اختیاری">
         </div>
         <div class="field">
-          <span>حجم <i>(لیتر)</i></span>
-          <input class="input" name="liters" inputmode="decimal" placeholder="۴">
+          <span>محل سرویس</span>
+          <input class="input" name="shop" placeholder="اختیاری">
         </div>
       </div>
-    </div>
 
-    <div class="field">
-      <span>تعویض بعدی در کیلومتر</span>
-      <input class="input" name="nextKm" inputmode="numeric">
-      <div class="hint" id="nextHint"></div>
-    </div>
-
-    <div class="row">
       <div class="field">
-        <span>هزینه <i>(تومان)</i></span>
-        <input class="input" name="cost" inputmode="numeric" placeholder="اختیاری">
-      </div>
-      <div class="field">
-        <span>محل سرویس</span>
-        <input class="input" name="shop" placeholder="اختیاری">
+        <span>یادداشت</span>
+        <textarea class="input" name="note" rows="2" placeholder="اختیاری"></textarea>
       </div>
     </div>
-
-    <div class="field">
-      <span>یادداشت</span>
-      <textarea class="input" name="note" rows="2" placeholder="اختیاری"></textarea>
-    </div>
-
-    <div class="actions">
+    <div class="sheet-foot">
+      <button type="button" class="btn danger icon" id="btnDelRec" aria-label="حذف سرویس" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg>
+      </button>
       <button type="button" class="btn ghost" data-close>انصراف</button>
       <button type="submit" class="btn primary">ذخیره</button>
     </div>
@@ -243,13 +279,81 @@ body.locked{overflow:hidden}
 <!-- Odometer -->
 <div class="modal" id="dlgOdo" role="dialog" aria-modal="true">
   <form class="sheet" id="formOdo">
-    <div class="grab"></div>
-    <h2>کیلومتر فعلی</h2>
-    <div class="field">
-      <span>عدد کیلومترشمار را وارد کنید</span>
-      <input class="input" name="odo" inputmode="numeric">
+    <div class="sheet-body">
+      <div class="grab"></div>
+      <h2>کیلومتر فعلی</h2>
+      <div class="field">
+        <span>عدد کیلومترشمار را وارد کنید</span>
+        <input class="input" name="odo" inputmode="numeric">
+      </div>
     </div>
-    <div class="actions">
+    <div class="sheet-foot">
+      <button type="button" class="btn ghost" data-close>انصراف</button>
+      <button type="submit" class="btn primary">ذخیره</button>
+    </div>
+  </form>
+</div>
+
+<!-- Vehicles list -->
+<div class="modal" id="dlgVehicles" role="dialog" aria-modal="true">
+  <div class="sheet">
+    <div class="sheet-body">
+      <div class="grab"></div>
+      <h2>وسیله‌های من</h2>
+      <div class="veh-list" id="vehList"></div>
+      <button class="add-veh" id="btnAddVeh">+ افزودن خودرو یا موتور</button>
+    </div>
+    <div class="sheet-foot">
+      <button type="button" class="btn ghost" data-close>بستن</button>
+    </div>
+  </div>
+</div>
+
+<!-- Vehicle add / edit -->
+<div class="modal" id="dlgVehicle" role="dialog" aria-modal="true">
+  <form class="sheet" id="formVeh" novalidate>
+    <div class="sheet-body">
+      <div class="grab"></div>
+      <h2 id="vehTitle">وسیلهٔ جدید</h2>
+      <div class="seg">
+        <label><input type="radio" name="kind" value="car" checked>خودرو</label>
+        <label><input type="radio" name="kind" value="moto">موتورسیکلت</label>
+      </div>
+      <div class="av-pick">
+        <div id="vehPreview"></div>
+        <div class="ctrl">
+          <div class="swatches" id="swatches"></div>
+          <div class="photo-btns">
+            <button type="button" id="btnPhoto">انتخاب عکس</button>
+            <button type="button" class="rm" id="btnRmPhoto" hidden>حذف عکس</button>
+          </div>
+          <input type="file" id="photoInput" accept="image/*" hidden>
+        </div>
+      </div>
+      <div class="field">
+        <span>نام</span>
+        <input class="input" name="name" placeholder="مثلاً پژو ۲۰۶ یا هوندا ۱۲۵">
+      </div>
+      <div class="field">
+        <span>کیلومتر فعلی</span>
+        <input class="input" name="odometer" inputmode="numeric" placeholder="۰">
+      </div>
+      <div class="row">
+        <div class="field">
+          <span>فاصلهٔ تعویض روغن <i>(km)</i></span>
+          <input class="input" name="oilInt" inputmode="numeric">
+        </div>
+        <div class="field">
+          <span><b id="beltIntLabel" style="font-weight:600">فاصلهٔ تسمه تایم</b> <i>(km)</i></span>
+          <input class="input" name="beltInt" inputmode="numeric">
+        </div>
+      </div>
+      <div class="hint">هشدار «نزدیک است» وقتی نمایش داده می‌شود که کمتر از ۱۵٪ مسافت باقی مانده باشد.</div>
+    </div>
+    <div class="sheet-foot">
+      <button type="button" class="btn danger icon" id="btnDelVeh" aria-label="حذف وسیله" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg>
+      </button>
       <button type="button" class="btn ghost" data-close>انصراف</button>
       <button type="submit" class="btn primary">ذخیره</button>
     </div>
@@ -258,38 +362,23 @@ body.locked{overflow:hidden}
 
 <!-- Settings -->
 <div class="modal" id="dlgSettings" role="dialog" aria-modal="true">
-  <form class="sheet" id="formSettings">
-    <div class="grab"></div>
-    <h2>تنظیمات</h2>
-    <div class="field">
-      <span>نام خودرو</span>
-      <input class="input" name="carName" placeholder="مثلاً پژو ۲۰۶ تیپ ۵">
-    </div>
-    <div class="row">
-      <div class="field">
-        <span>فاصلهٔ تعویض روغن <i>(km)</i></span>
-        <input class="input" name="oilInt" inputmode="numeric">
-      </div>
-      <div class="field">
-        <span>فاصلهٔ تسمه تایم <i>(km)</i></span>
-        <input class="input" name="beltInt" inputmode="numeric">
-      </div>
-    </div>
-    <div class="hint" style="margin-top:-6px;margin-bottom:14px">هشدار «نزدیک است» وقتی نمایش داده می‌شود که کمتر از ۱۵٪ مسافت باقی مانده باشد.</div>
-    <div class="actions" style="margin-top:0">
-      <button type="button" class="btn ghost" data-close>انصراف</button>
-      <button type="submit" class="btn primary">ذخیره</button>
-    </div>
-    <div class="settings-group" style="margin-top:20px">
-      <div class="field"><span>پشتیبان‌گیری <i>— داده‌ها فقط روی همین مرورگر ذخیره می‌شوند</i></span></div>
-      <div class="actions" style="margin-top:0">
+  <div class="sheet">
+    <div class="sheet-body">
+      <div class="grab"></div>
+      <h2>تنظیمات</h2>
+      <div class="field"><span>پشتیبان‌گیری <i>— داده‌ها فقط روی همین دستگاه ذخیره می‌شوند</i></span></div>
+      <div class="btn-row">
         <button type="button" class="btn ghost" id="btnExport">خروجی فایل</button>
         <button type="button" class="btn ghost" id="btnImport">بارگذاری فایل</button>
       </div>
-      <input type="file" id="fileImport" accept="application/json" hidden>
-      <div class="actions"><button type="button" class="btn danger" id="btnReset">پاک کردن همهٔ داده‌ها</button></div>
+      <input type="file" id="fileImport" accept="application/json,.json" hidden>
+      <div class="hint" style="margin:10px 0 20px">فایل خروجی شامل همهٔ وسیله‌ها و سرویس‌هاست.</div>
+      <button type="button" class="btn danger" style="width:100%" id="btnReset">پاک کردن همهٔ داده‌ها</button>
     </div>
-  </form>
+    <div class="sheet-foot">
+      <button type="button" class="btn ghost" data-close>بستن</button>
+    </div>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -333,36 +422,69 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2000)}
 
-/* ---------- State (localStorage, safe fallback) ---------- */
+/* ---------- Vehicles ---------- */
+const COLORS=['#1d4ed8','#0f766e','#b42318','#c4320a','#7a5af8','#344054','#0e9384','#db2777'];
+const KINDS={
+  car:{label:'خودرو',oil:5000,belt:60000,beltName:'تسمه تایم',fallback:'خودروی من'},
+  moto:{label:'موتورسیکلت',oil:3000,belt:15000,beltName:'تسمه / زنجیر',fallback:'موتور من'}
+};
+const KIND_SVG={
+  car:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>',
+  moto:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="16" r="3"/><circle cx="19" cy="16" r="3"/><path d="M5 16l3.5-5H13l2.5 3H19"/><path d="M15.5 14 19 16"/><path d="M13 11l2-4h3"/><path d="M8.5 11H6"/></svg>'
+};
+function avatarHTML(v,size){
+  const inner=v.photo?`<img src="${v.photo}" alt="">`:KIND_SVG[v.kind]||KIND_SVG.car;
+  return`<div class="avatar" style="width:${size}px;height:${size}px;background:${v.photo?'var(--surface-2)':v.color||COLORS[0]}">${inner}</div>`;
+}
+function newVehicle(kind='car',o={}){return{id:uid(),kind,name:'',color:COLORS[0],photo:null,odometer:0,oilInt:KINDS[kind].oil,beltInt:KINDS[kind].belt,records:[],...o}}
+const vName=v=>v.name||KINDS[v.kind].fallback;
+const beltName=v=>KINDS[v.kind]?.beltName||'تسمه تایم';
+
+/* ---------- State (localStorage + migration from v1) ---------- */
 const KEY='car-logbook-v1';
-const DEFAULT={car:{name:'خودروی من',odometer:0},settings:{oilInt:5000,beltInt:60000},records:[]};
+function migrate(d){
+  if(d&&Array.isArray(d.vehicles)&&d.vehicles.length){
+    d.vehicles.forEach(v=>{v.records=Array.isArray(v.records)?v.records:[];if(!KINDS[v.kind])v.kind='car';v.id=v.id||uid()});
+    if(!d.vehicles.some(v=>v.id===d.activeId))d.activeId=d.vehicles[0].id;
+    return{version:2,activeId:d.activeId,vehicles:d.vehicles};
+  }
+  if(d&&Array.isArray(d.records)){ // v1 format: single car
+    const v=newVehicle('car',{name:d.car?.name&&d.car.name!=='خودروی من'?d.car.name:'',odometer:d.car?.odometer||0,
+      oilInt:d.settings?.oilInt||5000,beltInt:d.settings?.beltInt||60000,records:d.records});
+    return{version:2,activeId:v.id,vehicles:[v]};
+  }
+  return null;
+}
+function fresh(){const v=newVehicle('car');return{version:2,activeId:v.id,vehicles:[v]}}
 let memory=null;
-function load(){try{const raw=localStorage.getItem(KEY);if(raw)return{...structuredClone(DEFAULT),...JSON.parse(raw)}}catch(e){}return memory||structuredClone(DEFAULT)}
-function save(){memory=state;try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+function load(){try{const raw=localStorage.getItem(KEY);if(raw){const m=migrate(JSON.parse(raw));if(m)return m}}catch(e){}return memory||fresh()}
+function save(){memory=state;try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){toast('ذخیره نشد — حافظهٔ مرورگر پر است')}}
 let state=load();
+save();
+const V=()=>state.vehicles.find(v=>v.id===state.activeId)||state.vehicles[0];
 let filter='all';
 
 const TYPES={
-  oil:{title:'روغن موتور',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg>'},
-  belt:{title:'تسمه تایم',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="12" r="3.5"/><circle cx="17" cy="12" r="3.5"/><path d="M7 8.5h10M7 15.5h10"/></svg>'}
+  oil:{icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg>'},
+  belt:{icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="12" r="3.5"/><circle cx="17" cy="12" r="3.5"/><path d="M7 8.5h10M7 15.5h10"/></svg>'}
 };
-const intervalOf=t=>t==='oil'?state.settings.oilInt:state.settings.beltInt;
-
-/* ---------- Modals ---------- */
-function openM(sel){const m=$(sel);m.classList.add('open');document.body.classList.add('locked');const f=m.querySelector('input:not([type=hidden]):not([type=radio]),textarea');if(f&&sel==='#dlgOdo')setTimeout(()=>f.focus(),30)}
-function closeM(sel){$(sel).classList.remove('open');if(!document.querySelector('.modal.open'))document.body.classList.remove('locked')}
+const typeTitle=(v,t)=>t==='oil'?'روغن موتور':beltName(v);
+const intervalOf=(v,t)=>t==='oil'?v.oilInt:v.beltInt;
+const CHEV='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>';
 
 /* ---------- Render ---------- */
-function lastOf(type){return state.records.filter(r=>r.type===type).sort((a,b)=>b.km-a.km||b.date.localeCompare(a.date))[0]}
+function lastOf(v,type){return v.records.filter(r=>r.type===type).sort((a,b)=>b.km-a.km||b.date.localeCompare(a.date))[0]}
 function render(){
-  $('#carName').textContent=state.car.name||'خودروی من';
-  $('#odoValue').innerHTML=`${fa(state.car.odometer)}<span>km</span>`;
+  const v=V();
+  $('#openVehicles').innerHTML=`${avatarHTML(v,48)}<div class="txt"><small>${state.vehicles.length>1?'تعویض وسیله':KINDS[v.kind].label}</small><h1><span style="overflow:hidden;text-overflow:ellipsis">${esc(vName(v))}</span><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></h1></div>`;
+  $('#odoValue').innerHTML=`${fa(v.odometer)}<span>km</span>`;
+  $('#tabBelt').textContent=beltName(v);
 
   $('#cards').innerHTML=['oil','belt'].map(t=>{
-    const r=lastOf(t),T=TYPES[t];
-    const head=`<div class="card-head"><div class="dot">${T.icon}</div><h3>${T.title}</h3></div>`;
+    const r=lastOf(v,t),T=TYPES[t];
+    const head=`<div class="card-head"><div class="dot">${T.icon}</div><h3>${typeTitle(v,t)}</h3></div>`;
     if(!r)return`<div class="card empty">${head}<div class="remain">هنوز ثبت نشده</div><div class="sub">اولین سرویس را ثبت کنید</div><button class="add" data-add="${t}">+ ثبت</button></div>`;
-    const next=r.nextKm||r.km+intervalOf(t), span=Math.max(1,next-r.km), used=state.car.odometer-r.km, left=next-state.car.odometer;
+    const next=r.nextKm||r.km+intervalOf(v,t), span=Math.max(1,next-r.km), used=v.odometer-r.km, left=next-v.odometer;
     const pct=Math.min(100,Math.max(0,used/span*100));
     const cls=left<=0?'over':left<=span*.15?'soon':'';
     const pill=left<=0?'زمان تعویض گذشته':left<=span*.15?'نزدیک است':'در وضعیت خوب';
@@ -371,8 +493,8 @@ function render(){
     return`<div class="card ${cls}">${head}<span class="pill">${pill}</span><div class="remain">${remain}</div><div class="bar"><i style="width:${pct}%"></i></div><div class="sub">تعویض بعدی: ${fa(next)} km<br>آخرین: ${days<=0?'امروز':fa(days)+' روز پیش'}</div></div>`;
   }).join('');
 
-  const rows=state.records.filter(r=>filter==='all'||r.type===filter).sort((a,b)=>b.date.localeCompare(a.date)||b.km-a.km);
-  $('#count').textContent=state.records.length?fa(state.records.length)+' مورد':'';
+  const rows=v.records.filter(r=>filter==='all'||r.type===filter).sort((a,b)=>b.date.localeCompare(a.date)||b.km-a.km);
+  $('#count').textContent=v.records.length?fa(v.records.length)+' مورد':'';
   $('#list').innerHTML=rows.length?rows.map(r=>{
     const meta=[`<span>کیلومتر <em>${fa(r.km)}</em></span>`];
     if(r.type==='oil'){
@@ -384,74 +506,186 @@ function render(){
     if(r.nextKm)meta.push(`<span>بعدی <em>${fa(r.nextKm)}</em></span>`);
     if(r.cost)meta.push(`<span>${fa(r.cost)} تومان</span>`);
     if(r.shop)meta.push(`<span>${esc(r.shop)}</span>`);
-    return`<div class="item"><div class="ico ${r.type}">${TYPES[r.type].icon}</div><div class="body"><div class="top"><b>${r.type==='oil'?'تعویض روغن':'تعویض تسمه تایم'}</b><span>${fmtJ(r.date)}</span></div><div class="meta">${meta.join('')}</div>${r.note?`<div class="note">${esc(r.note)}</div>`:''}</div><button class="del" data-del="${r.id}" aria-label="حذف"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg></button></div>`;
-  }).join(''):`<div class="empty-state">${filter==='all'?'هنوز سرویسی ثبت نکرده‌اید.<br>با دکمهٔ پایین اولین سرویس را ثبت کنید.':'سرویسی از این نوع ثبت نشده.'}</div>`;
+    return`<button class="item" data-edit="${r.id}"><div class="ico ${r.type}">${TYPES[r.type].icon}</div><div class="body"><div class="top"><b>تعویض ${r.type==='oil'?'روغن':beltName(v)}</b><span>${fmtJ(r.date)}</span></div><div class="meta">${meta.join('')}</div>${r.note?`<div class="note">${esc(r.note)}</div>`:''}</div><span class="chev">${CHEV}</span></button>`;
+  }).join(''):`<div class="empty-state">${filter==='all'?'هنوز سرویسی برای این وسیله ثبت نشده.<br>با دکمهٔ پایین اولین سرویس را ثبت کنید.':'سرویسی از این نوع ثبت نشده.'}</div>`;
 }
 
-/* ---------- Add service form ---------- */
+/* ---------- Modals ---------- */
+function openM(sel){$(sel).classList.add('open');document.body.classList.add('locked');const b=$(sel).querySelector('.sheet-body');if(b)b.scrollTop=0}
+function closeM(sel){$(sel).classList.remove('open');if(!document.querySelector('.modal.open'))document.body.classList.remove('locked')}
+document.querySelectorAll('.modal').forEach(d=>{
+  d.addEventListener('click',e=>{if(e.target===d||e.target.closest('[data-close]'))closeM('#'+d.id)});
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal.open').forEach(d=>closeM('#'+d.id))});
+
+/* ---------- Add / edit service ---------- */
 const VISC=['5W-30','5W-40','10W-40','15W-40','20W-50','0W-20'];
 const fA=$('#formAdd');
+let nextTouched=false, editingId=null;
 $('#viscChips').innerHTML=VISC.map(v=>`<button type="button" data-v="${v}">${v}</button>`).join('');
-$('#viscChips').onclick=e=>{const b=e.target.closest('button');if(!b)return;const on=!b.classList.contains('on');document.querySelectorAll('#viscChips button').forEach(x=>x.classList.remove('on'));if(on)b.classList.add('on');fA.oilVisc.value=on?b.dataset.v:''};
-let nextTouched=false;
-function curType(){return fA.querySelector('[name=type]:checked').value}
+function setVisc(val){document.querySelectorAll('#viscChips button').forEach(x=>x.classList.toggle('on',x.dataset.v===val));fA.oilVisc.value=val||''}
+$('#viscChips').onclick=e=>{const b=e.target.closest('button');if(!b)return;setVisc(b.classList.contains('on')?'':b.dataset.v)};
+const curType=()=>fA.querySelector('[name=type]:checked').value;
 function syncNext(){
-  const t=curType(),km=toNum(fA.km.value);
-  $('#oilFields').style.display=t==='oil'?'':'none';
-  if(!nextTouched)fA.nextKm.value=isNaN(km)?'':faDigits(km+intervalOf(t));
-  $('#nextHint').textContent=`پیش‌فرض: هر ${fa(intervalOf(t))} کیلومتر — قابل تغییر در تنظیمات`;
+  const v=V(),t=curType(),km=toNum(fA.km.value);
+  $('#oilFields').hidden=t!=='oil';
+  if(!nextTouched)fA.nextKm.value=isNaN(km)?'':faDigits(km+intervalOf(v,t));
+  $('#nextHint').textContent=`پیش‌فرض: هر ${fa(intervalOf(v,t))} کیلومتر — قابل تغییر در ویرایش وسیله`;
 }
 fA.addEventListener('change',e=>{if(e.target.name==='type')syncNext()});
 fA.km.addEventListener('input',syncNext);
 fA.nextKm.addEventListener('input',()=>nextTouched=fA.nextKm.value!=='');
-function openAdd(type='oil'){
-  fA.reset();nextTouched=false;
-  fA.querySelector(`[name=type][value=${type}]`).checked=true;
-  document.querySelectorAll('#viscChips button').forEach(x=>x.classList.remove('on'));fA.oilVisc.value='';
-  const j=todayJ();fA.jy.value=faDigits(j.jy);fA.jm.value=faDigits(j.jm);fA.jd.value=faDigits(j.jd);
-  if(state.car.odometer)fA.km.value=faDigits(state.car.odometer);
-  document.querySelectorAll('.err').forEach(e=>e.style.display='none');
+function openAdd(type='oil',rec=null){
+  const v=V();
+  fA.reset();editingId=rec?rec.id:null;nextTouched=!!rec;
+  $('#addTitle').textContent=rec?'ویرایش سرویس':'ثبت سرویس';
+  $('#btnDelRec').hidden=!rec;
+  $('#segBelt').textContent=beltName(v);
+  fA.querySelector(`[name=type][value=${rec?rec.type:type}]`).checked=true;
+  const j=rec?isoToJ(rec.date):todayJ();
+  fA.jy.value=faDigits(j.jy);fA.jm.value=faDigits(j.jm);fA.jd.value=faDigits(j.jd);
+  if(rec){
+    fA.km.value=faDigits(rec.km);
+    fA.nextKm.value=rec.nextKm?faDigits(rec.nextKm):'';
+    fA.oilBrand.value=rec.oilBrand||'';setVisc(rec.oilVisc||'');
+    fA.filter.value=rec.filter||'yes';
+    fA.liters.value=rec.liters?faDigits(rec.liters):'';
+    fA.cost.value=rec.cost?faDigits(rec.cost):'';
+    fA.shop.value=rec.shop||'';fA.note.value=rec.note||'';
+  }else{
+    setVisc('');
+    if(v.odometer)fA.km.value=faDigits(v.odometer);
+  }
+  document.querySelectorAll('#formAdd .err').forEach(e=>e.style.display='none');
   syncNext();openM('#dlgAdd');
 }
 fA.addEventListener('submit',e=>{
   e.preventDefault();
+  const v=V();
   const y=toNum(fA.jy.value),m=toNum(fA.jm.value),d=toNum(fA.jd.value),km=toNum(fA.km.value);
   const dateOk=y>1300&&y<1500&&m>=1&&m<=12&&d>=1&&d<=monthLen(y,m);
   $('#errDate').style.display=dateOk?'none':'block';
   $('#errKm').style.display=km>=0?'none':'block';
   if(!dateOk||!(km>=0))return;
   const t=curType(),next=toNum(fA.nextKm.value);
-  const rec={id:uid(),type:t,date:jToISO(y,m,d),km,nextKm:isNaN(next)?km+intervalOf(t):next,
+  const rec={id:editingId||uid(),type:t,date:jToISO(y,m,d),km,nextKm:isNaN(next)?km+intervalOf(v,t):next,
     cost:toNum(fA.cost.value)||null,shop:fA.shop.value.trim(),note:fA.note.value.trim()};
   if(t==='oil')Object.assign(rec,{oilBrand:fA.oilBrand.value.trim(),oilVisc:fA.oilVisc.value,filter:fA.filter.value,liters:toNum(fA.liters.value)||null});
-  state.records.push(rec);
-  if(km>state.car.odometer)state.car.odometer=km;
-  save();render();closeM('#dlgAdd');toast('سرویس ثبت شد');
+  if(editingId){const i=v.records.findIndex(r=>r.id===editingId);if(i>-1)v.records[i]=rec;else v.records.push(rec)}
+  else v.records.push(rec);
+  if(km>v.odometer)v.odometer=km;
+  save();render();closeM('#dlgAdd');toast(editingId?'تغییرات ذخیره شد':'سرویس ثبت شد');
 });
+$('#btnDelRec').onclick=()=>{
+  if(!editingId||!confirm('این سرویس حذف شود؟'))return;
+  const v=V();v.records=v.records.filter(r=>r.id!==editingId);
+  save();render();closeM('#dlgAdd');toast('سرویس حذف شد');
+};
 
 /* ---------- Odometer ---------- */
 const fO=$('#formOdo');
-$('#openOdo').onclick=()=>{fO.odo.value=state.car.odometer?faDigits(state.car.odometer):'';openM('#dlgOdo')};
-fO.addEventListener('submit',e=>{e.preventDefault();const v=toNum(fO.odo.value);if(!(v>=0))return;state.car.odometer=v;save();render();closeM('#dlgOdo');toast('کیلومتر به‌روز شد')});
+$('#openOdo').onclick=()=>{const v=V();fO.odo.value=v.odometer?faDigits(v.odometer):'';openM('#dlgOdo');setTimeout(()=>fO.odo.focus(),30)};
+fO.addEventListener('submit',e=>{e.preventDefault();const n=toNum(fO.odo.value);if(!(n>=0))return;V().odometer=n;save();render();closeM('#dlgOdo');toast('کیلومتر به‌روز شد')});
+
+/* ---------- Vehicles list ---------- */
+function renderVehList(){
+  $('#vehList').innerHTML=state.vehicles.map(v=>`
+    <div class="veh-row ${v.id===state.activeId?'on':''}" data-pick="${v.id}">
+      ${avatarHTML(v,44)}
+      <div class="info"><b>${esc(vName(v))}</b><small>${KINDS[v.kind].label} · ${fa(v.odometer)} km · ${fa(v.records.length)} سرویس</small></div>
+      <button class="edit" data-editveh="${v.id}" aria-label="ویرایش"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
+    </div>`).join('');
+}
+$('#openVehicles').onclick=()=>{renderVehList();openM('#dlgVehicles')};
+$('#vehList').onclick=e=>{
+  const ed=e.target.closest('[data-editveh]');
+  if(ed){closeM('#dlgVehicles');openVehForm(state.vehicles.find(v=>v.id===ed.dataset.editveh));return}
+  const row=e.target.closest('[data-pick]');if(!row)return;
+  state.activeId=row.dataset.pick;filter='all';
+  document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('on',x.dataset.f==='all'));
+  save();render();closeM('#dlgVehicles');
+};
+$('#btnAddVeh').onclick=()=>{closeM('#dlgVehicles');openVehForm(null)};
+
+/* ---------- Vehicle form ---------- */
+const fV=$('#formVeh');
+let editingVehId=null, draft={};
+$('#swatches').innerHTML=COLORS.map(c=>`<button type="button" data-c="${c}" style="background:${c}" aria-label="رنگ"></button>`).join('');
+function paintPreview(){
+  draft.kind=fV.querySelector('[name=kind]:checked').value;
+  $('#vehPreview').innerHTML=avatarHTML(draft,76);
+  document.querySelectorAll('#swatches button').forEach(b=>b.classList.toggle('on',!draft.photo&&b.dataset.c===draft.color));
+  $('#btnRmPhoto').hidden=!draft.photo;
+  $('#btnPhoto').textContent=draft.photo?'تغییر عکس':'انتخاب عکس';
+  $('#beltIntLabel').textContent='فاصلهٔ '+KINDS[draft.kind].beltName;
+}
+function openVehForm(v){
+  fV.reset();editingVehId=v?v.id:null;
+  draft={kind:v?v.kind:'car',color:v?v.color:COLORS[state.vehicles.length%COLORS.length],photo:v?v.photo:null};
+  $('#vehTitle').textContent=v?'ویرایش وسیله':'وسیلهٔ جدید';
+  fV.querySelector(`[name=kind][value=${draft.kind}]`).checked=true;
+  fV.name.value=v?v.name:'';
+  fV.odometer.value=v&&v.odometer?faDigits(v.odometer):'';
+  fV.oilInt.value=faDigits(v?v.oilInt:KINDS[draft.kind].oil);
+  fV.beltInt.value=faDigits(v?v.beltInt:KINDS[draft.kind].belt);
+  $('#btnDelVeh').hidden=!v||state.vehicles.length<2;
+  paintPreview();openM('#dlgVehicle');
+}
+fV.addEventListener('change',e=>{
+  if(e.target.name!=='kind')return;
+  const prev=draft.kind, k=e.target.value;
+  // swap default intervals if user hasn't customised them
+  if(toNum(fV.oilInt.value)===KINDS[prev].oil)fV.oilInt.value=faDigits(KINDS[k].oil);
+  if(toNum(fV.beltInt.value)===KINDS[prev].belt)fV.beltInt.value=faDigits(KINDS[k].belt);
+  paintPreview();
+});
+$('#swatches').onclick=e=>{const b=e.target.closest('button');if(!b)return;draft.color=b.dataset.c;draft.photo=null;paintPreview()};
+$('#btnPhoto').onclick=()=>$('#photoInput').click();
+$('#btnRmPhoto').onclick=()=>{draft.photo=null;paintPreview()};
+$('#photoInput').onchange=async e=>{
+  const f=e.target.files[0];e.target.value='';if(!f)return;
+  try{draft.photo=await resizePhoto(f);paintPreview()}catch{toast('عکس خوانده نشد')}
+};
+function resizePhoto(file){
+  return new Promise((res,rej)=>{
+    const url=URL.createObjectURL(file),img=new Image();
+    img.onload=()=>{const s=256,c=document.createElement('canvas');c.width=c.height=s;const m=Math.min(img.width,img.height);
+      c.getContext('2d').drawImage(img,(img.width-m)/2,(img.height-m)/2,m,m,0,0,s,s);URL.revokeObjectURL(url);res(c.toDataURL('image/jpeg',.82))};
+    img.onerror=()=>{URL.revokeObjectURL(url);rej()};img.src=url;
+  });
+}
+fV.addEventListener('submit',e=>{
+  e.preventDefault();
+  const kind=fV.querySelector('[name=kind]:checked').value;
+  const data={kind,name:fV.name.value.trim(),color:draft.color,photo:draft.photo,
+    odometer:toNum(fV.odometer.value)>=0?toNum(fV.odometer.value):0,
+    oilInt:toNum(fV.oilInt.value)>0?toNum(fV.oilInt.value):KINDS[kind].oil,
+    beltInt:toNum(fV.beltInt.value)>0?toNum(fV.beltInt.value):KINDS[kind].belt};
+  if(editingVehId){Object.assign(state.vehicles.find(v=>v.id===editingVehId),data)}
+  else{const v=newVehicle(kind,data);state.vehicles.push(v);state.activeId=v.id;filter='all';
+    document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('on',x.dataset.f==='all'))}
+  save();render();closeM('#dlgVehicle');toast(editingVehId?'ذخیره شد':'وسیله اضافه شد');
+});
+$('#btnDelVeh').onclick=()=>{
+  const v=state.vehicles.find(x=>x.id===editingVehId);if(!v||state.vehicles.length<2)return;
+  if(!confirm(`«${vName(v)}» و همهٔ سرویس‌هایش حذف شود؟`))return;
+  state.vehicles=state.vehicles.filter(x=>x.id!==v.id);
+  if(state.activeId===v.id)state.activeId=state.vehicles[0].id;
+  save();render();closeM('#dlgVehicle');toast('وسیله حذف شد');
+};
 
 /* ---------- Settings ---------- */
-const fS=$('#formSettings');
-$('#openSettings').onclick=()=>{fS.carName.value=state.car.name==='خودروی من'?'':state.car.name;fS.oilInt.value=faDigits(state.settings.oilInt);fS.beltInt.value=faDigits(state.settings.beltInt);openM('#dlgSettings')};
-fS.addEventListener('submit',e=>{e.preventDefault();state.car.name=fS.carName.value.trim()||'خودروی من';const o=toNum(fS.oilInt.value),b=toNum(fS.beltInt.value);if(o>0)state.settings.oilInt=o;if(b>0)state.settings.beltInt=b;save();render();closeM('#dlgSettings');toast('ذخیره شد')});
-$('#btnExport').onclick=()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`car-logbook-${new Date().toISOString().slice(0,10)}.json`;a.click();URL.revokeObjectURL(a.href)};
+$('#openSettings').onclick=()=>openM('#dlgSettings');
+$('#btnExport').onclick=()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`car-logbook-${new Date().toISOString().slice(0,10)}.json`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 $('#btnImport').onclick=()=>$('#fileImport').click();
-$('#fileImport').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(!Array.isArray(d.records))throw 0;state={...structuredClone(DEFAULT),...d};save();render();closeM('#dlgSettings');toast('اطلاعات بارگذاری شد')}catch{toast('فایل معتبر نیست')}e.target.value=''};
-$('#btnReset').onclick=()=>{if(confirm('همهٔ سرویس‌ها و تنظیمات پاک شوند؟')){state=structuredClone(DEFAULT);save();render();closeM('#dlgSettings');toast('پاک شد')}};
+$('#fileImport').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;try{const m=migrate(JSON.parse(await f.text()));if(!m)throw 0;state=m;save();render();closeM('#dlgSettings');toast('اطلاعات بارگذاری شد')}catch{toast('فایل معتبر نیست')}};
+$('#btnReset').onclick=()=>{if(confirm('همهٔ وسیله‌ها و سرویس‌ها پاک شوند؟')){state=fresh();save();render();closeM('#dlgSettings');toast('پاک شد')}};
 
 /* ---------- Global events ---------- */
 $('#openAdd').onclick=()=>openAdd('oil');
 $('#cards').onclick=e=>{const b=e.target.closest('[data-add]');if(b)openAdd(b.dataset.add)};
 $('#tabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;filter=b.dataset.f;document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('on',x===b));render()};
-$('#list').onclick=e=>{const b=e.target.closest('[data-del]');if(!b)return;if(confirm('این سرویس حذف شود؟')){state.records=state.records.filter(r=>r.id!==b.dataset.del);save();render()}};
-document.querySelectorAll('.modal').forEach(d=>{
-  d.addEventListener('click',e=>{if(e.target===d||e.target.closest('[data-close]'))closeM('#'+d.id)});
-});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal.open').forEach(d=>closeM('#'+d.id))});
+$('#list').onclick=e=>{const b=e.target.closest('[data-edit]');if(!b)return;const r=V().records.find(x=>x.id===b.dataset.edit);if(r)openAdd(r.type,r)};
 render();
 </script>
 </body>
