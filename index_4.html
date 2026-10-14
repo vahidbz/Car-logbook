@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>دفترچه سرویس خودرو</title>
+<meta name="theme-color" content="#0f172a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="سرویس خودرو">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f5f7; --surface:#ffffff; --surface-2:#f0f2f5; --border:#e4e7ec;
+  --text:#101828; --muted:#667085; --primary:#1d4ed8; --primary-weak:#e8efff;
+  --ok:#12b76a; --ok-weak:#e7f8ef; --warn:#f79009; --warn-weak:#fff4e5; --bad:#e5484d; --bad-weak:#fdecec;
+  --radius:16px; --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 16px rgba(16,24,40,.04);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#0b0f17; --surface:#131a26; --surface-2:#1a2332; --border:#243044;
+    --text:#eef2f7; --muted:#98a2b3; --primary:#6b93ff; --primary-weak:#1b2a4d;
+    --ok:#32d583; --ok-weak:#10291d; --warn:#fdb022; --warn-weak:#2e2210; --bad:#f97066; --bad-weak:#341818;
+    --shadow:none;
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg)}
+body{font-family:Vazirmatn,system-ui,sans-serif;color:var(--text);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{max-width:560px;margin:0 auto;padding:calc(16px + env(safe-area-inset-top)) 16px 120px}
+
+/* Header */
+header{display:flex;align-items:center;justify-content:space-between;padding:8px 0 16px}
+.brand small{display:block;color:var(--muted);font-size:12px}
+.brand h1{font-size:20px;font-weight:800;letter-spacing:-.2px}
+.icon-btn{width:40px;height:40px;border-radius:12px;border:1px solid var(--border);background:var(--surface);display:grid;place-items:center;cursor:pointer}
+.icon-btn svg{width:20px;height:20px;stroke:var(--text)}
+
+/* Odometer */
+.odo{background:var(--text);color:var(--bg);border-radius:var(--radius);padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.odo .label{font-size:12px;opacity:.7}
+.odo .value{font-size:28px;font-weight:800;letter-spacing:.5px}
+.odo .value span{font-size:13px;font-weight:500;opacity:.7;margin-right:4px}
+.odo button{background:rgba(255,255,255,.14);border:0;color:inherit;padding:8px 14px;border-radius:10px;cursor:pointer;font-weight:600;font-size:13px;white-space:nowrap}
+@media (prefers-color-scheme:dark){.odo button{background:rgba(0,0,0,.12)}}
+
+/* Status cards */
+.section-title{font-size:13px;color:var(--muted);font-weight:600;margin:24px 4px 10px;display:flex;justify-content:space-between;align-items:center}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;min-width:0}
+.card-head{display:flex;align-items:center;gap:8px}
+.card-head .dot{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:var(--surface-2)}
+.card-head .dot svg{width:18px;height:18px}
+.card-head h3{font-size:14px;font-weight:700}
+.remain{font-size:22px;font-weight:800;line-height:1.2}
+.remain small{font-size:12px;font-weight:500;color:var(--muted);margin-right:2px}
+.sub{font-size:12px;color:var(--muted)}
+.bar{height:6px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px;background:var(--ok);transition:width .4s}
+.pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--ok-weak);color:var(--ok);width:max-content}
+.card.soon .bar i{background:var(--warn)} .card.soon .pill{background:var(--warn-weak);color:var(--warn)}
+.card.over .bar i{background:var(--bad)} .card.over .pill{background:var(--bad-weak);color:var(--bad)}
+.card.empty .remain{font-size:15px;color:var(--muted);font-weight:600}
+.card .add{margin-top:auto;border:1px dashed var(--border);background:transparent;border-radius:10px;padding:7px;font-size:12px;font-weight:600;color:var(--primary);cursor:pointer}
+
+/* Tabs + list */
+.tabs{display:flex;gap:6px;background:var(--surface-2);padding:4px;border-radius:12px}
+.tabs button{flex:1;border:0;background:transparent;padding:7px 4px;border-radius:9px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer}
+.tabs button.on{background:var(--surface);color:var(--text);box-shadow:var(--shadow)}
+.list{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.item{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;display:flex;gap:12px;align-items:flex-start}
+.item .ico{flex:none;width:38px;height:38px;border-radius:11px;display:grid;place-items:center}
+.item .ico svg{width:19px;height:19px}
+.ico.oil{background:#fff4e5;color:#b54708} .ico.belt{background:#e8efff;color:#1d4ed8}
+@media (prefers-color-scheme:dark){.ico.oil{background:#2e2210;color:#fdb022}.ico.belt{background:#1b2a4d;color:#8fb0ff}}
+.item .body{flex:1;min-width:0}
+.item .top{display:flex;justify-content:space-between;gap:8px}
+.item .top b{font-size:14px}
+.item .top span{font-size:12px;color:var(--muted);white-space:nowrap}
+.item .meta{font-size:12.5px;color:var(--muted);margin-top:2px;display:flex;flex-wrap:wrap;gap:4px 10px}
+.item .meta em{font-style:normal;color:var(--text);font-weight:600}
+.item .note{font-size:12.5px;margin-top:6px;color:var(--muted)}
+.item .del{border:0;background:transparent;color:var(--muted);cursor:pointer;padding:4px;border-radius:8px}
+.item .del:hover{color:var(--bad);background:var(--bad-weak)}
+.empty-state{text-align:center;padding:36px 16px;color:var(--muted);font-size:14px;border:1px dashed var(--border);border-radius:var(--radius)}
+
+/* FAB */
+.fab{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:var(--primary);color:#fff;border:0;border-radius:99px;padding:14px 26px;font-weight:700;font-size:15px;box-shadow:0 8px 24px rgba(29,78,216,.35);cursor:pointer;display:flex;align-items:center;gap:8px}
+.fab svg{width:18px;height:18px;stroke:#fff}
+
+/* Dialog */
+/* custom modal (no native <dialog> — more reliable in Safari & embedded previews) */
+.modal{position:fixed;inset:0;z-index:50;display:none;background:rgba(10,14,22,.5)}
+.modal.open{display:block}
+body.locked{overflow:hidden}
+.sheet{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:560px;max-height:92vh;overflow:auto;background:var(--surface);border-radius:22px 22px 0 0;padding:8px 20px calc(20px + env(safe-area-inset-bottom));animation:up .22s ease-out}
+@keyframes up{from{transform:translate(-50%,40px);opacity:.4}}
+.grab{width:40px;height:4px;border-radius:9px;background:var(--border);margin:6px auto 14px}
+.sheet h2{font-size:18px;font-weight:800;margin-bottom:16px}
+.seg{display:flex;gap:6px;background:var(--surface-2);padding:4px;border-radius:12px;margin-bottom:16px}
+.seg label{flex:1;text-align:center;padding:9px;border-radius:9px;font-weight:600;font-size:14px;cursor:pointer;color:var(--muted)}
+.seg input{display:none}
+.seg label:has(input:checked){background:var(--surface);color:var(--text);box-shadow:var(--shadow)}
+.field{margin-bottom:14px}
+.field>span{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+.field>span i{font-style:normal;font-weight:400;color:var(--muted);font-size:12px}
+.input,select.input,textarea.input{width:100%;border:1px solid var(--border);background:var(--bg);border-radius:12px;padding:11px 13px;outline:none;font-size:15px}
+.input:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-weak)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.date3{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:8px}
+.date3 .input{text-align:center}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chips button{border:1px solid var(--border);background:transparent;border-radius:99px;padding:4px 11px;font-size:12.5px;cursor:pointer;direction:ltr}
+.chips button.on{border-color:var(--primary);color:var(--primary);background:var(--primary-weak)}
+.hint{font-size:12px;color:var(--muted);margin-top:5px}
+.actions{display:flex;gap:10px;margin-top:20px}
+.btn{flex:1;border:0;border-radius:12px;padding:13px;font-weight:700;cursor:pointer;font-size:15px}
+.btn.primary{background:var(--primary);color:#fff}
+.btn.ghost{background:var(--surface-2)}
+.btn.danger{background:var(--bad-weak);color:var(--bad)}
+.err{color:var(--bad);font-size:12.5px;margin-top:4px;display:none}
+.settings-group{border-top:1px solid var(--border);padding-top:16px;margin-top:6px}
+.toast{position:fixed;top:16px;left:50%;transform:translate(-50%,-80px);background:var(--text);color:var(--bg);padding:10px 18px;border-radius:12px;font-size:14px;font-weight:600;transition:transform .25s;z-index:99}
+.toast.show{transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <small>دفترچه سرویس دیجیتال</small>
+      <h1 id="carName">خودروی من</h1>
+    </div>
+    <button class="icon-btn" id="openSettings" aria-label="تنظیمات">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+    </button>
+  </header>
+
+  <div class="odo">
+    <div>
+      <div class="label">کیلومتر فعلی خودرو</div>
+      <div class="value" id="odoValue">۰<span>km</span></div>
+    </div>
+    <button id="openOdo">به‌روزرسانی</button>
+  </div>
+
+  <div class="section-title">وضعیت سرویس بعدی</div>
+  <div class="cards" id="cards"></div>
+
+  <div class="section-title">تاریخچه سرویس‌ها <span id="count"></span></div>
+  <div class="tabs" id="tabs">
+    <button data-f="all" class="on">همه</button>
+    <button data-f="oil">روغن موتور</button>
+    <button data-f="belt">تسمه تایم</button>
+  </div>
+  <div class="list" id="list"></div>
+</div>
+
+<button class="fab" id="openAdd">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+  ثبت سرویس جدید
+</button>
+
+<!-- Add service -->
+<div class="modal" id="dlgAdd" role="dialog" aria-modal="true">
+  <form class="sheet" id="formAdd" novalidate>
+    <div class="grab"></div>
+    <h2>ثبت سرویس</h2>
+    <div class="seg">
+      <label><input type="radio" name="type" value="oil" checked>تعویض روغن</label>
+      <label><input type="radio" name="type" value="belt">تسمه تایم</label>
+    </div>
+
+    <div class="field">
+      <span>تاریخ سرویس <i>(شمسی)</i></span>
+      <div class="date3">
+        <input class="input" name="jy" inputmode="numeric" placeholder="سال">
+        <input class="input" name="jm" inputmode="numeric" placeholder="ماه">
+        <input class="input" name="jd" inputmode="numeric" placeholder="روز">
+      </div>
+      <div class="err" id="errDate">تاریخ معتبر نیست</div>
+    </div>
+
+    <div class="field">
+      <span>کیلومتر هنگام سرویس</span>
+      <input class="input" name="km" inputmode="numeric" placeholder="مثلاً ۸۵۰۰۰">
+      <div class="err" id="errKm">کیلومتر را وارد کنید</div>
+    </div>
+
+    <div id="oilFields">
+      <div class="field">
+        <span>نوع روغن</span>
+        <input class="input" name="oilBrand" placeholder="برند، مثلاً بهران، اسپیدی، توتال…">
+        <div class="chips" id="viscChips"></div>
+        <input type="hidden" name="oilVisc">
+      </div>
+      <div class="row">
+        <div class="field">
+          <span>فیلتر روغن</span>
+          <select class="input" name="filter"><option value="yes">عوض شد</option><option value="no">عوض نشد</option></select>
+        </div>
+        <div class="field">
+          <span>حجم <i>(لیتر)</i></span>
+          <input class="input" name="liters" inputmode="decimal" placeholder="۴">
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <span>تعویض بعدی در کیلومتر</span>
+      <input class="input" name="nextKm" inputmode="numeric">
+      <div class="hint" id="nextHint"></div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <span>هزینه <i>(تومان)</i></span>
+        <input class="input" name="cost" inputmode="numeric" placeholder="اختیاری">
+      </div>
+      <div class="field">
+        <span>محل سرویس</span>
+        <input class="input" name="shop" placeholder="اختیاری">
+      </div>
+    </div>
+
+    <div class="field">
+      <span>یادداشت</span>
+      <textarea class="input" name="note" rows="2" placeholder="اختیاری"></textarea>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn ghost" data-close>انصراف</button>
+      <button type="submit" class="btn primary">ذخیره</button>
+    </div>
+  </form>
+</div>
+
+<!-- Odometer -->
+<div class="modal" id="dlgOdo" role="dialog" aria-modal="true">
+  <form class="sheet" id="formOdo">
+    <div class="grab"></div>
+    <h2>کیلومتر فعلی</h2>
+    <div class="field">
+      <span>عدد کیلومترشمار را وارد کنید</span>
+      <input class="input" name="odo" inputmode="numeric">
+    </div>
+    <div class="actions">
+      <button type="button" class="btn ghost" data-close>انصراف</button>
+      <button type="submit" class="btn primary">ذخیره</button>
+    </div>
+  </form>
+</div>
+
+<!-- Settings -->
+<div class="modal" id="dlgSettings" role="dialog" aria-modal="true">
+  <form class="sheet" id="formSettings">
+    <div class="grab"></div>
+    <h2>تنظیمات</h2>
+    <div class="field">
+      <span>نام خودرو</span>
+      <input class="input" name="carName" placeholder="مثلاً پژو ۲۰۶ تیپ ۵">
+    </div>
+    <div class="row">
+      <div class="field">
+        <span>فاصلهٔ تعویض روغن <i>(km)</i></span>
+        <input class="input" name="oilInt" inputmode="numeric">
+      </div>
+      <div class="field">
+        <span>فاصلهٔ تسمه تایم <i>(km)</i></span>
+        <input class="input" name="beltInt" inputmode="numeric">
+      </div>
+    </div>
+    <div class="hint" style="margin-top:-6px;margin-bottom:14px">هشدار «نزدیک است» وقتی نمایش داده می‌شود که کمتر از ۱۵٪ مسافت باقی مانده باشد.</div>
+    <div class="actions" style="margin-top:0">
+      <button type="button" class="btn ghost" data-close>انصراف</button>
+      <button type="submit" class="btn primary">ذخیره</button>
+    </div>
+    <div class="settings-group" style="margin-top:20px">
+      <div class="field"><span>پشتیبان‌گیری <i>— داده‌ها فقط روی همین مرورگر ذخیره می‌شوند</i></span></div>
+      <div class="actions" style="margin-top:0">
+        <button type="button" class="btn ghost" id="btnExport">خروجی فایل</button>
+        <button type="button" class="btn ghost" id="btnImport">بارگذاری فایل</button>
+      </div>
+      <input type="file" id="fileImport" accept="application/json" hidden>
+      <div class="actions"><button type="button" class="btn danger" id="btnReset">پاک کردن همهٔ داده‌ها</button></div>
+    </div>
+  </form>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- Jalali calendar (jalaali-js algorithm) ---------- */
+const div=(a,b)=>~~(a/b), mod=(a,b)=>a-~~(a/b)*b;
+const BREAKS=[-61,9,38,199,426,686,756,818,1111,1181,1210,1635,2060,2097,2192,2262,2324,2394,2456,3178];
+function jalCal(jy){
+  let gy=jy+621,leapJ=-14,jp=BREAKS[0],jm,jump,n,i;
+  for(i=1;i<BREAKS.length;i++){jm=BREAKS[i];jump=jm-jp;if(jy<jm)break;leapJ+=div(jump,33)*8+div(mod(jump,33),4);jp=jm}
+  n=jy-jp;leapJ+=div(n,33)*8+div(mod(n,33)+3,4);
+  if(mod(jump,33)===4&&jump-n===4)leapJ++;
+  const leapG=div(gy,4)-div((div(gy,100)+1)*3,4)-150, march=20+leapJ-leapG;
+  if(jump-n<6)n=n-jump+div(jump+4,33)*33;
+  let leap=mod(mod(n+1,33)-1,4);if(leap===-1)leap=4;
+  return{leap,gy,march};
+}
+function g2d(gy,gm,gd){let d=div((gy+div(gm-8,6)+100100)*1461,4)+div(153*mod(gm+9,12)+2,5)+gd-34840408;return d-div(div(gy+100100+div(gm-8,6),100)*3,4)+752}
+function d2g(jdn){let j=4*jdn+139361631;j+=div(div(4*jdn+183187720,146097)*3,4)*4-3908;const i=div(mod(j,1461),4)*5+308,gd=div(mod(i,153),5)+1,gm=mod(div(i,153),12)+1,gy=div(j,1461)-100100+div(8-gm,6);return{gy,gm,gd}}
+function j2d(jy,jm,jd){const r=jalCal(jy);return g2d(r.gy,3,r.march)+(jm-1)*31-div(jm,7)*(jm-7)+jd-1}
+function d2j(jdn){
+  const gy=d2g(jdn).gy;let jy=gy-621;const r=jalCal(jy);let k=jdn-g2d(gy,3,r.march),jm,jd;
+  if(k>=0){if(k<=185){return{jy,jm:1+div(k,31),jd:mod(k,31)+1}}k-=186}else{jy--;k+=179;if(r.leap===1)k++}
+  return{jy,jm:7+div(k,30),jd:mod(k,30)+1};
+}
+const monthLen=(jy,jm)=>jm<=6?31:jm<=11?30:(jalCal(jy).leap===0?30:29);
+const MONTHS=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+const todayJ=()=>{const t=new Date();return d2j(g2d(t.getFullYear(),t.getMonth()+1,t.getDate()))};
+const jToISO=(y,m,d)=>{const g=d2g(j2d(y,m,d));return`${g.gy}-${String(g.gm).padStart(2,'0')}-${String(g.gd).padStart(2,'0')}`};
+const isoToJ=iso=>{const[y,m,d]=iso.split('-').map(Number);return d2j(g2d(y,m,d))};
+const daysSince=iso=>{const[y,m,d]=iso.split('-').map(Number);const t=new Date();return g2d(t.getFullYear(),t.getMonth()+1,t.getDate())-g2d(y,m,d)};
+
+/* ---------- Helpers ---------- */
+const $=s=>document.querySelector(s);
+const fa=n=>Number(n).toLocaleString('fa-IR');
+const faDigits=s=>String(s).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+const toNum=v=>{if(v==null)return NaN;const s=String(v).replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[,٬،\s]/g,'');return s===''?NaN:Number(s)};
+const fmtJ=iso=>{const j=isoToJ(iso);return`${faDigits(j.jd)} ${MONTHS[j.jm-1]} ${faDigits(j.jy)}`};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2000)}
+
+/* ---------- State (localStorage, safe fallback) ---------- */
+const KEY='car-logbook-v1';
+const DEFAULT={car:{name:'خودروی من',odometer:0},settings:{oilInt:5000,beltInt:60000},records:[]};
+let memory=null;
+function load(){try{const raw=localStorage.getItem(KEY);if(raw)return{...structuredClone(DEFAULT),...JSON.parse(raw)}}catch(e){}return memory||structuredClone(DEFAULT)}
+function save(){memory=state;try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+let state=load();
+let filter='all';
+
+const TYPES={
+  oil:{title:'روغن موتور',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg>'},
+  belt:{title:'تسمه تایم',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="12" r="3.5"/><circle cx="17" cy="12" r="3.5"/><path d="M7 8.5h10M7 15.5h10"/></svg>'}
+};
+const intervalOf=t=>t==='oil'?state.settings.oilInt:state.settings.beltInt;
+
+/* ---------- Modals ---------- */
+function openM(sel){const m=$(sel);m.classList.add('open');document.body.classList.add('locked');const f=m.querySelector('input:not([type=hidden]):not([type=radio]),textarea');if(f&&sel==='#dlgOdo')setTimeout(()=>f.focus(),30)}
+function closeM(sel){$(sel).classList.remove('open');if(!document.querySelector('.modal.open'))document.body.classList.remove('locked')}
+
+/* ---------- Render ---------- */
+function lastOf(type){return state.records.filter(r=>r.type===type).sort((a,b)=>b.km-a.km||b.date.localeCompare(a.date))[0]}
+function render(){
+  $('#carName').textContent=state.car.name||'خودروی من';
+  $('#odoValue').innerHTML=`${fa(state.car.odometer)}<span>km</span>`;
+
+  $('#cards').innerHTML=['oil','belt'].map(t=>{
+    const r=lastOf(t),T=TYPES[t];
+    const head=`<div class="card-head"><div class="dot">${T.icon}</div><h3>${T.title}</h3></div>`;
+    if(!r)return`<div class="card empty">${head}<div class="remain">هنوز ثبت نشده</div><div class="sub">اولین سرویس را ثبت کنید</div><button class="add" data-add="${t}">+ ثبت</button></div>`;
+    const next=r.nextKm||r.km+intervalOf(t), span=Math.max(1,next-r.km), used=state.car.odometer-r.km, left=next-state.car.odometer;
+    const pct=Math.min(100,Math.max(0,used/span*100));
+    const cls=left<=0?'over':left<=span*.15?'soon':'';
+    const pill=left<=0?'زمان تعویض گذشته':left<=span*.15?'نزدیک است':'در وضعیت خوب';
+    const remain=left<=0?`${fa(-left)}<small> km گذشته</small>`:`${fa(left)}<small> km مانده</small>`;
+    const days=daysSince(r.date);
+    return`<div class="card ${cls}">${head}<span class="pill">${pill}</span><div class="remain">${remain}</div><div class="bar"><i style="width:${pct}%"></i></div><div class="sub">تعویض بعدی: ${fa(next)} km<br>آخرین: ${days<=0?'امروز':fa(days)+' روز پیش'}</div></div>`;
+  }).join('');
+
+  const rows=state.records.filter(r=>filter==='all'||r.type===filter).sort((a,b)=>b.date.localeCompare(a.date)||b.km-a.km);
+  $('#count').textContent=state.records.length?fa(state.records.length)+' مورد':'';
+  $('#list').innerHTML=rows.length?rows.map(r=>{
+    const meta=[`<span>کیلومتر <em>${fa(r.km)}</em></span>`];
+    if(r.type==='oil'){
+      const oil=[r.oilBrand,r.oilVisc].filter(Boolean).join(' · ');
+      if(oil)meta.push(`<span>روغن <em dir="auto">${esc(oil)}</em></span>`);
+      if(r.liters)meta.push(`<span>${fa(r.liters)} لیتر</span>`);
+      meta.push(`<span>فیلتر ${r.filter==='no'?'عوض نشد':'عوض شد'}</span>`);
+    }
+    if(r.nextKm)meta.push(`<span>بعدی <em>${fa(r.nextKm)}</em></span>`);
+    if(r.cost)meta.push(`<span>${fa(r.cost)} تومان</span>`);
+    if(r.shop)meta.push(`<span>${esc(r.shop)}</span>`);
+    return`<div class="item"><div class="ico ${r.type}">${TYPES[r.type].icon}</div><div class="body"><div class="top"><b>${r.type==='oil'?'تعویض روغن':'تعویض تسمه تایم'}</b><span>${fmtJ(r.date)}</span></div><div class="meta">${meta.join('')}</div>${r.note?`<div class="note">${esc(r.note)}</div>`:''}</div><button class="del" data-del="${r.id}" aria-label="حذف"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg></button></div>`;
+  }).join(''):`<div class="empty-state">${filter==='all'?'هنوز سرویسی ثبت نکرده‌اید.<br>با دکمهٔ پایین اولین سرویس را ثبت کنید.':'سرویسی از این نوع ثبت نشده.'}</div>`;
+}
+
+/* ---------- Add service form ---------- */
+const VISC=['5W-30','5W-40','10W-40','15W-40','20W-50','0W-20'];
+const fA=$('#formAdd');
+$('#viscChips').innerHTML=VISC.map(v=>`<button type="button" data-v="${v}">${v}</button>`).join('');
+$('#viscChips').onclick=e=>{const b=e.target.closest('button');if(!b)return;const on=!b.classList.contains('on');document.querySelectorAll('#viscChips button').forEach(x=>x.classList.remove('on'));if(on)b.classList.add('on');fA.oilVisc.value=on?b.dataset.v:''};
+let nextTouched=false;
+function curType(){return fA.querySelector('[name=type]:checked').value}
+function syncNext(){
+  const t=curType(),km=toNum(fA.km.value);
+  $('#oilFields').style.display=t==='oil'?'':'none';
+  if(!nextTouched)fA.nextKm.value=isNaN(km)?'':faDigits(km+intervalOf(t));
+  $('#nextHint').textContent=`پیش‌فرض: هر ${fa(intervalOf(t))} کیلومتر — قابل تغییر در تنظیمات`;
+}
+fA.addEventListener('change',e=>{if(e.target.name==='type')syncNext()});
+fA.km.addEventListener('input',syncNext);
+fA.nextKm.addEventListener('input',()=>nextTouched=fA.nextKm.value!=='');
+function openAdd(type='oil'){
+  fA.reset();nextTouched=false;
+  fA.querySelector(`[name=type][value=${type}]`).checked=true;
+  document.querySelectorAll('#viscChips button').forEach(x=>x.classList.remove('on'));fA.oilVisc.value='';
+  const j=todayJ();fA.jy.value=faDigits(j.jy);fA.jm.value=faDigits(j.jm);fA.jd.value=faDigits(j.jd);
+  if(state.car.odometer)fA.km.value=faDigits(state.car.odometer);
+  document.querySelectorAll('.err').forEach(e=>e.style.display='none');
+  syncNext();openM('#dlgAdd');
+}
+fA.addEventListener('submit',e=>{
+  e.preventDefault();
+  const y=toNum(fA.jy.value),m=toNum(fA.jm.value),d=toNum(fA.jd.value),km=toNum(fA.km.value);
+  const dateOk=y>1300&&y<1500&&m>=1&&m<=12&&d>=1&&d<=monthLen(y,m);
+  $('#errDate').style.display=dateOk?'none':'block';
+  $('#errKm').style.display=km>=0?'none':'block';
+  if(!dateOk||!(km>=0))return;
+  const t=curType(),next=toNum(fA.nextKm.value);
+  const rec={id:uid(),type:t,date:jToISO(y,m,d),km,nextKm:isNaN(next)?km+intervalOf(t):next,
+    cost:toNum(fA.cost.value)||null,shop:fA.shop.value.trim(),note:fA.note.value.trim()};
+  if(t==='oil')Object.assign(rec,{oilBrand:fA.oilBrand.value.trim(),oilVisc:fA.oilVisc.value,filter:fA.filter.value,liters:toNum(fA.liters.value)||null});
+  state.records.push(rec);
+  if(km>state.car.odometer)state.car.odometer=km;
+  save();render();closeM('#dlgAdd');toast('سرویس ثبت شد');
+});
+
+/* ---------- Odometer ---------- */
+const fO=$('#formOdo');
+$('#openOdo').onclick=()=>{fO.odo.value=state.car.odometer?faDigits(state.car.odometer):'';openM('#dlgOdo')};
+fO.addEventListener('submit',e=>{e.preventDefault();const v=toNum(fO.odo.value);if(!(v>=0))return;state.car.odometer=v;save();render();closeM('#dlgOdo');toast('کیلومتر به‌روز شد')});
+
+/* ---------- Settings ---------- */
+const fS=$('#formSettings');
+$('#openSettings').onclick=()=>{fS.carName.value=state.car.name==='خودروی من'?'':state.car.name;fS.oilInt.value=faDigits(state.settings.oilInt);fS.beltInt.value=faDigits(state.settings.beltInt);openM('#dlgSettings')};
+fS.addEventListener('submit',e=>{e.preventDefault();state.car.name=fS.carName.value.trim()||'خودروی من';const o=toNum(fS.oilInt.value),b=toNum(fS.beltInt.value);if(o>0)state.settings.oilInt=o;if(b>0)state.settings.beltInt=b;save();render();closeM('#dlgSettings');toast('ذخیره شد')});
+$('#btnExport').onclick=()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`car-logbook-${new Date().toISOString().slice(0,10)}.json`;a.click();URL.revokeObjectURL(a.href)};
+$('#btnImport').onclick=()=>$('#fileImport').click();
+$('#fileImport').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(!Array.isArray(d.records))throw 0;state={...structuredClone(DEFAULT),...d};save();render();closeM('#dlgSettings');toast('اطلاعات بارگذاری شد')}catch{toast('فایل معتبر نیست')}e.target.value=''};
+$('#btnReset').onclick=()=>{if(confirm('همهٔ سرویس‌ها و تنظیمات پاک شوند؟')){state=structuredClone(DEFAULT);save();render();closeM('#dlgSettings');toast('پاک شد')}};
+
+/* ---------- Global events ---------- */
+$('#openAdd').onclick=()=>openAdd('oil');
+$('#cards').onclick=e=>{const b=e.target.closest('[data-add]');if(b)openAdd(b.dataset.add)};
+$('#tabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;filter=b.dataset.f;document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('on',x===b));render()};
+$('#list').onclick=e=>{const b=e.target.closest('[data-del]');if(!b)return;if(confirm('این سرویس حذف شود؟')){state.records=state.records.filter(r=>r.id!==b.dataset.del);save();render()}};
+document.querySelectorAll('.modal').forEach(d=>{
+  d.addEventListener('click',e=>{if(e.target===d||e.target.closest('[data-close]'))closeM('#'+d.id)});
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal.open').forEach(d=>closeM('#'+d.id))});
+render();
+</script>
+</body>
+</html>
