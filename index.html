@@ -3,689 +3,490 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>دفترچه سرویس خودرو</title>
-<meta name="theme-color" content="#0f172a">
+<title>Car Care</title>
+<meta name="theme-color" content="#ffffff">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="سرویس خودرو">
+<meta name="apple-mobile-web-app-title" content="Car Care">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
+/* ===== Tokens — visual language from Figma "Doctor-car" ===== */
 :root{
-  --bg:#f4f5f7; --surface:#ffffff; --surface-2:#f0f2f5; --border:#e4e7ec;
-  --text:#101828; --muted:#667085; --primary:#1d4ed8; --primary-weak:#e8efff;
-  --ok:#12b76a; --ok-weak:#e7f8ef; --warn:#f79009; --warn-weak:#fff4e5; --bad:#e5484d; --bad-weak:#fdecec;
-  --radius:16px; --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 16px rgba(16,24,40,.04);
-}
-@media (prefers-color-scheme:dark){
-  :root{
-    --bg:#0b0f17; --surface:#131a26; --surface-2:#1a2332; --border:#243044;
-    --text:#eef2f7; --muted:#98a2b3; --primary:#6b93ff; --primary-weak:#1b2a4d;
-    --ok:#32d583; --ok-weak:#10291d; --warn:#fdb022; --warn-weak:#2e2210; --bad:#f97066; --bad-weak:#341818;
-    --shadow:none;
-  }
+  --primary:#111318; --primary-weak:#EEF0F3;
+  --t1:rgba(4,10,31,.87); --t2:rgba(4,10,31,.6); --t3:rgba(4,10,31,.38);
+  --border:#CFD7E8; --n50:#FAFAFA; --n100:#F5F5F5; --n300:#E0E0E0; --gray50:#F7F9FC; --sec:#4F5A6D;
+  --ok:#12B76A; --ok-weak:#E7F8EF; --warn:#FFBB00; --warn-text:#B57F00; --warn-weak:#FFF6DB; --bad:#E5484D; --bad-weak:#FDECEC;
+  --font:IRANSansX,Vazirmatn,system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:var(--bg)}
-body{font-family:Vazirmatn,system-ui,sans-serif;color:var(--text);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+html,body{background:#fff}
+body{font-family:var(--font);color:var(--t1);font-size:14px;line-height:24px;-webkit-font-smoothing:antialiased}
 button,input,select,textarea{font:inherit;color:inherit}
-button{-webkit-tap-highlight-color:transparent}
+button{cursor:pointer;background:none;border:0;-webkit-tap-highlight-color:transparent}
+img{display:block}
 [hidden]{display:none!important}
-.wrap{max-width:560px;margin:0 auto;padding:calc(16px + env(safe-area-inset-top)) 16px 120px}
+.wrap{max-width:520px;margin:0 auto;padding:calc(12px + env(safe-area-inset-top)) 16px calc(110px + env(safe-area-inset-bottom))}
 
 /* Header / vehicle switcher */
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0 16px}
-.veh-btn{display:flex;align-items:center;gap:12px;border:0;background:transparent;cursor:pointer;text-align:right;min-width:0;padding:4px;margin:-4px;border-radius:14px}
-.veh-btn:active{background:var(--surface-2)}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 0 16px}
+.veh-btn{display:flex;align-items:center;gap:12px;text-align:right;min-width:0;padding:4px;margin:-4px;border-radius:12px}
+.veh-btn:active{background:var(--n100)}
 .veh-btn .txt{min-width:0}
-.veh-btn small{display:block;color:var(--muted);font-size:12px}
-.veh-btn h1{font-size:19px;font-weight:800;letter-spacing:-.2px;display:flex;align-items:center;gap:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.veh-btn h1 svg{flex:none;width:18px;height:18px;stroke:var(--muted)}
-.icon-btn{flex:none;width:40px;height:40px;border-radius:12px;border:1px solid var(--border);background:var(--surface);display:grid;place-items:center;cursor:pointer}
-.icon-btn svg{width:20px;height:20px;stroke:var(--text)}
+.veh-btn small{display:block;color:var(--t3);font-size:12px;font-weight:500;line-height:20px}
+.veh-btn h1{font-size:16px;font-weight:700;display:flex;align-items:center;gap:6px;white-space:nowrap;line-height:26px}
+.veh-btn h1 .nm{overflow:hidden;text-overflow:ellipsis}
+.veh-btn h1 img{width:18px;height:18px;object-fit:contain;flex:none}
+.veh-btn h1 svg{flex:none;width:18px;height:18px;color:var(--t3)}
+.icon-btn{flex:none;width:40px;height:40px;border-radius:12px;border:1px solid var(--border);display:grid;place-items:center;color:var(--sec)}
+.icon-btn svg{width:22px;height:22px}
 
 /* Avatar */
-.avatar{flex:none;border-radius:50%;display:grid;place-items:center;color:#fff;overflow:hidden;position:relative}
-.avatar img{width:100%;height:100%;object-fit:cover}
-.avatar svg{width:56%;height:56%}
+.av{flex:none;display:grid;place-items:center;overflow:hidden;border-radius:14px;background:var(--n50)}
+.av img{width:100%;height:100%;object-fit:contain}
+.av.photo img{object-fit:cover}
+.av svg{width:58%;height:58%;color:var(--sec)}
 
-/* Odometer */
-.odo{background:var(--text);color:var(--bg);border-radius:var(--radius);padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.odo .label{font-size:12px;opacity:.7}
-.odo .value{font-size:28px;font-weight:800;letter-spacing:.5px}
-.odo .value span{font-size:13px;font-weight:500;opacity:.7;margin-right:4px}
-.odo button{background:rgba(255,255,255,.14);border:0;color:inherit;padding:8px 14px;border-radius:10px;cursor:pointer;font-weight:600;font-size:13px;white-space:nowrap}
-@media (prefers-color-scheme:dark){.odo button{background:rgba(0,0,0,.12)}}
+/* Hero: car + odometer + status */
+.hero{background:linear-gradient(160deg,#EEF0F3 0%,#F7F8FA 55%,#FFFFFF 100%);border:1px solid #E6E8EC;border-radius:16px;padding:16px;overflow:hidden}
+.hero-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.hero-km small{display:block;font-size:12px;line-height:16px;color:var(--t2)}
+.hero-km .num{font-size:30px;font-weight:800;line-height:40px;letter-spacing:-.5px}
+.hero-km .num span{font-size:13px;font-weight:500;color:var(--t2);margin-right:4px;letter-spacing:0}
+.hero-km .link{margin-top:2px;padding:4px 0;font-size:13px}
+.hero-km .link svg{width:18px;height:18px}
+.hero-car{flex:none;width:132px;height:96px;display:grid;place-items:center;position:relative}
+.hero-car::after{content:"";position:absolute;bottom:8px;left:14%;right:14%;height:10px;border-radius:50%;background:radial-gradient(rgba(4,10,31,.18),transparent 70%)}
+.hero-car img{position:relative;z-index:1;max-width:116px;max-height:90px;object-fit:contain}
+.hero-car.photo img{width:120px;height:90px;max-width:none;object-fit:cover;border-radius:12px}
+.hero-car.photo::after{display:none}
+.hero-car svg{position:relative;z-index:1;width:84px;height:84px;color:var(--sec)}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.stat{background:#fff;border-radius:12px;padding:12px;text-align:right;display:flex;flex-direction:column;gap:6px;box-shadow:0 1px 2px rgba(4,10,31,.04)}
+.stat-h{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--t2);line-height:18px}
+.stat-h img{width:26px;height:26px;object-fit:contain}
+.stat-v{font-size:16px;font-weight:800;line-height:22px;color:var(--ok)}
+.stat-v small{font-size:11px;font-weight:500;color:var(--t2);margin-right:3px}
+.stat.soon .stat-v{color:var(--warn-text)} .stat.over .stat-v{color:var(--bad)}
+.stat .bar i{background:var(--ok)} .stat.soon .bar i{background:var(--warn)} .stat.over .bar i{background:var(--bad)}
+.stat-s{font-size:11px;line-height:16px;color:var(--t3)}
+.stat.empty .stat-v{color:var(--primary);font-size:13px;font-weight:700}
+.link{color:var(--primary);font-weight:500;display:inline-flex;align-items:center;gap:6px;padding:6px 4px;border-radius:8px;white-space:nowrap}
+.link svg{width:22px;height:22px}
+.bar{height:4px;border-radius:4px;background:var(--n300);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:4px;background:var(--ok);transition:width .4s}
 
-/* Status cards */
-.section-title{font-size:13px;color:var(--muted);font-weight:600;margin:24px 4px 10px;display:flex;justify-content:space-between;align-items:center}
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;min-width:0}
-.card-head{display:flex;align-items:center;gap:8px}
-.card-head .dot{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:var(--surface-2)}
-.card-head .dot svg{width:18px;height:18px}
-.card-head h3{font-size:14px;font-weight:700}
-.remain{font-size:22px;font-weight:800;line-height:1.2}
-.remain small{font-size:12px;font-weight:500;color:var(--muted);margin-right:2px}
-.sub{font-size:12px;color:var(--muted)}
-.bar{height:6px;border-radius:99px;background:var(--surface-2);overflow:hidden}
-.bar i{display:block;height:100%;border-radius:99px;background:var(--ok);transition:width .4s}
-.pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--ok-weak);color:var(--ok);width:max-content}
-.card.soon .bar i{background:var(--warn)} .card.soon .pill{background:var(--warn-weak);color:var(--warn)}
-.card.over .bar i{background:var(--bad)} .card.over .pill{background:var(--bad-weak);color:var(--bad)}
-.card.empty .remain{font-size:15px;color:var(--muted);font-weight:600}
-.card .add{margin-top:auto;border:1px dashed var(--border);background:transparent;border-radius:10px;padding:7px;font-size:12px;font-weight:600;color:var(--primary);cursor:pointer}
+.section-title{font-size:14px;font-weight:700;margin:24px 0 12px;display:flex;justify-content:space-between;align-items:center}
+.section-title span{font-size:12px;font-weight:500;color:var(--t3)}
 
-/* Tabs + list */
-.tabs{display:flex;gap:6px;background:var(--surface-2);padding:4px;border-radius:12px}
-.tabs button{flex:1;border:0;background:transparent;padding:7px 4px;border-radius:9px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer}
-.tabs button.on{background:var(--surface);color:var(--text);box-shadow:var(--shadow)}
+/* Filter chips + history */
+.chips{display:flex;gap:8px;overflow-x:auto}
+.chips button{flex:none;height:32px;padding:0 14px;border:1px solid var(--border);border-radius:99px;font-size:12px;font-weight:500;color:var(--t2)}
+.chips button.on{border-color:var(--primary);background:var(--primary);color:#fff}
 .list{margin-top:12px;display:flex;flex-direction:column;gap:8px}
-.item{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;text-align:right;width:100%}
-.item:active{background:var(--surface-2)}
-.item .ico{flex:none;width:38px;height:38px;border-radius:11px;display:grid;place-items:center}
-.item .ico svg{width:19px;height:19px}
-.ico.oil{background:#fff4e5;color:#b54708} .ico.belt{background:#e8efff;color:#1d4ed8}
-@media (prefers-color-scheme:dark){.ico.oil{background:#2e2210;color:#fdb022}.ico.belt{background:#1b2a4d;color:#8fb0ff}}
+.item{width:100%;text-align:right;background:var(--n50);border-radius:12px;padding:12px 16px;display:flex;gap:12px;align-items:center}
+.item:active{background:var(--n100)}
+.item img{width:44px;height:44px;object-fit:contain;flex:none}
 .item .body{flex:1;min-width:0}
 .item .top{display:flex;justify-content:space-between;gap:8px}
 .item .top b{font-size:14px}
-.item .top span{font-size:12px;color:var(--muted);white-space:nowrap}
-.item .meta{font-size:12.5px;color:var(--muted);margin-top:2px;display:flex;flex-wrap:wrap;gap:4px 10px}
-.item .meta em{font-style:normal;color:var(--text);font-weight:600}
-.item .note{font-size:12.5px;margin-top:6px;color:var(--muted)}
-.item .chev{flex:none;align-self:center;color:var(--muted)}
-.empty-state{text-align:center;padding:36px 16px;color:var(--muted);font-size:14px;border:1px dashed var(--border);border-radius:var(--radius)}
+.item .top span{font-size:12px;color:var(--t3);white-space:nowrap}
+.item .meta{font-size:12px;line-height:20px;color:var(--t2);display:flex;flex-wrap:wrap;gap:0 12px}
+.item .meta em{font-style:normal;color:var(--t1);font-weight:700;white-space:nowrap}
+.item .note{font-size:12px;line-height:20px;color:var(--t3)}
+.item .chev{flex:none;color:var(--t3)}
+.empty-state{text-align:center;padding:32px 16px;color:var(--t2);font-size:13px;background:var(--n50);border-radius:12px}
 
 /* FAB */
-.fab{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:var(--primary);color:#fff;border:0;border-radius:99px;padding:14px 26px;font-weight:700;font-size:15px;box-shadow:0 8px 24px rgba(29,78,216,.35);cursor:pointer;display:flex;align-items:center;gap:8px;white-space:nowrap}
-.fab svg{width:18px;height:18px;stroke:#fff}
+.fab{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:calc(100% - 32px);max-width:488px;height:52px;background:var(--primary);color:#fff;border-radius:16px;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 10px 24px rgba(17,19,24,.28)}
+.fab svg{width:20px;height:20px}
 
-/* Modal / bottom sheet with sticky footer */
-.modal{position:fixed;inset:0;z-index:50;display:none;background:rgba(10,14,22,.5)}
+/* Bottom sheet with sticky footer */
+.modal{position:fixed;inset:0;z-index:50;display:none;background:rgba(4,10,31,.45)}
 .modal.open{display:block}
 body.locked{overflow:hidden}
-.sheet{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:560px;max-height:92vh;max-height:92dvh;display:flex;flex-direction:column;background:var(--surface);border-radius:22px 22px 0 0;animation:up .22s ease-out;overflow:hidden}
+.sheet{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;max-height:92vh;max-height:92dvh;display:flex;flex-direction:column;background:#fff;border-radius:16px 16px 0 0;animation:up .22s ease-out;overflow:hidden}
 @keyframes up{from{transform:translate(-50%,40px);opacity:.4}}
-.sheet-body{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:8px 20px 16px}
-.sheet-foot{flex:none;display:flex;gap:10px;padding:12px 20px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--border);background:var(--surface)}
-.grab{width:40px;height:4px;border-radius:9px;background:var(--border);margin:6px auto 14px}
-.sheet h2{font-size:18px;font-weight:800;margin-bottom:16px}
-.seg{display:flex;gap:6px;background:var(--surface-2);padding:4px;border-radius:12px;margin-bottom:16px}
-.seg label{flex:1;text-align:center;padding:9px;border-radius:9px;font-weight:600;font-size:14px;cursor:pointer;color:var(--muted)}
-.seg input{display:none}
-.seg label:has(input:checked){background:var(--surface);color:var(--text);box-shadow:var(--shadow)}
-.field{margin-bottom:14px}
-.field>span{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
-.field>span i{font-style:normal;font-weight:400;color:var(--muted);font-size:12px}
-.input,select.input,textarea.input{width:100%;border:1px solid var(--border);background:var(--bg);border-radius:12px;padding:11px 13px;outline:none;font-size:16px}
-.input:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-weak)}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.date3{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:8px}
-.date3 .input{text-align:center}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.chips button{border:1px solid var(--border);background:transparent;border-radius:99px;padding:4px 11px;font-size:12.5px;cursor:pointer;direction:ltr}
-.chips button.on{border-color:var(--primary);color:var(--primary);background:var(--primary-weak)}
-.hint{font-size:12px;color:var(--muted);margin-top:5px}
-.btn{flex:1;border:0;border-radius:12px;padding:13px;font-weight:700;cursor:pointer;font-size:15px}
+.sheet-body{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:8px 16px 16px}
+.sheet-foot{flex:none;display:flex;gap:8px;padding:10px 16px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--n100);background:#fff}
+.grab{width:40px;height:4px;border-radius:4px;background:var(--n300);margin:4px auto 16px}
+.sheet-head{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.sheet-head img{width:52px;height:52px;object-fit:contain}
+.sheet-head h2{font-size:16px;font-weight:700}
+.sheet-head p{font-size:12px;color:var(--t3);line-height:18px}
+
+.btn{flex:1;height:48px;border-radius:14px;font-size:14px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:6px}
 .btn.primary{background:var(--primary);color:#fff}
-.btn.ghost{background:var(--surface-2)}
-.btn.danger{background:var(--bad-weak);color:var(--bad)}
-.btn.icon{flex:0 0 50px;display:grid;place-items:center;padding:0}
+.btn.text{color:var(--primary);background:var(--primary-weak)}
+.btn.icon{flex:0 0 48px;border:1px solid var(--bad-weak);color:var(--bad)}
 .btn.icon svg{width:20px;height:20px}
-.btn-row{display:flex;gap:10px}
-.err{color:var(--bad);font-size:12.5px;margin-top:4px;display:none}
+
+.seg{display:flex;gap:4px;background:var(--n100);padding:4px;border-radius:14px;margin-bottom:20px}
+.seg label{flex:1;text-align:center;padding:6px;border-radius:10px;font-weight:500;cursor:pointer;color:var(--t2)}
+.seg input{display:none}
+.seg label:has(input:checked){background:var(--primary);color:#fff;box-shadow:0 1px 3px rgba(4,10,31,.08)}
+
+/* Outlined text fields (floating label) */
+.tf{position:relative;display:block;margin-bottom:14px}
+.tf input,.tf select,.tf textarea{width:100%;height:56px;border:1px solid var(--border);border-radius:8px;background:#fff;padding:20px 16px 4px;font-size:16px;outline:none;-webkit-appearance:none;appearance:none;color:var(--t1)}
+.tf textarea{height:auto;min-height:76px;padding-top:26px;resize:vertical}
+.tf>span{position:absolute;right:16px;top:16px;font-size:14px;color:var(--t3);pointer-events:none;transition:all .15s;white-space:nowrap}
+.tf input:focus+span,.tf input:not(:placeholder-shown)+span,.tf textarea:focus+span,.tf textarea:not(:placeholder-shown)+span,.tf select+span{top:6px;font-size:11px;line-height:14px;color:var(--t2)}
+.tf input:focus,.tf select:focus,.tf textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-weak)}
+.tf select{background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%234F5A6D' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat left 14px center}
+.tf .err{display:none;color:var(--bad);font-size:12px;line-height:18px;margin-top:4px}
+.tf.invalid input{border-color:var(--bad)} .tf.invalid .err{display:block}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hint{font-size:12px;color:var(--t3);line-height:18px;margin:-6px 0 14px}
+.sub-title{font-size:14px;font-weight:700;margin:6px 0 4px}
+.sep{height:1px;background:var(--n300);margin:16px 0}
+.chk{display:flex;align-items:center;gap:12px;padding:8px 0;font-weight:500;cursor:pointer}
+.chk input{position:absolute;opacity:0;pointer-events:none}
+.chk i{width:20px;height:20px;border:1.5px solid var(--sec);border-radius:4px;display:grid;place-items:center;flex:none}
+.chk input:checked+i{background:var(--primary);border-color:var(--primary)}
+.chk input:checked+i::after{content:"";width:10px;height:6px;border:2px solid #fff;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
 
 /* Vehicles list */
-.veh-list{display:flex;flex-direction:column;gap:8px}
-.veh-row{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--border);border-radius:14px;background:var(--surface);cursor:pointer}
+.veh-row{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--n300);border-radius:12px;cursor:pointer}
+.veh-row+.veh-row{margin-top:8px}
 .veh-row.on{border-color:var(--primary);background:var(--primary-weak)}
 .veh-row .info{flex:1;min-width:0}
-.veh-row b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.veh-row small{color:var(--muted);font-size:12px}
-.veh-row .edit{flex:none;border:0;background:transparent;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;cursor:pointer;color:var(--muted)}
-.veh-row .edit:active{background:var(--surface-2)}
-.add-veh{width:100%;margin-top:10px;border:1px dashed var(--border);background:transparent;border-radius:14px;padding:14px;font-weight:700;color:var(--primary);cursor:pointer}
+.veh-row b{display:flex;align-items:center;gap:6px;font-size:14px;white-space:nowrap;overflow:hidden}
+.veh-row b img{width:16px;height:16px;object-fit:contain}
+.veh-row small{color:var(--t3);font-size:12px}
+.veh-row .edit{flex:none;width:36px;height:36px;border-radius:8px;display:grid;place-items:center;color:var(--t3)}
+.veh-row .edit:active{background:#fff}
+.add-veh{width:100%;margin-top:12px;height:48px;border:1px solid var(--primary);border-radius:14px;font-weight:500;color:var(--primary);display:flex;align-items:center;justify-content:center;gap:6px}
 
-/* Vehicle form: avatar picker */
-.av-pick{display:flex;align-items:center;gap:16px;margin-bottom:16px}
-.av-pick .ctrl{flex:1;display:flex;flex-direction:column;gap:10px;min-width:0}
-.swatches{display:flex;flex-wrap:wrap;gap:8px}
-.swatches button{width:28px;height:28px;border-radius:50%;border:0;cursor:pointer;box-shadow:inset 0 0 0 2px rgba(255,255,255,.25)}
-.swatches button.on{outline:2px solid var(--text);outline-offset:2px}
-.photo-btns{display:flex;gap:8px}
-.photo-btns button{border:1px solid var(--border);background:var(--surface);border-radius:10px;padding:6px 12px;font-size:13px;font-weight:600;cursor:pointer}
-.photo-btns .rm{color:var(--bad)}
+/* Avatar picker */
+.av-pick{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.av-pick .av{border:1px solid var(--n300);border-radius:16px}
+.av-btns{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+.av-btns .rm{color:var(--bad)}
 
-.toast{position:fixed;top:calc(16px + env(safe-area-inset-top));left:50%;transform:translate(-50%,-120px);background:var(--text);color:var(--bg);padding:10px 18px;border-radius:12px;font-size:14px;font-weight:600;transition:transform .25s;z-index:99}
+/* Settings */
+.menu-btn{width:100%;display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--n300);font-weight:500;text-align:right}
+.menu-btn small{color:var(--t3);font-size:12px;font-weight:400}
+.menu-btn.danger{color:var(--bad);border:0}
+
+.toast{position:fixed;top:calc(16px + env(safe-area-inset-top));left:50%;transform:translate(-50%,-140px);background:#101828;color:#fff;padding:10px 18px;border-radius:10px;font-size:14px;font-weight:500;transition:transform .25s;z-index:99;white-space:nowrap}
 .toast.show{transform:translate(-50%,0)}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <button class="veh-btn" id="openVehicles" aria-label="انتخاب وسیله"></button>
-    <button class="icon-btn" id="openSettings" aria-label="تنظیمات">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+    <button class="veh-btn" data-act="vehicles" id="vehBtn" aria-label="انتخاب وسیله"></button>
+    <button class="icon-btn" data-act="settings" aria-label="تنظیمات">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
     </button>
   </header>
 
-  <div class="odo">
-    <div>
-      <div class="label">کیلومتر فعلی</div>
-      <div class="value" id="odoValue">۰<span>km</span></div>
-    </div>
-    <button id="openOdo">به‌روزرسانی</button>
-  </div>
-
-  <div class="section-title">وضعیت سرویس بعدی</div>
-  <div class="cards" id="cards"></div>
+  <section class="hero" id="hero"></section>
 
   <div class="section-title">تاریخچه سرویس‌ها <span id="count"></span></div>
-  <div class="tabs" id="tabs">
-    <button data-f="all" class="on">همه</button>
-    <button data-f="oil">روغن موتور</button>
-    <button data-f="belt" id="tabBelt">تسمه تایم</button>
-  </div>
+  <div class="chips" id="chips"></div>
   <div class="list" id="list"></div>
 </div>
 
-<button class="fab" id="openAdd">
-  <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+<button class="fab" data-act="add">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
   ثبت سرویس جدید
 </button>
 
-<!-- Add / edit service -->
-<div class="modal" id="dlgAdd" role="dialog" aria-modal="true">
-  <form class="sheet" id="formAdd" novalidate>
-    <div class="sheet-body">
-      <div class="grab"></div>
-      <h2 id="addTitle">ثبت سرویس</h2>
-      <div class="seg">
-        <label><input type="radio" name="type" value="oil" checked>تعویض روغن</label>
-        <label><input type="radio" name="type" value="belt"><span id="segBelt">تسمه تایم</span></label>
-      </div>
-
-      <div class="field">
-        <span>تاریخ سرویس <i>(شمسی)</i></span>
-        <div class="date3">
-          <input class="input" name="jy" inputmode="numeric" placeholder="سال">
-          <input class="input" name="jm" inputmode="numeric" placeholder="ماه">
-          <input class="input" name="jd" inputmode="numeric" placeholder="روز">
-        </div>
-        <div class="err" id="errDate">تاریخ معتبر نیست</div>
-      </div>
-
-      <div class="field">
-        <span>کیلومتر هنگام سرویس</span>
-        <input class="input" name="km" inputmode="numeric" placeholder="مثلاً ۸۵۰۰۰">
-        <div class="err" id="errKm">کیلومتر را وارد کنید</div>
-      </div>
-
-      <div id="oilFields">
-        <div class="field">
-          <span>نوع روغن</span>
-          <input class="input" name="oilBrand" placeholder="برند، مثلاً بهران، اسپیدی، توتال…">
-          <div class="chips" id="viscChips"></div>
-          <input type="hidden" name="oilVisc">
-        </div>
-        <div class="row">
-          <div class="field">
-            <span>فیلتر روغن</span>
-            <select class="input" name="filter"><option value="yes">عوض شد</option><option value="no">عوض نشد</option></select>
-          </div>
-          <div class="field">
-            <span>حجم <i>(لیتر)</i></span>
-            <input class="input" name="liters" inputmode="decimal" placeholder="۴">
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <span>تعویض بعدی در کیلومتر</span>
-        <input class="input" name="nextKm" inputmode="numeric">
-        <div class="hint" id="nextHint"></div>
-      </div>
-
-      <div class="row">
-        <div class="field">
-          <span>هزینه <i>(تومان)</i></span>
-          <input class="input" name="cost" inputmode="numeric" placeholder="اختیاری">
-        </div>
-        <div class="field">
-          <span>محل سرویس</span>
-          <input class="input" name="shop" placeholder="اختیاری">
-        </div>
-      </div>
-
-      <div class="field">
-        <span>یادداشت</span>
-        <textarea class="input" name="note" rows="2" placeholder="اختیاری"></textarea>
-      </div>
-    </div>
-    <div class="sheet-foot">
-      <button type="button" class="btn danger icon" id="btnDelRec" aria-label="حذف سرویس" hidden>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg>
-      </button>
-      <button type="button" class="btn ghost" data-close>انصراف</button>
-      <button type="submit" class="btn primary">ذخیره</button>
-    </div>
-  </form>
-</div>
-
-<!-- Odometer -->
-<div class="modal" id="dlgOdo" role="dialog" aria-modal="true">
-  <form class="sheet" id="formOdo">
-    <div class="sheet-body">
-      <div class="grab"></div>
-      <h2>کیلومتر فعلی</h2>
-      <div class="field">
-        <span>عدد کیلومترشمار را وارد کنید</span>
-        <input class="input" name="odo" inputmode="numeric">
-      </div>
-    </div>
-    <div class="sheet-foot">
-      <button type="button" class="btn ghost" data-close>انصراف</button>
-      <button type="submit" class="btn primary">ذخیره</button>
-    </div>
-  </form>
-</div>
-
-<!-- Vehicles list -->
-<div class="modal" id="dlgVehicles" role="dialog" aria-modal="true">
-  <div class="sheet">
-    <div class="sheet-body">
-      <div class="grab"></div>
-      <h2>وسیله‌های من</h2>
-      <div class="veh-list" id="vehList"></div>
-      <button class="add-veh" id="btnAddVeh">+ افزودن خودرو یا موتور</button>
-    </div>
-    <div class="sheet-foot">
-      <button type="button" class="btn ghost" data-close>بستن</button>
-    </div>
-  </div>
-</div>
-
-<!-- Vehicle add / edit -->
-<div class="modal" id="dlgVehicle" role="dialog" aria-modal="true">
-  <form class="sheet" id="formVeh" novalidate>
-    <div class="sheet-body">
-      <div class="grab"></div>
-      <h2 id="vehTitle">وسیلهٔ جدید</h2>
-      <div class="seg">
-        <label><input type="radio" name="kind" value="car" checked>خودرو</label>
-        <label><input type="radio" name="kind" value="moto">موتورسیکلت</label>
-      </div>
-      <div class="av-pick">
-        <div id="vehPreview"></div>
-        <div class="ctrl">
-          <div class="swatches" id="swatches"></div>
-          <div class="photo-btns">
-            <button type="button" id="btnPhoto">انتخاب عکس</button>
-            <button type="button" class="rm" id="btnRmPhoto" hidden>حذف عکس</button>
-          </div>
-          <input type="file" id="photoInput" accept="image/*" hidden>
-        </div>
-      </div>
-      <div class="field">
-        <span>نام</span>
-        <input class="input" name="name" placeholder="مثلاً پژو ۲۰۶ یا هوندا ۱۲۵">
-      </div>
-      <div class="field">
-        <span>کیلومتر فعلی</span>
-        <input class="input" name="odometer" inputmode="numeric" placeholder="۰">
-      </div>
-      <div class="row">
-        <div class="field">
-          <span>فاصلهٔ تعویض روغن <i>(km)</i></span>
-          <input class="input" name="oilInt" inputmode="numeric">
-        </div>
-        <div class="field">
-          <span><b id="beltIntLabel" style="font-weight:600">فاصلهٔ تسمه تایم</b> <i>(km)</i></span>
-          <input class="input" name="beltInt" inputmode="numeric">
-        </div>
-      </div>
-      <div class="hint">هشدار «نزدیک است» وقتی نمایش داده می‌شود که کمتر از ۱۵٪ مسافت باقی مانده باشد.</div>
-    </div>
-    <div class="sheet-foot">
-      <button type="button" class="btn danger icon" id="btnDelVeh" aria-label="حذف وسیله" hidden>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg>
-      </button>
-      <button type="button" class="btn ghost" data-close>انصراف</button>
-      <button type="submit" class="btn primary">ذخیره</button>
-    </div>
-  </form>
-</div>
-
-<!-- Settings -->
-<div class="modal" id="dlgSettings" role="dialog" aria-modal="true">
-  <div class="sheet">
-    <div class="sheet-body">
-      <div class="grab"></div>
-      <h2>تنظیمات</h2>
-      <div class="field"><span>پشتیبان‌گیری <i>— داده‌ها فقط روی همین دستگاه ذخیره می‌شوند</i></span></div>
-      <div class="btn-row">
-        <button type="button" class="btn ghost" id="btnExport">خروجی فایل</button>
-        <button type="button" class="btn ghost" id="btnImport">بارگذاری فایل</button>
-      </div>
-      <input type="file" id="fileImport" accept="application/json,.json" hidden>
-      <div class="hint" style="margin:10px 0 20px">فایل خروجی شامل همهٔ وسیله‌ها و سرویس‌هاست.</div>
-      <button type="button" class="btn danger" style="width:100%" id="btnReset">پاک کردن همهٔ داده‌ها</button>
-    </div>
-    <div class="sheet-foot">
-      <button type="button" class="btn ghost" data-close>بستن</button>
-    </div>
-  </div>
-</div>
-
+<div class="modal" id="sheet"><div class="sheet" id="sheetBox"></div></div>
+<input type="file" id="fileImport" accept="application/json,.json" hidden>
+<input type="file" id="photoInput" accept="image/*" hidden>
 <div class="toast" id="toast"></div>
 
 <script>
-/* ---------- Jalali calendar (jalaali-js algorithm) ---------- */
+/* ================= Jalali calendar (jalaali-js algorithm) ================= */
 const div=(a,b)=>~~(a/b), mod=(a,b)=>a-~~(a/b)*b;
 const BREAKS=[-61,9,38,199,426,686,756,818,1111,1181,1210,1635,2060,2097,2192,2262,2324,2394,2456,3178];
-function jalCal(jy){
-  let gy=jy+621,leapJ=-14,jp=BREAKS[0],jm,jump,n,i;
-  for(i=1;i<BREAKS.length;i++){jm=BREAKS[i];jump=jm-jp;if(jy<jm)break;leapJ+=div(jump,33)*8+div(mod(jump,33),4);jp=jm}
-  n=jy-jp;leapJ+=div(n,33)*8+div(mod(n,33)+3,4);
-  if(mod(jump,33)===4&&jump-n===4)leapJ++;
-  const leapG=div(gy,4)-div((div(gy,100)+1)*3,4)-150, march=20+leapJ-leapG;
-  if(jump-n<6)n=n-jump+div(jump+4,33)*33;
-  let leap=mod(mod(n+1,33)-1,4);if(leap===-1)leap=4;
-  return{leap,gy,march};
-}
+function jalCal(jy){let gy=jy+621,leapJ=-14,jp=BREAKS[0],jm,jump,n,i;for(i=1;i<BREAKS.length;i++){jm=BREAKS[i];jump=jm-jp;if(jy<jm)break;leapJ+=div(jump,33)*8+div(mod(jump,33),4);jp=jm}n=jy-jp;leapJ+=div(n,33)*8+div(mod(n,33)+3,4);if(mod(jump,33)===4&&jump-n===4)leapJ++;const leapG=div(gy,4)-div((div(gy,100)+1)*3,4)-150,march=20+leapJ-leapG;if(jump-n<6)n=n-jump+div(jump+4,33)*33;let leap=mod(mod(n+1,33)-1,4);if(leap===-1)leap=4;return{leap,gy,march}}
 function g2d(gy,gm,gd){let d=div((gy+div(gm-8,6)+100100)*1461,4)+div(153*mod(gm+9,12)+2,5)+gd-34840408;return d-div(div(gy+100100+div(gm-8,6),100)*3,4)+752}
 function d2g(jdn){let j=4*jdn+139361631;j+=div(div(4*jdn+183187720,146097)*3,4)*4-3908;const i=div(mod(j,1461),4)*5+308,gd=div(mod(i,153),5)+1,gm=mod(div(i,153),12)+1,gy=div(j,1461)-100100+div(8-gm,6);return{gy,gm,gd}}
 function j2d(jy,jm,jd){const r=jalCal(jy);return g2d(r.gy,3,r.march)+(jm-1)*31-div(jm,7)*(jm-7)+jd-1}
-function d2j(jdn){
-  const gy=d2g(jdn).gy;let jy=gy-621;const r=jalCal(jy);let k=jdn-g2d(gy,3,r.march),jm,jd;
-  if(k>=0){if(k<=185){return{jy,jm:1+div(k,31),jd:mod(k,31)+1}}k-=186}else{jy--;k+=179;if(r.leap===1)k++}
-  return{jy,jm:7+div(k,30),jd:mod(k,30)+1};
-}
+function d2j(jdn){const gy=d2g(jdn).gy;let jy=gy-621;const r=jalCal(jy);let k=jdn-g2d(gy,3,r.march),jm,jd;if(k>=0){if(k<=185)return{jy,jm:1+div(k,31),jd:mod(k,31)+1};k-=186}else{jy--;k+=179;if(r.leap===1)k++}return{jy,jm:7+div(k,30),jd:mod(k,30)+1}}
 const monthLen=(jy,jm)=>jm<=6?31:jm<=11?30:(jalCal(jy).leap===0?30:29);
 const MONTHS=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
-const todayJ=()=>{const t=new Date();return d2j(g2d(t.getFullYear(),t.getMonth()+1,t.getDate()))};
+const todayJDN=()=>{const t=new Date();return g2d(t.getFullYear(),t.getMonth()+1,t.getDate())};
+const isoJDN=iso=>{const[y,m,d]=iso.split('-').map(Number);return g2d(y,m,d)};
 const jToISO=(y,m,d)=>{const g=d2g(j2d(y,m,d));return`${g.gy}-${String(g.gm).padStart(2,'0')}-${String(g.gd).padStart(2,'0')}`};
-const isoToJ=iso=>{const[y,m,d]=iso.split('-').map(Number);return d2j(g2d(y,m,d))};
-const daysSince=iso=>{const[y,m,d]=iso.split('-').map(Number);const t=new Date();return g2d(t.getFullYear(),t.getMonth()+1,t.getDate())-g2d(y,m,d)};
+const p2=n=>String(n).padStart(2,'0');
+const fmtSlash=iso=>{const j=d2j(isoJDN(iso));return faD(`${j.jy}/${p2(j.jm)}/${p2(j.jd)}`)};
+const fmtLong=iso=>{const j=d2j(isoJDN(iso));return`${faD(j.jd)} ${MONTHS[j.jm-1]} ${faD(j.jy)}`};
+const todaySlash=()=>{const j=d2j(todayJDN());return faD(`${j.jy}/${p2(j.jm)}/${p2(j.jd)}`)};
+function parseJ(s){const p=enD(s).split(/[\/\-.\s]+/).map(Number);if(p.length!==3)return null;const[y,m,d]=p;if(!(y>1300&&y<1500&&m>=1&&m<=12&&d>=1&&d<=monthLen(y,m)))return null;return jToISO(y,m,d)}
 
-/* ---------- Helpers ---------- */
+/* ================= Helpers ================= */
 const $=s=>document.querySelector(s);
 const fa=n=>Number(n).toLocaleString('fa-IR');
-const faDigits=s=>String(s).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
-const toNum=v=>{if(v==null)return NaN;const s=String(v).replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[,٬،\s]/g,'');return s===''?NaN:Number(s)};
-const fmtJ=iso=>{const j=isoToJ(iso);return`${faDigits(j.jd)} ${MONTHS[j.jm-1]} ${faDigits(j.jy)}`};
+const faD=s=>String(s).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+const enD=s=>String(s??'').replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d));
+const toNum=v=>{const s=enD(v).replace(/[,٬،\s]/g,'');return s===''?NaN:Number(s)};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2000)}
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2000)}
 
-/* ---------- Vehicles ---------- */
-const COLORS=['#1d4ed8','#0f766e','#b42318','#c4320a','#7a5af8','#344054','#0e9384','#db2777'];
+const I={
+  chevD:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>',
+  chevL:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>',
+  plus:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+  pen:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>',
+  trash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg>',
+  refresh:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4v5h-5"/></svg>',
+  moto:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="16" r="3"/><circle cx="19" cy="16" r="3"/><path d="M5 16l3.5-5H13l2.5 3H19"/><path d="M15.5 14 19 16"/><path d="M13 11l2-4h3"/><path d="M8.5 11H6"/></svg>'
+};
+
+/* ================= Catalog ================= */
+const BRANDS={
+  car:[{id:'saipa',name:'سایپا',logo:1},{id:'ikco',name:'ایران خودرو'},{id:'peugeot',name:'پژو',logo:1},{id:'mvm',name:'ام وی ام',logo:1},{id:'chery',name:'چری',logo:1},{id:'bmw',name:'بی ام و',logo:1},{id:'benz',name:'بنز',logo:1},{id:'kia',name:'کیا'},{id:'hyundai',name:'هیوندای'},{id:'toyota',name:'تویوتا'},{id:'renault',name:'رنو'},{id:'nissan',name:'نیسان'},{id:'other',name:'سایر'}],
+  moto:[{id:'honda',name:'هوندا'},{id:'yamaha',name:'یاماها'},{id:'suzuki',name:'سوزوکی'},{id:'kavir',name:'کویر'},{id:'benelli',name:'بنلی'},{id:'bajaj',name:'باجاج'},{id:'kawasaki',name:'کاوازاکی'},{id:'hyosung',name:'هیوسانگ'},{id:'other',name:'سایر'}]
+};
+const findBrand=(k,id)=>(BRANDS[k]||[]).find(b=>b.id===id);
+const OIL_BRANDS=['بهران','اسپیدی','ایرانول','پارس','الف','توتال','موبیل','کاسترول','شل','لیکومولی','موتول','سایر'];
+const VISC=['0W-20','5W-30','5W-40','10W-40','15W-40','20W-50'];
 const KINDS={
   car:{label:'خودرو',oil:5000,belt:60000,beltName:'تسمه تایم',fallback:'خودروی من'},
   moto:{label:'موتورسیکلت',oil:3000,belt:15000,beltName:'تسمه / زنجیر',fallback:'موتور من'}
 };
-const KIND_SVG={
-  car:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>',
-  moto:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="16" r="3"/><circle cx="19" cy="16" r="3"/><path d="M5 16l3.5-5H13l2.5 3H19"/><path d="M15.5 14 19 16"/><path d="M13 11l2-4h3"/><path d="M8.5 11H6"/></svg>'
-};
-function avatarHTML(v,size){
-  const inner=v.photo?`<img src="${v.photo}" alt="">`:KIND_SVG[v.kind]||KIND_SVG.car;
-  return`<div class="avatar" style="width:${size}px;height:${size}px;background:${v.photo?'var(--surface-2)':v.color||COLORS[0]}">${inner}</div>`;
-}
-function newVehicle(kind='car',o={}){return{id:uid(),kind,name:'',color:COLORS[0],photo:null,odometer:0,oilInt:KINDS[kind].oil,beltInt:KINDS[kind].belt,records:[],...o}}
-const vName=v=>v.name||KINDS[v.kind].fallback;
-const beltName=v=>KINDS[v.kind]?.beltName||'تسمه تایم';
+const IMG={oil:'assets/oil.png',belt:'assets/engine.png'};
 
-/* ---------- State (localStorage + migration from v1) ---------- */
+/* ================= State ================= */
 const KEY='car-logbook-v1';
+function newVehicle(kind='car',o={}){return{id:uid(),kind,name:'',brand:'',model:'',year:'',plate:'',photo:null,odometer:0,oilInt:KINDS[kind].oil,beltInt:KINDS[kind].belt,records:[],...o}}
+function normRec(r){if(r.type==='oil'&&!r.filters)r.filters={oil:r.filter!=='no',air:false,cabin:false};return r}
 function migrate(d){
   if(d&&Array.isArray(d.vehicles)&&d.vehicles.length){
-    d.vehicles.forEach(v=>{v.records=Array.isArray(v.records)?v.records:[];if(!KINDS[v.kind])v.kind='car';v.id=v.id||uid()});
+    d.vehicles.forEach(v=>{if(!KINDS[v.kind])v.kind='car';v.id=v.id||uid();v.records=(Array.isArray(v.records)?v.records:[]).map(normRec);['brand','model','year','plate'].forEach(k=>v[k]=v[k]||'')});
     if(!d.vehicles.some(v=>v.id===d.activeId))d.activeId=d.vehicles[0].id;
-    return{version:2,activeId:d.activeId,vehicles:d.vehicles};
+    return{version:4,activeId:d.activeId,vehicles:d.vehicles};
   }
-  if(d&&Array.isArray(d.records)){ // v1 format: single car
-    const v=newVehicle('car',{name:d.car?.name&&d.car.name!=='خودروی من'?d.car.name:'',odometer:d.car?.odometer||0,
-      oilInt:d.settings?.oilInt||5000,beltInt:d.settings?.beltInt||60000,records:d.records});
-    return{version:2,activeId:v.id,vehicles:[v]};
+  if(d&&Array.isArray(d.records)){
+    const v=newVehicle('car',{name:d.car?.name&&d.car.name!=='خودروی من'?d.car.name:'',odometer:d.car?.odometer||0,oilInt:d.settings?.oilInt||5000,beltInt:d.settings?.beltInt||60000,records:d.records.map(normRec)});
+    return{version:4,activeId:v.id,vehicles:[v]};
   }
   return null;
 }
-function fresh(){const v=newVehicle('car');return{version:2,activeId:v.id,vehicles:[v]}}
+function fresh(){const v=newVehicle('car');return{version:4,activeId:v.id,vehicles:[v]}}
 let memory=null;
 function load(){try{const raw=localStorage.getItem(KEY);if(raw){const m=migrate(JSON.parse(raw));if(m)return m}}catch(e){}return memory||fresh()}
-function save(){memory=state;try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){toast('ذخیره نشد — حافظهٔ مرورگر پر است')}}
-let state=load();
-save();
+function save(){memory=state;try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){toast('ذخیره نشد؛ حافظه پر است')}}
+let state=load(); save();
 const V=()=>state.vehicles.find(v=>v.id===state.activeId)||state.vehicles[0];
 let filter='all';
 
-const TYPES={
-  oil:{icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg>'},
-  belt:{icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="12" r="3.5"/><circle cx="17" cy="12" r="3.5"/><path d="M7 8.5h10M7 15.5h10"/></svg>'}
-};
-const typeTitle=(v,t)=>t==='oil'?'روغن موتور':beltName(v);
+/* ================= Vehicle helpers ================= */
+const vName=v=>v.name||[v.brand&&v.brand!=='other'?findBrand(v.kind,v.brand)?.name:'',v.model].filter(Boolean).join(' ')||KINDS[v.kind].fallback;
+const vSub=v=>[KINDS[v.kind].label,v.year?`مدل ${faD(v.year)}`:'',v.plate?`پلاک ${esc(v.plate)}`:''].filter(Boolean).join(' · ');
+const beltName=v=>KINDS[v.kind].beltName;
 const intervalOf=(v,t)=>t==='oil'?v.oilInt:v.beltInt;
-const CHEV='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>';
+const logo=v=>{const b=findBrand(v.kind,v.brand);return b?.logo?`<img src="assets/brand-${b.id}.png" alt="">`:''};
+function av(v,size){
+  const s=`width:${size}px;height:${size}px`;
+  if(v.photo)return`<div class="av photo" style="${s}"><img src="${v.photo}" alt=""></div>`;
+  if(v.kind==='moto')return`<div class="av" style="${s}">${I.moto}</div>`;
+  return`<div class="av" style="${s}"><img src="assets/car-suv.png" alt=""></div>`;
+}
+function lastOf(v,t){return v.records.filter(r=>r.type===t).sort((a,b)=>b.km-a.km||b.date.localeCompare(a.date))[0]}
 
-/* ---------- Render ---------- */
-function lastOf(v,type){return v.records.filter(r=>r.type===type).sort((a,b)=>b.km-a.km||b.date.localeCompare(a.date))[0]}
+/* ================= Render ================= */
 function render(){
   const v=V();
-  $('#openVehicles').innerHTML=`${avatarHTML(v,48)}<div class="txt"><small>${state.vehicles.length>1?'تعویض وسیله':KINDS[v.kind].label}</small><h1><span style="overflow:hidden;text-overflow:ellipsis">${esc(vName(v))}</span><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></h1></div>`;
-  $('#odoValue').innerHTML=`${fa(v.odometer)}<span>km</span>`;
-  $('#tabBelt').textContent=beltName(v);
+  $('#vehBtn').innerHTML=`${av(v,52)}<div class="txt"><small>${state.vehicles.length>1?'تعویض وسیله':vSub(v)}</small><h1>${logo(v)}<span class="nm">${esc(vName(v))}</span>${I.chevD}</h1></div>`;
 
-  $('#cards').innerHTML=['oil','belt'].map(t=>{
-    const r=lastOf(v,t),T=TYPES[t];
-    const head=`<div class="card-head"><div class="dot">${T.icon}</div><h3>${typeTitle(v,t)}</h3></div>`;
-    if(!r)return`<div class="card empty">${head}<div class="remain">هنوز ثبت نشده</div><div class="sub">اولین سرویس را ثبت کنید</div><button class="add" data-add="${t}">+ ثبت</button></div>`;
-    const next=r.nextKm||r.km+intervalOf(v,t), span=Math.max(1,next-r.km), used=v.odometer-r.km, left=next-v.odometer;
-    const pct=Math.min(100,Math.max(0,used/span*100));
-    const cls=left<=0?'over':left<=span*.15?'soon':'';
-    const pill=left<=0?'زمان تعویض گذشته':left<=span*.15?'نزدیک است':'در وضعیت خوب';
-    const remain=left<=0?`${fa(-left)}<small> km گذشته</small>`:`${fa(left)}<small> km مانده</small>`;
-    const days=daysSince(r.date);
-    return`<div class="card ${cls}">${head}<span class="pill">${pill}</span><div class="remain">${remain}</div><div class="bar"><i style="width:${pct}%"></i></div><div class="sub">تعویض بعدی: ${fa(next)} km<br>آخرین: ${days<=0?'امروز':fa(days)+' روز پیش'}</div></div>`;
+  const carImg=v.photo?`<div class="hero-car photo"><img src="${v.photo}" alt=""></div>`:v.kind==='moto'?`<div class="hero-car">${I.moto}</div>`:`<div class="hero-car"><img src="assets/car-suv.png" alt=""></div>`;
+  const stats=['oil','belt'].map(t=>{
+    const r=lastOf(v,t),title=t==='oil'?'روغن موتور':beltName(v);
+    const head=`<div class="stat-h"><img src="${IMG[t]}" alt="">${title}</div>`;
+    if(!r)return`<button class="stat empty" data-act="add" data-type="${t}">${head}<div class="stat-v">+ ثبت اولین تعویض</div><div class="stat-s">هنوز ثبت نشده</div></button>`;
+    const next=r.nextKm||r.km+intervalOf(v,t),span=Math.max(1,next-r.km),used=v.odometer-r.km,left=next-v.odometer;
+    const pct=Math.min(100,Math.max(0,used/span*100)),cls=left<=0?'over':left<=span*.15?'soon':'';
+    const val=left<=0?`${fa(-left)}<small>کیلومتر گذشته</small>`:`${fa(left)}<small>کیلومتر مانده</small>`;
+    const note=left<=0?'زمان تعویض گذشته':left<=span*.15?'تعویض نزدیک است':`تعویض در ${fa(next)}`;
+    return`<button class="stat ${cls}" data-act="add" data-type="${t}">${head}<div class="stat-v">${val}</div><div class="bar"><i style="width:${pct}%"></i></div><div class="stat-s">${note}</div></button>`;
   }).join('');
+  $('#hero').innerHTML=`<div class="hero-top">
+      <div class="hero-km"><small>کارکرد</small><div class="num">${fa(Math.max(0,Math.round(v.odometer)))}<span>کیلومتر</span></div>
+        <button class="link" data-act="odo">بروزرسانی کارکرد ${I.refresh}</button></div>
+      ${carImg}
+    </div>
+    <div class="stat-row">${stats}</div>`;
 
+  $('#chips').innerHTML=[['all','همه'],['oil','روغن موتور'],['belt',beltName(v)]].map(([k,l])=>`<button data-act="filter" data-f="${k}" class="${filter===k?'on':''}">${l}</button>`).join('');
   const rows=v.records.filter(r=>filter==='all'||r.type===filter).sort((a,b)=>b.date.localeCompare(a.date)||b.km-a.km);
   $('#count').textContent=v.records.length?fa(v.records.length)+' مورد':'';
   $('#list').innerHTML=rows.length?rows.map(r=>{
-    const meta=[`<span>کیلومتر <em>${fa(r.km)}</em></span>`];
+    const m=[`<span>کیلومتر <em>${fa(r.km)}</em></span>`];
     if(r.type==='oil'){
-      const oil=[r.oilBrand,r.oilVisc].filter(Boolean).join(' · ');
-      if(oil)meta.push(`<span>روغن <em dir="auto">${esc(oil)}</em></span>`);
-      if(r.liters)meta.push(`<span>${fa(r.liters)} لیتر</span>`);
-      meta.push(`<span>فیلتر ${r.filter==='no'?'عوض نشد':'عوض شد'}</span>`);
+      const oil=[r.oilBrand,r.oilVisc].filter(Boolean).join(' · ');if(oil)m.push(`<span><em dir="auto">${esc(oil)}</em></span>`);
+      if(r.liters)m.push(`<span>${fa(r.liters)} لیتر</span>`);
+      const f=r.filters||{},fl=[f.oil&&'روغن',f.air&&'هوا',f.cabin&&'کابین'].filter(Boolean);if(fl.length)m.push(`<span>فیلتر ${fl.join('، ')}</span>`);
     }
-    if(r.nextKm)meta.push(`<span>بعدی <em>${fa(r.nextKm)}</em></span>`);
-    if(r.cost)meta.push(`<span>${fa(r.cost)} تومان</span>`);
-    if(r.shop)meta.push(`<span>${esc(r.shop)}</span>`);
-    return`<button class="item" data-edit="${r.id}"><div class="ico ${r.type}">${TYPES[r.type].icon}</div><div class="body"><div class="top"><b>تعویض ${r.type==='oil'?'روغن':beltName(v)}</b><span>${fmtJ(r.date)}</span></div><div class="meta">${meta.join('')}</div>${r.note?`<div class="note">${esc(r.note)}</div>`:''}</div><span class="chev">${CHEV}</span></button>`;
+    if(r.nextKm)m.push(`<span>بعدی <em>${fa(r.nextKm)}</em></span>`);
+    if(r.cost)m.push(`<span>${fa(r.cost)} تومان</span>`);
+    if(r.shop)m.push(`<span>${esc(r.shop)}</span>`);
+    return`<button class="item" data-act="edit" data-id="${r.id}"><img src="${IMG[r.type]}" alt=""><div class="body"><div class="top"><b>تعویض ${r.type==='oil'?'روغن':beltName(v)}</b><span>${fmtLong(r.date)}</span></div><div class="meta">${m.join('')}</div>${r.note?`<div class="note">${esc(r.note)}</div>`:''}</div><span class="chev">${I.chevL}</span></button>`;
   }).join(''):`<div class="empty-state">${filter==='all'?'هنوز سرویسی برای این وسیله ثبت نشده.<br>با دکمهٔ پایین اولین سرویس را ثبت کنید.':'سرویسی از این نوع ثبت نشده.'}</div>`;
 }
 
-/* ---------- Modals ---------- */
-function openM(sel){$(sel).classList.add('open');document.body.classList.add('locked');const b=$(sel).querySelector('.sheet-body');if(b)b.scrollTop=0}
-function closeM(sel){$(sel).classList.remove('open');if(!document.querySelector('.modal.open'))document.body.classList.remove('locked')}
-document.querySelectorAll('.modal').forEach(d=>{
-  d.addEventListener('click',e=>{if(e.target===d||e.target.closest('[data-close]'))closeM('#'+d.id)});
-});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal.open').forEach(d=>closeM('#'+d.id))});
+/* ================= Sheet helpers ================= */
+function openSheet(html){$('#sheetBox').innerHTML=html;$('#sheet').classList.add('open');document.body.classList.add('locked');const b=$('#sheetBox .sheet-body');if(b)b.scrollTop=0}
+function closeSheet(){$('#sheet').classList.remove('open');document.body.classList.remove('locked')}
+$('#sheet').addEventListener('click',e=>{if(e.target.id==='sheet')closeSheet()});
+const tf=(name,label,val='',attrs='')=>`<label class="tf"><input name="${name}" placeholder=" " value="${esc(val)}" ${attrs}><span>${label}</span><div class="err"></div></label>`;
+const sel=(name,label,opts,val='')=>`<label class="tf"><select name="${name}"><option value=""></option>${opts.map(o=>{const[v,l]=Array.isArray(o)?o:[o,o];return`<option value="${esc(v)}" ${v===val?'selected':''}>${esc(l)}</option>`}).join('')}</select><span>${label}</span></label>`;
+function setErr(f,name,msg){const l=f.querySelector(`[name=${name}]`).closest('.tf');l.classList.toggle('invalid',!!msg);l.querySelector('.err').textContent=msg||''}
+const foot=(primary,extra='')=>`<div class="sheet-foot">${extra}<button class="btn primary" data-act="${primary[0]}">${primary[1]}</button><button class="btn text" data-act="close">انصراف</button></div>`;
 
-/* ---------- Add / edit service ---------- */
-const VISC=['5W-30','5W-40','10W-40','15W-40','20W-50','0W-20'];
-const fA=$('#formAdd');
-let nextTouched=false, editingId=null;
-$('#viscChips').innerHTML=VISC.map(v=>`<button type="button" data-v="${v}">${v}</button>`).join('');
-function setVisc(val){document.querySelectorAll('#viscChips button').forEach(x=>x.classList.toggle('on',x.dataset.v===val));fA.oilVisc.value=val||''}
-$('#viscChips').onclick=e=>{const b=e.target.closest('button');if(!b)return;setVisc(b.classList.contains('on')?'':b.dataset.v)};
-const curType=()=>fA.querySelector('[name=type]:checked').value;
-function syncNext(){
-  const v=V(),t=curType(),km=toNum(fA.km.value);
-  $('#oilFields').hidden=t!=='oil';
-  if(!nextTouched)fA.nextKm.value=isNaN(km)?'':faDigits(km+intervalOf(v,t));
-  $('#nextHint').textContent=`پیش‌فرض: هر ${fa(intervalOf(v,t))} کیلومتر — قابل تغییر در ویرایش وسیله`;
+/* ================= Add / edit service ================= */
+let editing=null;
+function openService(type='oil',rec=null){
+  const v=V();editing=rec?rec.id:null;
+  const t0=rec?rec.type:type,f=rec?.filters||{oil:true,air:false,cabin:false};
+  openSheet(`<form class="sheet-body" id="svcForm" novalidate>
+    <div class="grab"></div>
+    <div class="sheet-head"><img id="svcImg" src="${IMG[t0]}" alt=""><div><h2>${rec?'ویرایش سرویس':'ثبت سرویس'}</h2><p>${esc(vName(v))}</p></div></div>
+    <div class="seg">
+      <label><input type="radio" name="type" value="oil" ${t0==='oil'?'checked':''}>تعویض روغن</label>
+      <label><input type="radio" name="type" value="belt" ${t0==='belt'?'checked':''}>${beltName(v)}</label>
+    </div>
+    <div class="row2">${tf('date','تاریخ',rec?fmtSlash(rec.date):todaySlash(),'inputmode="numeric" autocomplete="off"')}${tf('km','کیلومتر تعویض',rec?faD(rec.km):(v.odometer?faD(v.odometer):''),'inputmode="numeric"')}</div>
+    <div id="oilFields">
+      <div class="row2">${sel('oilBrand','برند روغن',OIL_BRANDS,rec?.oilBrand||'')}${sel('oilVisc','گرانروی روغن',VISC,rec?.oilVisc||'')}</div>
+      ${tf('liters','حجم (لیتر)',rec?.liters?faD(rec.liters):'','inputmode="decimal"')}
+      <div class="sub-title">آیا موارد زیر تعویض شده‌اند؟</div>
+      <label class="chk"><input type="checkbox" name="fOil" ${f.oil?'checked':''}><i></i>فیلتر روغن</label>
+      <label class="chk"><input type="checkbox" name="fAir" ${f.air?'checked':''}><i></i>فیلتر هوا</label>
+      <label class="chk"><input type="checkbox" name="fCabin" ${f.cabin?'checked':''}><i></i>فیلتر کابین</label>
+      <div class="sep"></div>
+    </div>
+    ${tf('nextKm','تعویض بعدی در کیلومتر',rec?.nextKm?faD(rec.nextKm):'','inputmode="numeric"')}
+    <p class="hint" id="nextHint"></p>
+    <div class="row2">${tf('cost','هزینه (تومان)',rec?.cost?faD(rec.cost):'','inputmode="numeric"')}${tf('shop','محل سرویس',rec?.shop||'')}</div>
+    <label class="tf"><textarea name="note" placeholder=" ">${esc(rec?.note||'')}</textarea><span>یادداشت</span></label>
+  </form>${foot(['saveSvc','ذخیره'],rec?`<button class="btn icon" data-act="delRec" aria-label="حذف">${I.trash}</button>`:'')}`);
+  const form=$('#svcForm');let touched=!!rec;
+  const cur=()=>form.querySelector('[name=type]:checked').value;
+  const sync=()=>{const t=cur(),km=toNum(form.km.value);$('#oilFields').hidden=t!=='oil';$('#svcImg').src=IMG[t];
+    if(!touched)form.nextKm.value=isNaN(km)?'':faD(km+intervalOf(v,t));
+    $('#nextHint').textContent=`پیش‌فرض: هر ${fa(intervalOf(v,t))} کیلومتر (قابل تغییر در ویرایش وسیله)`};
+  form.addEventListener('change',e=>{if(e.target.name==='type')sync()});
+  form.km.addEventListener('input',sync);form.nextKm.addEventListener('input',()=>touched=form.nextKm.value!=='');
+  form.addEventListener('submit',e=>{e.preventDefault();saveService()});
+  sync();
 }
-fA.addEventListener('change',e=>{if(e.target.name==='type')syncNext()});
-fA.km.addEventListener('input',syncNext);
-fA.nextKm.addEventListener('input',()=>nextTouched=fA.nextKm.value!=='');
-function openAdd(type='oil',rec=null){
-  const v=V();
-  fA.reset();editingId=rec?rec.id:null;nextTouched=!!rec;
-  $('#addTitle').textContent=rec?'ویرایش سرویس':'ثبت سرویس';
-  $('#btnDelRec').hidden=!rec;
-  $('#segBelt').textContent=beltName(v);
-  fA.querySelector(`[name=type][value=${rec?rec.type:type}]`).checked=true;
-  const j=rec?isoToJ(rec.date):todayJ();
-  fA.jy.value=faDigits(j.jy);fA.jm.value=faDigits(j.jm);fA.jd.value=faDigits(j.jd);
-  if(rec){
-    fA.km.value=faDigits(rec.km);
-    fA.nextKm.value=rec.nextKm?faDigits(rec.nextKm):'';
-    fA.oilBrand.value=rec.oilBrand||'';setVisc(rec.oilVisc||'');
-    fA.filter.value=rec.filter||'yes';
-    fA.liters.value=rec.liters?faDigits(rec.liters):'';
-    fA.cost.value=rec.cost?faDigits(rec.cost):'';
-    fA.shop.value=rec.shop||'';fA.note.value=rec.note||'';
-  }else{
-    setVisc('');
-    if(v.odometer)fA.km.value=faDigits(v.odometer);
-  }
-  document.querySelectorAll('#formAdd .err').forEach(e=>e.style.display='none');
-  syncNext();openM('#dlgAdd');
-}
-fA.addEventListener('submit',e=>{
-  e.preventDefault();
-  const v=V();
-  const y=toNum(fA.jy.value),m=toNum(fA.jm.value),d=toNum(fA.jd.value),km=toNum(fA.km.value);
-  const dateOk=y>1300&&y<1500&&m>=1&&m<=12&&d>=1&&d<=monthLen(y,m);
-  $('#errDate').style.display=dateOk?'none':'block';
-  $('#errKm').style.display=km>=0?'none':'block';
-  if(!dateOk||!(km>=0))return;
-  const t=curType(),next=toNum(fA.nextKm.value);
-  const rec={id:editingId||uid(),type:t,date:jToISO(y,m,d),km,nextKm:isNaN(next)?km+intervalOf(v,t):next,
-    cost:toNum(fA.cost.value)||null,shop:fA.shop.value.trim(),note:fA.note.value.trim()};
-  if(t==='oil')Object.assign(rec,{oilBrand:fA.oilBrand.value.trim(),oilVisc:fA.oilVisc.value,filter:fA.filter.value,liters:toNum(fA.liters.value)||null});
-  if(editingId){const i=v.records.findIndex(r=>r.id===editingId);if(i>-1)v.records[i]=rec;else v.records.push(rec)}
-  else v.records.push(rec);
+function saveService(){
+  const v=V(),form=$('#svcForm'),t=form.querySelector('[name=type]:checked').value;
+  const date=parseJ(form.date.value),km=toNum(form.km.value);
+  setErr(form,'date',date?'':'مثل ۱۴۰۵/۰۷/۲۴');setErr(form,'km',km>=0?'':'کیلومتر را وارد کنید');
+  if(!date||!(km>=0))return;
+  const next=toNum(form.nextKm.value);
+  const rec={id:editing||uid(),type:t,date,km,nextKm:next>km?next:km+intervalOf(v,t),cost:toNum(form.cost.value)||null,shop:form.shop.value.trim(),note:form.note.value.trim()};
+  if(t==='oil')Object.assign(rec,{oilBrand:form.oilBrand.value,oilVisc:form.oilVisc.value,liters:toNum(form.liters.value)||null,filters:{oil:form.fOil.checked,air:form.fAir.checked,cabin:form.fCabin.checked}});
+  const i=v.records.findIndex(r=>r.id===rec.id);if(i>-1)v.records[i]=rec;else v.records.push(rec);
   if(km>v.odometer)v.odometer=km;
-  save();render();closeM('#dlgAdd');toast(editingId?'تغییرات ذخیره شد':'سرویس ثبت شد');
-});
-$('#btnDelRec').onclick=()=>{
-  if(!editingId||!confirm('این سرویس حذف شود؟'))return;
-  const v=V();v.records=v.records.filter(r=>r.id!==editingId);
-  save();render();closeM('#dlgAdd');toast('سرویس حذف شد');
-};
-
-/* ---------- Odometer ---------- */
-const fO=$('#formOdo');
-$('#openOdo').onclick=()=>{const v=V();fO.odo.value=v.odometer?faDigits(v.odometer):'';openM('#dlgOdo');setTimeout(()=>fO.odo.focus(),30)};
-fO.addEventListener('submit',e=>{e.preventDefault();const n=toNum(fO.odo.value);if(!(n>=0))return;V().odometer=n;save();render();closeM('#dlgOdo');toast('کیلومتر به‌روز شد')});
-
-/* ---------- Vehicles list ---------- */
-function renderVehList(){
-  $('#vehList').innerHTML=state.vehicles.map(v=>`
-    <div class="veh-row ${v.id===state.activeId?'on':''}" data-pick="${v.id}">
-      ${avatarHTML(v,44)}
-      <div class="info"><b>${esc(vName(v))}</b><small>${KINDS[v.kind].label} · ${fa(v.odometer)} km · ${fa(v.records.length)} سرویس</small></div>
-      <button class="edit" data-editveh="${v.id}" aria-label="ویرایش"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
-    </div>`).join('');
+  save();render();closeSheet();toast(editing?'تغییرات ذخیره شد':'سرویس ثبت شد');
 }
-$('#openVehicles').onclick=()=>{renderVehList();openM('#dlgVehicles')};
-$('#vehList').onclick=e=>{
-  const ed=e.target.closest('[data-editveh]');
-  if(ed){closeM('#dlgVehicles');openVehForm(state.vehicles.find(v=>v.id===ed.dataset.editveh));return}
-  const row=e.target.closest('[data-pick]');if(!row)return;
-  state.activeId=row.dataset.pick;filter='all';
-  document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('on',x.dataset.f==='all'));
-  save();render();closeM('#dlgVehicles');
-};
-$('#btnAddVeh').onclick=()=>{closeM('#dlgVehicles');openVehForm(null)};
 
-/* ---------- Vehicle form ---------- */
-const fV=$('#formVeh');
-let editingVehId=null, draft={};
-$('#swatches').innerHTML=COLORS.map(c=>`<button type="button" data-c="${c}" style="background:${c}" aria-label="رنگ"></button>`).join('');
-function paintPreview(){
-  draft.kind=fV.querySelector('[name=kind]:checked').value;
-  $('#vehPreview').innerHTML=avatarHTML(draft,76);
-  document.querySelectorAll('#swatches button').forEach(b=>b.classList.toggle('on',!draft.photo&&b.dataset.c===draft.color));
-  $('#btnRmPhoto').hidden=!draft.photo;
-  $('#btnPhoto').textContent=draft.photo?'تغییر عکس':'انتخاب عکس';
-  $('#beltIntLabel').textContent='فاصلهٔ '+KINDS[draft.kind].beltName;
+/* ================= Odometer ================= */
+function openOdo(){
+  const v=V();
+  openSheet(`<form class="sheet-body" id="odoForm" novalidate><div class="grab"></div><div class="sheet-head"><div><h2>بروزرسانی کارکرد</h2><p>عدد کیلومترشمار را وارد کنید</p></div></div>${tf('odo','کیلومتر فعلی',v.odometer?faD(v.odometer):'','inputmode="numeric"')}</form>${foot(['saveOdo','ذخیره'])}`);
+  const f=$('#odoForm');f.addEventListener('submit',e=>{e.preventDefault();saveOdo()});setTimeout(()=>f.odo.focus(),60);
 }
+function saveOdo(){const f=$('#odoForm'),n=toNum(f.odo.value);if(!(n>=0)){setErr(f,'odo','عدد معتبر وارد کنید');return}V().odometer=n;save();render();closeSheet();toast('کارکرد به‌روز شد')}
+
+/* ================= Vehicles ================= */
+function openVehicles(){
+  openSheet(`<div class="sheet-body"><div class="grab"></div><div class="sheet-head"><div><h2>وسیله‌های من</h2><p>برای جابه‌جایی روی وسیله بزنید</p></div></div>
+    ${state.vehicles.map(v=>`<div class="veh-row ${v.id===state.activeId?'on':''}" data-act="pickVeh" data-id="${v.id}">${av(v,44)}<div class="info"><b>${logo(v)}${esc(vName(v))}</b><small>${KINDS[v.kind].label} · ${fa(v.odometer)} کیلومتر · ${fa(v.records.length)} سرویس</small></div><button class="edit" data-act="editVeh" data-id="${v.id}" aria-label="ویرایش">${I.pen}</button></div>`).join('')}
+    <button class="add-veh" data-act="newVeh">${I.plus} افزودن خودرو یا موتور</button></div>
+    <div class="sheet-foot"><button class="btn text" data-act="close">بستن</button></div>`);
+}
+let draft=null;
 function openVehForm(v){
-  fV.reset();editingVehId=v?v.id:null;
-  draft={kind:v?v.kind:'car',color:v?v.color:COLORS[state.vehicles.length%COLORS.length],photo:v?v.photo:null};
-  $('#vehTitle').textContent=v?'ویرایش وسیله':'وسیلهٔ جدید';
-  fV.querySelector(`[name=kind][value=${draft.kind}]`).checked=true;
-  fV.name.value=v?v.name:'';
-  fV.odometer.value=v&&v.odometer?faDigits(v.odometer):'';
-  fV.oilInt.value=faDigits(v?v.oilInt:KINDS[draft.kind].oil);
-  fV.beltInt.value=faDigits(v?v.beltInt:KINDS[draft.kind].belt);
-  $('#btnDelVeh').hidden=!v||state.vehicles.length<2;
-  paintPreview();openM('#dlgVehicle');
-}
-fV.addEventListener('change',e=>{
-  if(e.target.name!=='kind')return;
-  const prev=draft.kind, k=e.target.value;
-  // swap default intervals if user hasn't customised them
-  if(toNum(fV.oilInt.value)===KINDS[prev].oil)fV.oilInt.value=faDigits(KINDS[k].oil);
-  if(toNum(fV.beltInt.value)===KINDS[prev].belt)fV.beltInt.value=faDigits(KINDS[k].belt);
-  paintPreview();
-});
-$('#swatches').onclick=e=>{const b=e.target.closest('button');if(!b)return;draft.color=b.dataset.c;draft.photo=null;paintPreview()};
-$('#btnPhoto').onclick=()=>$('#photoInput').click();
-$('#btnRmPhoto').onclick=()=>{draft.photo=null;paintPreview()};
-$('#photoInput').onchange=async e=>{
-  const f=e.target.files[0];e.target.value='';if(!f)return;
-  try{draft.photo=await resizePhoto(f);paintPreview()}catch{toast('عکس خوانده نشد')}
-};
-function resizePhoto(file){
-  return new Promise((res,rej)=>{
-    const url=URL.createObjectURL(file),img=new Image();
-    img.onload=()=>{const s=256,c=document.createElement('canvas');c.width=c.height=s;const m=Math.min(img.width,img.height);
-      c.getContext('2d').drawImage(img,(img.width-m)/2,(img.height-m)/2,m,m,0,0,s,s);URL.revokeObjectURL(url);res(c.toDataURL('image/jpeg',.82))};
-    img.onerror=()=>{URL.revokeObjectURL(url);rej()};img.src=url;
+  draft={id:v?.id||null,kind:v?.kind||'car',photo:v?.photo||null};
+  openSheet(`<form class="sheet-body" id="vehForm" novalidate><div class="grab"></div>
+    <div class="sheet-head"><div><h2>${v?'ویرایش وسیله':'وسیلهٔ جدید'}</h2></div></div>
+    <div class="seg"><label><input type="radio" name="kind" value="car" ${draft.kind==='car'?'checked':''}>خودرو</label><label><input type="radio" name="kind" value="moto" ${draft.kind==='moto'?'checked':''}>موتورسیکلت</label></div>
+    <div class="av-pick"><div id="avPrev"></div><div class="av-btns"><button type="button" class="link" data-act="pickPhoto" id="btnPhoto"></button><button type="button" class="link rm" data-act="rmPhoto" id="btnRm"></button></div></div>
+    <div id="brandWrap"></div>
+    <div class="row2">${tf('model','مدل',v?.model||'','autocomplete="off"')}${tf('year','سال ساخت',v?.year?faD(v.year):'','inputmode="numeric"')}</div>
+    ${tf('name','نام دلخواه (اختیاری)',v?.name||'','autocomplete="off"')}
+    ${tf('plate','پلاک (اختیاری)',v?.plate||'','autocomplete="off"')}
+    ${tf('odometer','کیلومتر فعلی',v?.odometer?faD(v.odometer):'','inputmode="numeric"')}
+    <div class="sub-title" style="margin-bottom:12px">فاصلهٔ سرویس‌ها</div>
+    <div class="row2">${tf('oilInt','فاصلهٔ تعویض روغن (کیلومتر)',faD(v?.oilInt||KINDS[draft.kind].oil),'inputmode="numeric"')}${tf('beltInt','',faD(v?.beltInt||KINDS[draft.kind].belt),'inputmode="numeric"')}</div>
+    <p class="hint">هشدار «نزدیک است» وقتی نمایش داده می‌شود که کمتر از ۱۵٪ مسافت باقی مانده باشد.</p>
+  </form>${foot(['saveVeh','ذخیره'],v&&state.vehicles.length>1?`<button class="btn icon" data-act="delVeh" aria-label="حذف">${I.trash}</button>`:'')}`);
+  const f=$('#vehForm');
+  const paintBrand=val=>{$('#brandWrap').innerHTML=sel('brand','برند',BRANDS[draft.kind].map(b=>[b.id,b.name]),val)};
+  paintBrand(v?.brand||'');paintAv();
+  f.addEventListener('change',e=>{
+    if(e.target.name!=='kind')return;const prev=draft.kind,k=e.target.value;draft.kind=k;
+    if(toNum(f.oilInt.value)===KINDS[prev].oil)f.oilInt.value=faD(KINDS[k].oil);
+    if(toNum(f.beltInt.value)===KINDS[prev].belt)f.beltInt.value=faD(KINDS[k].belt);
+    paintBrand('');paintAv();
   });
+  f.addEventListener('submit',e=>{e.preventDefault();saveVeh()});
 }
-fV.addEventListener('submit',e=>{
-  e.preventDefault();
-  const kind=fV.querySelector('[name=kind]:checked').value;
-  const data={kind,name:fV.name.value.trim(),color:draft.color,photo:draft.photo,
-    odometer:toNum(fV.odometer.value)>=0?toNum(fV.odometer.value):0,
-    oilInt:toNum(fV.oilInt.value)>0?toNum(fV.oilInt.value):KINDS[kind].oil,
-    beltInt:toNum(fV.beltInt.value)>0?toNum(fV.beltInt.value):KINDS[kind].belt};
-  if(editingVehId){Object.assign(state.vehicles.find(v=>v.id===editingVehId),data)}
-  else{const v=newVehicle(kind,data);state.vehicles.push(v);state.activeId=v.id;filter='all';
-    document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('on',x.dataset.f==='all'))}
-  save();render();closeM('#dlgVehicle');toast(editingVehId?'ذخیره شد':'وسیله اضافه شد');
-});
-$('#btnDelVeh').onclick=()=>{
-  const v=state.vehicles.find(x=>x.id===editingVehId);if(!v||state.vehicles.length<2)return;
-  if(!confirm(`«${vName(v)}» و همهٔ سرویس‌هایش حذف شود؟`))return;
-  state.vehicles=state.vehicles.filter(x=>x.id!==v.id);
-  if(state.activeId===v.id)state.activeId=state.vehicles[0].id;
-  save();render();closeM('#dlgVehicle');toast('وسیله حذف شد');
+function paintAv(){
+  $('#avPrev').innerHTML=av({kind:draft.kind,photo:draft.photo},80);
+  $('#btnPhoto').textContent=draft.photo?'تغییر عکس':'انتخاب عکس از گالری';
+  $('#btnRm').textContent='حذف عکس';$('#btnRm').hidden=!draft.photo;
+  $('#vehForm [name=beltInt]').nextElementSibling.textContent='فاصلهٔ '+KINDS[draft.kind].beltName+' (کیلومتر)';
+}
+function saveVeh(){
+  const f=$('#vehForm'),kind=draft.kind,km=toNum(f.odometer.value),o=toNum(f.oilInt.value),b=toNum(f.beltInt.value);
+  const data={kind,brand:f.brand.value,model:f.model.value.trim(),year:enD(f.year.value.trim()),name:f.name.value.trim(),plate:f.plate.value.trim(),photo:draft.photo,
+    odometer:km>=0?km:0,oilInt:o>0?o:KINDS[kind].oil,beltInt:b>0?b:KINDS[kind].belt};
+  if(draft.id)Object.assign(state.vehicles.find(x=>x.id===draft.id),data);
+  else{const v=newVehicle(kind,data);state.vehicles.push(v);state.activeId=v.id;filter='all'}
+  save();render();closeSheet();toast(draft.id?'ذخیره شد':'وسیله اضافه شد');
+}
+function resizePhoto(file){return new Promise((res,rej)=>{const url=URL.createObjectURL(file),img=new Image();img.onload=()=>{const s=256,c=document.createElement('canvas');c.width=c.height=s;const m=Math.min(img.width,img.height);c.getContext('2d').drawImage(img,(img.width-m)/2,(img.height-m)/2,m,m,0,0,s,s);URL.revokeObjectURL(url);res(c.toDataURL('image/jpeg',.82))};img.onerror=()=>{URL.revokeObjectURL(url);rej()};img.src=url})}
+
+/* ================= Settings ================= */
+function openSettings(){
+  openSheet(`<div class="sheet-body"><div class="grab"></div><div class="sheet-head"><div><h2>تنظیمات</h2><p>داده‌ها فقط روی همین دستگاه ذخیره می‌شوند</p></div></div>
+    <button class="menu-btn" data-act="export"><span>خروجی فایل پشتیبان</span><small>همهٔ وسیله‌ها و سرویس‌ها</small></button>
+    <button class="menu-btn" data-act="import"><span>بارگذاری فایل پشتیبان</span>${I.chevL}</button>
+    <button class="menu-btn danger" data-act="reset"><span>پاک کردن همهٔ داده‌ها</span></button>
+    <p class="hint" style="text-align:center;margin-top:20px">Car Care · نسخهٔ ۰.۴</p></div>
+    <div class="sheet-foot"><button class="btn text" data-act="close">بستن</button></div>`);
+}
+
+/* ================= Actions ================= */
+const ACT={
+  add:a=>openService(a.dataset.type||'oil'),
+  edit:a=>{const r=V().records.find(x=>x.id===a.dataset.id);if(r)openService(r.type,r)},
+  saveSvc:()=>saveService(),
+  delRec:()=>{if(!editing||!confirm('این سرویس حذف شود؟'))return;const v=V();v.records=v.records.filter(r=>r.id!==editing);save();render();closeSheet();toast('سرویس حذف شد')},
+  filter:a=>{filter=a.dataset.f;render()},
+  odo:()=>openOdo(), saveOdo:()=>saveOdo(),
+  vehicles:()=>openVehicles(),
+  pickVeh:a=>{state.activeId=a.dataset.id;filter='all';save();render();closeSheet()},
+  editVeh:a=>openVehForm(state.vehicles.find(v=>v.id===a.dataset.id)),
+  newVeh:()=>openVehForm(null),
+  saveVeh:()=>saveVeh(),
+  delVeh:()=>{const v=state.vehicles.find(x=>x.id===draft.id);if(!v||!confirm(`«${vName(v)}» و همهٔ سرویس‌هایش حذف شود؟`))return;state.vehicles=state.vehicles.filter(x=>x.id!==v.id);if(state.activeId===v.id)state.activeId=state.vehicles[0].id;save();render();closeSheet();toast('وسیله حذف شد')},
+  pickPhoto:()=>$('#photoInput').click(),
+  rmPhoto:()=>{draft.photo=null;paintAv()},
+  settings:()=>openSettings(),
+  export:()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`car-care-${new Date().toISOString().slice(0,10)}.json`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000)},
+  import:()=>$('#fileImport').click(),
+  reset:()=>{if(confirm('همهٔ وسیله‌ها و سرویس‌ها پاک شوند؟')){state=fresh();save();render();closeSheet();toast('پاک شد')}},
+  close:()=>closeSheet()
 };
-
-/* ---------- Settings ---------- */
-$('#openSettings').onclick=()=>openM('#dlgSettings');
-$('#btnExport').onclick=()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`car-logbook-${new Date().toISOString().slice(0,10)}.json`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
-$('#btnImport').onclick=()=>$('#fileImport').click();
-$('#fileImport').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;try{const m=migrate(JSON.parse(await f.text()));if(!m)throw 0;state=m;save();render();closeM('#dlgSettings');toast('اطلاعات بارگذاری شد')}catch{toast('فایل معتبر نیست')}};
-$('#btnReset').onclick=()=>{if(confirm('همهٔ وسیله‌ها و سرویس‌ها پاک شوند؟')){state=fresh();save();render();closeM('#dlgSettings');toast('پاک شد')}};
-
-/* ---------- Global events ---------- */
-$('#openAdd').onclick=()=>openAdd('oil');
-$('#cards').onclick=e=>{const b=e.target.closest('[data-add]');if(b)openAdd(b.dataset.add)};
-$('#tabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;filter=b.dataset.f;document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('on',x===b));render()};
-$('#list').onclick=e=>{const b=e.target.closest('[data-edit]');if(!b)return;const r=V().records.find(x=>x.id===b.dataset.edit);if(r)openAdd(r.type,r)};
+document.addEventListener('click',e=>{const a=e.target.closest('[data-act]');if(!a)return;e.preventDefault();ACT[a.dataset.act]?.(a,e)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
+$('#photoInput').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f||!draft)return;try{draft.photo=await resizePhoto(f);paintAv()}catch{toast('عکس خوانده نشد')}};
+$('#fileImport').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;try{const m=migrate(JSON.parse(await f.text()));if(!m)throw 0;state=m;save();render();closeSheet();toast('اطلاعات بارگذاری شد')}catch{toast('فایل معتبر نیست')}};
 render();
 </script>
 </body>
