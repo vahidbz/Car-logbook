@@ -29,7 +29,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer;background:none;border:0;-webkit-tap-highlight-color:transparent}
 img{display:block}
 [hidden]{display:none!important}
-.wrap{max-width:520px;margin:0 auto;padding:calc(12px + env(safe-area-inset-top)) 16px calc(110px + env(safe-area-inset-bottom))}
+.wrap{max-width:520px;margin:0 auto;padding:calc(12px + env(safe-area-inset-top)) 16px calc(170px + env(safe-area-inset-bottom))}
 
 /* Header / vehicle switcher */
 header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 0 16px}
@@ -81,6 +81,38 @@ header{display:flex;align-items:center;justify-content:space-between;gap:12px;pa
 
 .section-title{font-size:14px;font-weight:700;margin:24px 0 12px;display:flex;justify-content:space-between;align-items:center}
 .section-title span{font-size:12px;font-weight:500;color:var(--t3)}
+.section-title .link{font-size:13px;font-weight:700;padding:0}
+.rate{font-size:12px;color:var(--t2);line-height:18px;margin-top:2px}
+.rate b{color:var(--t1);font-weight:700}
+.rate.hint{color:var(--t3)}
+/* Fuel */
+.fuel{background:var(--n50);border-radius:16px;padding:12px}
+.fuel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ft{background:#fff;border-radius:12px;padding:10px;min-width:0}
+.ft small{display:block;font-size:11px;color:var(--t2);line-height:16px}
+.ft b{display:block;font-size:17px;font-weight:800;line-height:24px;margin-top:4px;white-space:nowrap}
+.ft i{display:block;font-style:normal;font-size:10px;color:var(--t3);line-height:14px}
+.fuel-last{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:10px;padding:0 4px;font-size:12px;color:var(--t2)}
+.fuel-empty{display:flex;align-items:center;gap:12px;padding:4px}
+.fuel-empty img{width:40px;height:40px}
+.fuel-empty p{flex:1;font-size:12px;line-height:20px;color:var(--t2)}
+.cost{background:var(--n50);border-radius:16px;padding:16px}
+.cost-big{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.cost-big b{font-size:30px;font-weight:800;line-height:38px;letter-spacing:-.5px}
+.cost-big span{font-size:13px;color:var(--t2);font-weight:500}
+.cost-sub{font-size:12px;color:var(--t2);line-height:20px;margin-top:2px}
+.cost-sub b{color:var(--t1)}
+.stack{display:flex;height:10px;border-radius:6px;overflow:hidden;margin:14px 0 10px;background:var(--n300);gap:2px}
+.stack i{display:block;height:100%}
+.legend{display:flex;flex-direction:column;gap:6px}
+.lg{display:flex;align-items:center;gap:8px;font-size:13px}
+.lg i{width:10px;height:10px;border-radius:3px;flex:none}
+.lg span{flex:1;color:var(--t2)}
+.lg b{font-weight:700;white-space:nowrap}
+.lg em{font-style:normal;color:var(--t3);font-size:12px;min-width:36px;text-align:left}
+.lg.na b{color:var(--t3);font-weight:500;font-size:12px}
+.cost-note{font-size:11px;line-height:18px;color:var(--t3);margin-top:10px}
+.btn-sm{flex:none;height:36px;padding:0 14px;border-radius:12px;background:var(--primary);color:#fff;font-size:13px;font-weight:700}
 
 /* Filter chips + history */
 .chips{display:flex;gap:8px;overflow-x:auto}
@@ -100,9 +132,54 @@ header{display:flex;align-items:center;justify-content:space-between;gap:12px;pa
 .item .chev{flex:none;color:var(--t3)}
 .empty-state{text-align:center;padding:32px 16px;color:var(--t2);font-size:13px;background:var(--n50);border-radius:12px}
 
-/* FAB */
-.fab{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:calc(100% - 32px);max-width:488px;height:52px;background:var(--primary);color:#fff;border-radius:16px;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 10px 24px rgba(17,19,24,.28)}
-.fab svg{width:20px;height:20px}
+/* FAB (compact, above tab bar) */
+.fab{position:fixed;bottom:calc(92px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);white-space:nowrap;height:44px;padding:0 16px 0 18px;background:var(--primary);color:#fff;border-radius:22px;font-weight:700;font-size:13px;display:flex;align-items:center;gap:6px;box-shadow:0 8px 20px rgba(17,19,24,.28);z-index:30}
+.fab svg{width:18px;height:18px}
+/* Tab bar */
+.tabbar{position:fixed;bottom:0;left:0;right:0;z-index:30;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--n300);padding:6px max(8px,env(safe-area-inset-left)) calc(6px + env(safe-area-inset-bottom))}
+.tabbar-in{max-width:520px;margin:0 auto;display:flex}
+.tabbar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;font-size:11px;font-weight:500;color:var(--t3)}
+.tabbar button svg{width:24px;height:24px}
+.tabbar button.on{color:var(--primary);font-weight:700}
+/* Pages */
+.page-title{font-size:20px;font-weight:800;margin:4px 0 4px}
+.page-sub{font-size:12px;color:var(--t2);margin-bottom:16px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.tile{background:var(--n50);border-radius:14px;padding:12px;text-align:right;display:flex;flex-direction:column;gap:2px;min-width:0}
+.tile small{font-size:12px;color:var(--t2);display:flex;align-items:center;justify-content:space-between}
+.tile b{font-size:20px;font-weight:800;line-height:28px;white-space:nowrap}
+.tile i{font-style:normal;font-size:11px;color:var(--t3)}
+.periods{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto}
+.periods button{flex:none;height:30px;padding:0 12px;border-radius:99px;border:1px solid var(--border);font-size:12px;font-weight:500;color:var(--t2)}
+.periods button.on{background:var(--primary);border-color:var(--primary);color:#fff}
+.panel{background:var(--n50);border-radius:16px;padding:16px;margin-top:12px}
+.panel h3{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;justify-content:space-between;align-items:baseline}
+.panel h3 span{font-size:12px;font-weight:500;color:var(--t3)}
+/* Horizontal bars */
+.hb{display:grid;grid-template-columns:minmax(72px,auto) 1fr auto;align-items:center;gap:6px 10px}
+.hb .l{font-size:13px;color:var(--t1);white-space:nowrap}
+.hb .t{height:10px;background:var(--n300);border-radius:5px;overflow:hidden}
+.hb .t i{display:block;height:100%;background:var(--primary);border-radius:5px}
+.hb .v{font-size:12px;font-weight:700;white-space:nowrap;text-align:left;font-variant-numeric:tabular-nums}
+.hb .v span{font-weight:400;color:var(--t3);margin-inline-start:8px;display:inline-block;min-width:28px}
+/* Column chart */
+.cols{display:flex;align-items:flex-end;gap:8px;height:140px;border-bottom:1px solid var(--border);padding-top:18px}
+.col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:0;position:relative}
+.col i{display:block;width:100%;max-width:30px;background:var(--primary);border-radius:4px 4px 0 0;min-height:2px}
+.col.dim i{background:#BFC4CB}
+.col em{position:absolute;font-style:normal;font-size:10px;font-weight:700;white-space:nowrap;color:var(--t1)}
+.col-l{display:flex;gap:8px;margin-top:6px}
+.col-l span{flex:1;text-align:center;font-size:10px;color:var(--t3);white-space:nowrap;overflow:hidden}
+.chart-info{font-size:12px;color:var(--t2);min-height:20px;margin-top:8px}
+.chart-info b{color:var(--t1)}
+.more-link{font-size:13px;font-weight:700;color:var(--primary)}
+.add-row{width:100%;display:flex;align-items:center;gap:14px;padding:12px;border-radius:14px;background:var(--n50);text-align:right}
+.add-row+.add-row{margin-top:8px}
+.add-row img{width:40px;height:40px;object-fit:contain}
+.add-row b{display:block;font-size:15px}
+.add-row small{font-size:12px;color:var(--t3)}
+.add-row .chev{margin-right:auto;color:var(--t3)}
+
 
 /* Bottom sheet with sticky footer */
 .modal{position:fixed;inset:0;z-index:50;display:none;background:rgba(4,10,31,.45)}
@@ -185,17 +262,14 @@ body.locked{overflow:hidden}
     </button>
   </header>
 
-  <section class="hero" id="hero"></section>
-
-  <div class="section-title">تاریخچه سرویس‌ها <span id="count"></span></div>
-  <div class="chips" id="chips"></div>
-  <div class="list" id="list"></div>
+  <main id="view"></main>
 </div>
 
-<button class="fab" data-act="add">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-  ثبت سرویس جدید
+<button class="fab" data-act="addMenu">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+  ثبت هزینه و سرویس
 </button>
+<nav class="tabbar"><div class="tabbar-in" id="tabbar"></div></nav>
 
 <div class="modal" id="sheet"><div class="sheet" id="sheetBox"></div></div>
 <input type="file" id="fileImport" accept="application/json,.json" hidden>
@@ -254,15 +328,20 @@ const KINDS={
   car:{label:'خودرو',oil:5000,belt:60000,beltName:'تسمه تایم',fallback:'خودروی من'},
   moto:{label:'موتورسیکلت',oil:3000,belt:15000,beltName:'تسمه / زنجیر',fallback:'موتور من'}
 };
-const IMG={oil:'assets/oil.png',belt:'assets/engine.png'};
+const FUEL_SVG="<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><rect x='9' y='7' width='21' height='35' rx='4' fill='#E5484D'/><rect x='13' y='11' width='13' height='10' rx='2' fill='#fff'/><rect x='16' y='26' width='7' height='7' rx='1.5' fill='#fff' opacity='.5'/><rect x='6' y='40' width='27' height='5' rx='2.5' fill='#37404D'/><path d='M30 17h4a3 3 0 0 1 3 3v14a2.6 2.6 0 0 0 5.2 0V16l-5-5' fill='none' stroke='#37404D' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/></svg>";
+const IMG={oil:'assets/oil.png',belt:'assets/engine.png',fuel:'data:image/svg+xml,'+encodeURIComponent(FUEL_SVG)};
+const EXP_SVG="<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><rect x='6' y='12' width='36' height='26' rx='6' fill='#37404D'/><rect x='6' y='17' width='36' height='5' fill='#5B6573'/><rect x='27' y='26' width='15' height='8' rx='4' fill='#F4C24C'/><circle cx='31' cy='30' r='1.8' fill='#37404D'/></svg>";
+IMG.expense='data:image/svg+xml,'+encodeURIComponent(EXP_SVG);
+const EXP_CATS=['بیمه','تعمیرات','لاستیک','باتری','کارواش','پارکینگ و عوارض','معاینه فنی','سایر'];
+const FUEL_TYPES=['بنزین معمولی','بنزین سوپر','سی‌ان‌جی','گازوئیل'];
 
 /* ================= State ================= */
 const KEY='car-logbook-v1';
-function newVehicle(kind='car',o={}){return{id:uid(),kind,name:'',brand:'',model:'',year:'',plate:'',photo:null,odometer:0,oilInt:KINDS[kind].oil,beltInt:KINDS[kind].belt,records:[],...o}}
+function newVehicle(kind='car',o={}){return{id:uid(),kind,name:'',brand:'',model:'',year:'',plate:'',photo:null,odometer:0,oilInt:KINDS[kind].oil,beltInt:KINDS[kind].belt,records:[],readings:[],...o}}
 function normRec(r){if(r.type==='oil'&&!r.filters)r.filters={oil:r.filter!=='no',air:false,cabin:false};return r}
 function migrate(d){
   if(d&&Array.isArray(d.vehicles)&&d.vehicles.length){
-    d.vehicles.forEach(v=>{if(!KINDS[v.kind])v.kind='car';v.id=v.id||uid();v.records=(Array.isArray(v.records)?v.records:[]).map(normRec);['brand','model','year','plate'].forEach(k=>v[k]=v[k]||'')});
+    d.vehicles.forEach(v=>{if(!KINDS[v.kind])v.kind='car';v.id=v.id||uid();v.records=(Array.isArray(v.records)?v.records:[]).map(normRec);v.readings=Array.isArray(v.readings)?v.readings:[];['brand','model','year','plate'].forEach(k=>v[k]=v[k]||'')});
     if(!d.vehicles.some(v=>v.id===d.activeId))d.activeId=d.vehicles[0].id;
     return{version:4,activeId:d.activeId,vehicles:d.vehicles};
   }
@@ -278,7 +357,6 @@ function load(){try{const raw=localStorage.getItem(KEY);if(raw){const m=migrate(
 function save(){memory=state;try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){toast('ذخیره نشد؛ حافظه پر است')}}
 let state=load(); save();
 const V=()=>state.vehicles.find(v=>v.id===state.activeId)||state.vehicles[0];
-let filter='all';
 
 /* ================= Vehicle helpers ================= */
 const vName=v=>v.name||[v.brand&&v.brand!=='other'?findBrand(v.kind,v.brand)?.name:'',v.model].filter(Boolean).join(' ')||KINDS[v.kind].fallback;
@@ -292,13 +370,85 @@ function av(v,size){
   if(v.kind==='moto')return`<div class="av" style="${s}">${I.moto}</div>`;
   return`<div class="av" style="${s}"><img src="assets/car-suv.png" alt=""></div>`;
 }
+const todayISO=()=>{const g=d2g(todayJDN());return`${g.gy}-${p2(g.gm)}-${p2(g.gd)}`};
+const fmtShort=jdn=>{const j=d2j(jdn);return`${faD(j.jd)} ${MONTHS[j.jm-1]}`};
+const fa1=n=>Number(n).toLocaleString('fa-IR',{maximumFractionDigits:1});
+/* Average daily distance: least-squares fit over odometer readings (manual updates + every record) in the last 180 days */
+function readings(v){
+  return[...(v.readings||[]),...v.records.map(r=>({date:r.date,km:r.km}))].filter(p=>p.date&&Number.isFinite(p.km))
+    .sort((a,b)=>a.date.localeCompare(b.date)||a.km-b.km);
+}
+function usage(v){
+  const p=readings(v);if(p.length<2)return null;
+  const lastD=isoJDN(p.at(-1).date);let w=p.filter(x=>isoJDN(x.date)>=lastD-180);if(w.length<2)w=p.slice(-2);
+  const xs=w.map(x=>isoJDN(x.date)),ys=w.map(x=>x.km),n=xs.length;
+  if(xs.at(-1)-xs[0]<3)return null;
+  const mx=xs.reduce((a,b)=>a+b)/n,my=ys.reduce((a,b)=>a+b)/n;
+  let num=0,den=0;for(let i=0;i<n;i++){num+=(xs[i]-mx)*(ys[i]-my);den+=(xs[i]-mx)**2}
+  const perDay=den?num/den:0;if(!(perDay>0.5))return null;
+  const since=Math.max(0,todayJDN()-xs.at(-1));
+  return{perDay,since,estToday:v.odometer+perDay*since,span:xs.at(-1)-xs[0]};
+}
+function fuelStats(v){
+  const f=v.records.filter(r=>r.type==='fuel').sort((a,b)=>a.km-b.km||a.date.localeCompare(b.date));
+  if(!f.length)return null;
+  let L=0,D=0,last=null,prev=-1,acc=0;
+  for(let i=0;i<f.length;i++){if(prev>=0)acc+=f[i].liters||0;if(f[i].full!==false){if(prev>=0){const d=f[i].km-f[prev].km;if(d>0){L+=acc;D+=d;last=acc/d*100}}prev=i;acc=0}}
+  const ago=todayJDN()-30,cost30=f.filter(r=>isoJDN(r.date)>=ago).reduce((a,r)=>a+(r.cost||0),0);
+  const dist=f.at(-1).km-f[0].km,costAfter=f.slice(1).reduce((a,r)=>a+(r.cost||0),0);
+  const lastFill=[...f].sort((a,b)=>b.date.localeCompare(a.date)||b.km-a.km)[0];
+  return{avg:D?L/D*100:null,last,cost30,perKm:dist>0&&costAfter?costAfter/dist:null,lastFill,count:f.length};
+}
+/* Cost per km: fuel from real consumption, services amortised over their interval, other upkeep over the last 12 months */
+function costStats(v){
+  const u=usage(v),fs=fuelStats(v),parts=[];
+  const amort=(t,int)=>{const r=v.records.filter(x=>x.type===t&&x.cost).sort((a,b)=>b.km-a.km||b.date.localeCompare(a.date))[0];if(!r)return null;const d=(r.nextKm||r.km+int)-r.km;return d>0?r.cost/d:null};
+  parts.push({k:'fuel',label:'سوخت',val:fs?.perKm??null,color:'#111318',hint:'دو سوخت‌گیری با مبلغ ثبت کنید'});
+  parts.push({k:'oil',label:'روغن و فیلتر',val:amort('oil',v.oilInt),color:'#5B6270',hint:'هزینهٔ تعویض روغن را ثبت کنید'});
+  parts.push({k:'belt',label:beltName(v),val:amort('belt',v.beltInt),color:'#9AA1AB',hint:'هزینهٔ تعویض را ثبت کنید'});
+  const yearAgo=todayJDN()-365,exp=v.records.filter(r=>r.type==='expense'&&r.cost&&isoJDN(r.date)>=yearAgo),expSum=exp.reduce((a,r)=>a+r.cost,0);
+  let kmYear=u?u.perDay*365:null;
+  if(!kmYear){const p=readings(v).filter(x=>isoJDN(x.date)>=yearAgo);const d=p.length>1?p.at(-1).km-p[0].km:0;if(d>=300)kmYear=d}
+  parts.push({k:'other',label:'سایر نگه‌داری',val:expSum&&kmYear?expSum/kmYear:(kmYear&&!exp.length?0:null),color:'#CDD1D7',hint:exp.length?'برای تقسیم، کارکرد بیشتری لازم است':'بیمه، تعمیر، لاستیک و…'});
+  const known=parts.filter(x=>x.val!=null),total=known.reduce((a,x)=>a+x.val,0);
+  return{parts,total,known:known.length,month:u?total*u.perDay*30:null,perDay:u?.perDay};
+}
 function lastOf(v,t){return v.records.filter(r=>r.type===t).sort((a,b)=>b.km-a.km||b.date.localeCompare(a.date))[0]}
 
 /* ================= Render ================= */
+const ui={tab:'home',period:180};
+const TAB_ICONS={
+  home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>',
+  history:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/></svg>',
+  fuel:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16"/><path d="M3 21h13"/><path d="M7 7h5v4H7z"/><path d="M15 9h2a2 2 0 0 1 2 2v6a1.5 1.5 0 0 0 3 0V9l-3-3"/></svg>',
+  costs:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>'
+};
+const TABS=[['home','خانه'],['history','تاریخچه'],['fuel','مصرف سوخت'],['costs','هزینه‌ها']];
 function render(){
   const v=V();
   $('#vehBtn').innerHTML=`${av(v,52)}<div class="txt"><small>${state.vehicles.length>1?'تعویض وسیله':vSub(v)}</small><h1>${logo(v)}<span class="nm">${esc(vName(v))}</span>${I.chevD}</h1></div>`;
+  $('#tabbar').innerHTML=TABS.map(([k,l])=>`<button class="${ui.tab===k?'on':''}" data-act="tab" data-tab="${k}">${TAB_ICONS[k]}${l}</button>`).join('');
+  $('#view').innerHTML=({home:viewHome,history:viewHistory,fuel:viewFuel,costs:viewCosts})[ui.tab](v);
+}
+function itemHTML(v,r){
+  const m=Number.isFinite(r.km)?[`<span>کیلومتر <em>${fa(r.km)}</em></span>`]:[];
+  if(r.type==='fuel'){m.push(`<span><em>${fa1(r.liters)}</em> لیتر</span>`);if(r.fuelType)m.push(`<span>${esc(r.fuelType)}</span>`);if(r.full!==false)m.push('<span>باک پر</span>')}
+  if(r.type==='oil'){
+    const oil=[r.oilBrand,r.oilVisc].filter(Boolean).join(' · ');if(oil)m.push(`<span><em dir="auto">${esc(oil)}</em></span>`);
+    if(r.liters)m.push(`<span>${fa(r.liters)} لیتر</span>`);
+    const f=r.filters||{},fl=[f.oil&&'روغن',f.air&&'هوا',f.cabin&&'کابین'].filter(Boolean);if(fl.length)m.push(`<span>فیلتر ${fl.join('، ')}</span>`);
+  }
+  if(r.nextKm&&r.type!=='fuel')m.push(`<span>بعدی <em>${fa(r.nextKm)}</em></span>`);
+  if(r.cost)m.push(`<span>${fa(r.cost)} تومان</span>`);
+  if(r.shop)m.push(`<span>${esc(r.shop)}</span>`);
+  const title=r.type==='expense'?esc(r.category||'هزینه'):r.type==='fuel'?'سوخت‌گیری':'تعویض '+(r.type==='oil'?'روغن':beltName(v));
+  return`<button class="item" data-act="edit" data-id="${r.id}"><img src="${IMG[r.type]}" alt=""><div class="body"><div class="top"><b>${title}</b><span>${fmtLong(r.date)}</span></div><div class="meta">${m.join('')}</div>${r.note?`<div class="note">${esc(r.note)}</div>`:''}</div><span class="chev">${I.chevL}</span></button>`;
+}
+const sortRecs=a=>a.sort((x,y)=>y.date.localeCompare(x.date)||(y.km||0)-(x.km||0));
 
+/* ---------- Home ---------- */
+function viewHome(v){
+  const u=usage(v);
   const carImg=v.photo?`<div class="hero-car photo"><img src="${v.photo}" alt=""></div>`:v.kind==='moto'?`<div class="hero-car">${I.moto}</div>`:`<div class="hero-car"><img src="assets/car-suv.png" alt=""></div>`;
   const stats=['oil','belt'].map(t=>{
     const r=lastOf(v,t),title=t==='oil'?'روغن موتور':beltName(v);
@@ -307,31 +457,114 @@ function render(){
     const next=r.nextKm||r.km+intervalOf(v,t),span=Math.max(1,next-r.km),used=v.odometer-r.km,left=next-v.odometer;
     const pct=Math.min(100,Math.max(0,used/span*100)),cls=left<=0?'over':left<=span*.15?'soon':'';
     const val=left<=0?`${fa(-left)}<small>کیلومتر گذشته</small>`:`${fa(left)}<small>کیلومتر مانده</small>`;
-    const note=left<=0?'زمان تعویض گذشته':left<=span*.15?'تعویض نزدیک است':`تعویض در ${fa(next)}`;
+    let note=left<=0?'زمان تعویض گذشته':left<=span*.15?'تعویض نزدیک است':`تعویض در ${fa(next)}`;
+    if(u&&left>0){const d=Math.max(0,Math.round((next-u.estToday)/u.perDay));note=d<=0?'احتمالاً همین روزها':`حدود ${fa(d)} روز دیگر · ${fmtShort(todayJDN()+d)}`}
     return`<button class="stat ${cls}" data-act="add" data-type="${t}">${head}<div class="stat-v">${val}</div><div class="bar"><i style="width:${pct}%"></i></div><div class="stat-s">${note}</div></button>`;
   }).join('');
-  $('#hero').innerHTML=`<div class="hero-top">
+  const cs=costStats(v),fs=fuelStats(v),recent=sortRecs([...v.records]).slice(0,3);
+  return`<section class="hero"><div class="hero-top">
       <div class="hero-km"><small>کارکرد</small><div class="num">${fa(Math.max(0,Math.round(v.odometer)))}<span>کیلومتر</span></div>
+        ${u?`<div class="rate">میانگین <b>${fa(Math.round(u.perDay))}</b> کیلومتر در روز${u.since>=3?` · امروز حدود <b>${fa(Math.round(u.estToday/10)*10)}</b>`:''}</div>`:`<div class="rate hint">کارکرد را هر چند روز ثبت کنید تا میانگین حرکت و زمان سرویس بعدی تخمین زده شود</div>`}
         <button class="link" data-act="odo">بروزرسانی کارکرد ${I.refresh}</button></div>
-      ${carImg}
-    </div>
-    <div class="stat-row">${stats}</div>`;
+      ${carImg}</div>
+    <div class="stat-row">${stats}</div></section>
+  <div class="tiles">
+    <button class="tile" data-act="tab" data-tab="costs"><small>هزینهٔ هر کیلومتر ${I.chevL}</small><b>${cs.known&&cs.total>0?fa(Math.round(cs.total)):'—'}</b><i>${cs.known&&cs.total>0?'تومان · برآورد کامل':'هنوز داده کافی نیست'}</i></button>
+    <button class="tile" data-act="tab" data-tab="fuel"><small>مصرف سوخت ${I.chevL}</small><b>${fs?.avg?fa1(fs.avg):'—'}</b><i>${fs?.avg?'لیتر در ۱۰۰ کیلومتر':'دو باک پر ثبت کنید'}</i></button>
+  </div>
+  <div class="section-title">آخرین فعالیت‌ها ${v.records.length>3?'<button class="more-link" data-act="tab" data-tab="history">همه</button>':''}</div>
+  <div class="list" style="margin-top:0">${recent.length?recent.map(r=>itemHTML(v,r)).join(''):`<div class="empty-state">هنوز چیزی ثبت نشده.<br>با دکمهٔ «ثبت هزینه و سرویس» شروع کنید.</div>`}</div>`;
+}
 
-  $('#chips').innerHTML=[['all','همه'],['oil','روغن موتور'],['belt',beltName(v)]].map(([k,l])=>`<button data-act="filter" data-f="${k}" class="${filter===k?'on':''}">${l}</button>`).join('');
-  const rows=v.records.filter(r=>filter==='all'||r.type===filter).sort((a,b)=>b.date.localeCompare(a.date)||b.km-a.km);
-  $('#count').textContent=v.records.length?fa(v.records.length)+' مورد':'';
-  $('#list').innerHTML=rows.length?rows.map(r=>{
-    const m=[`<span>کیلومتر <em>${fa(r.km)}</em></span>`];
-    if(r.type==='oil'){
-      const oil=[r.oilBrand,r.oilVisc].filter(Boolean).join(' · ');if(oil)m.push(`<span><em dir="auto">${esc(oil)}</em></span>`);
-      if(r.liters)m.push(`<span>${fa(r.liters)} لیتر</span>`);
-      const f=r.filters||{},fl=[f.oil&&'روغن',f.air&&'هوا',f.cabin&&'کابین'].filter(Boolean);if(fl.length)m.push(`<span>فیلتر ${fl.join('، ')}</span>`);
-    }
-    if(r.nextKm)m.push(`<span>بعدی <em>${fa(r.nextKm)}</em></span>`);
-    if(r.cost)m.push(`<span>${fa(r.cost)} تومان</span>`);
-    if(r.shop)m.push(`<span>${esc(r.shop)}</span>`);
-    return`<button class="item" data-act="edit" data-id="${r.id}"><img src="${IMG[r.type]}" alt=""><div class="body"><div class="top"><b>تعویض ${r.type==='oil'?'روغن':beltName(v)}</b><span>${fmtLong(r.date)}</span></div><div class="meta">${m.join('')}</div>${r.note?`<div class="note">${esc(r.note)}</div>`:''}</div><span class="chev">${I.chevL}</span></button>`;
-  }).join(''):`<div class="empty-state">${filter==='all'?'هنوز سرویسی برای این وسیله ثبت نشده.<br>با دکمهٔ پایین اولین سرویس را ثبت کنید.':'سرویسی از این نوع ثبت نشده.'}</div>`;
+/* ---------- History ---------- */
+let filter='all';
+function viewHistory(v){
+  const rows=sortRecs(v.records.filter(r=>filter==='all'||r.type===filter));
+  return`<div class="page-title">تاریخچه</div><div class="page-sub">${fa(v.records.length)} مورد ثبت‌شده برای ${esc(vName(v))}</div>
+  <div class="chips">${[['all','همه'],['oil','روغن موتور'],['belt',beltName(v)],['fuel','سوخت'],['expense','سایر هزینه‌ها']].map(([k,l])=>`<button data-act="filter" data-f="${k}" class="${filter===k?'on':''}">${l}</button>`).join('')}</div>
+  <div class="list">${rows.length?rows.map(r=>itemHTML(v,r)).join(''):`<div class="empty-state">موردی از این نوع ثبت نشده.</div>`}</div>`;
+}
+
+/* ---------- Fuel ---------- */
+function fuelSegments(v){
+  const f=v.records.filter(r=>r.type==='fuel').sort((a,b)=>a.km-b.km||a.date.localeCompare(b.date));
+  const out=[];let prev=-1,acc=0;
+  for(let i=0;i<f.length;i++){if(prev>=0)acc+=f[i].liters||0;if(f[i].full!==false){if(prev>=0){const d=f[i].km-f[prev].km;if(d>0)out.push({date:f[i].date,km:d,l100:acc/d*100})}prev=i;acc=0}}
+  return out;
+}
+function viewFuel(v){
+  const fs=fuelStats(v),segs=fuelSegments(v).slice(-8),list=sortRecs(v.records.filter(r=>r.type==='fuel'));
+  const tot=list.reduce((a,r)=>a+(r.liters||0),0);
+  let chart='';
+  if(segs.length){
+    const max=Math.max(...segs.map(s=>s.l100))*1.15,last=segs.length-1;
+    chart=`<div class="panel"><h3>مصرف در هر باک <span>لیتر در ۱۰۰ کیلومتر</span></h3>
+      <div class="cols">${segs.map((s,i)=>`<div class="col ${i===last?'':'dim'}" data-act="colInfo" data-info="${fmtLong(s.date)}: <b>${fa1(s.l100)}</b> لیتر در ۱۰۰ کیلومتر · ${fa(s.km)} کیلومتر"><em style="bottom:${s.l100/max*100}%">${fa1(s.l100)}</em><i style="height:${s.l100/max*100}%"></i></div>`).join('')}</div>
+      <div class="col-l">${segs.map(s=>`<span>${fmtShort(isoJDN(s.date))}</span>`).join('')}</div>
+      <div class="chart-info" id="chartInfo">روی هر ستون بزنید تا جزئیاتش را ببینید</div></div>`;
+  }
+  return`<div class="page-title">مصرف سوخت</div><div class="page-sub">${list.length?`${fa(list.length)} سوخت‌گیری · ${fa(Math.round(tot))} لیتر`:'هنوز سوخت‌گیری ثبت نشده'}</div>
+  ${fs?`<div class="tiles" style="margin-top:0">
+    <div class="tile"><small>میانگین مصرف</small><b>${fs.avg?fa1(fs.avg):'—'}</b><i>لیتر در ۱۰۰ کیلومتر</i></div>
+    <div class="tile"><small>آخرین مصرف</small><b>${fs.last?fa1(fs.last):'—'}</b><i>لیتر در ۱۰۰ کیلومتر</i></div>
+    <div class="tile"><small>سوخت در ۳۰ روز</small><b>${fa(Math.round(fs.cost30))}</b><i>تومان</i></div>
+    <div class="tile"><small>سوخت هر کیلومتر</small><b>${fs.perKm?fa(Math.round(fs.perKm)):'—'}</b><i>تومان</i></div></div>
+    ${chart||'<div class="panel" style="font-size:12px;color:var(--t2)">برای دیدن نمودار مصرف، دو بار باک را پر کنید و کیلومتر را ثبت کنید.</div>'}`
+  :`<div class="fuel-empty panel"><img src="${IMG.fuel}" alt=""><p>هر بار که بنزین زدی، لیتر و مبلغ را ثبت کن تا مصرف واقعی و هزینهٔ سوخت هر کیلومتر حساب شود.</p><button class="btn-sm" data-act="fuel">ثبت</button></div>`}
+  ${list.length?`<div class="section-title">سوخت‌گیری‌ها <button class="link" data-act="fuel">+ ثبت سوخت‌گیری</button></div><div class="list" style="margin-top:0">${list.map(r=>itemHTML(v,r)).join('')}</div>`:''}`;
+}
+
+/* ---------- Costs ---------- */
+const catOf=(v,r)=>r.type==='fuel'?'سوخت':r.type==='oil'?'روغن و فیلتر':r.type==='belt'?beltName(v):(r.category||'سایر');
+function viewCosts(v){
+  const days=ui.period,from=days?todayJDN()-days:-Infinity;
+  const recs=v.records.filter(r=>r.cost>0&&isoJDN(r.date)>=from);
+  const total=recs.reduce((a,r)=>a+r.cost,0);
+  const byCat={};recs.forEach(r=>{const c=catOf(v,r);byCat[c]=(byCat[c]||0)+r.cost});
+  const cats=Object.entries(byCat).sort((a,b)=>b[1]-a[1]),maxC=cats[0]?.[1]||1;
+  // km driven in the period
+  const pts=readings(v).filter(p=>isoJDN(p.date)>=from);const dist=pts.length>1?pts.at(-1).km-pts[0].km:0;
+  const actual=dist>=100&&total?total/dist:null;
+  // monthly totals (last 6 Jalali months)
+  const tj=d2j(todayJDN()),months=[];for(let i=5;i>=0;i--){let m=tj.jm-i,y=tj.jy;while(m<1){m+=12;y--}months.push({y,m,sum:0})}
+  v.records.filter(r=>r.cost>0).forEach(r=>{const j=d2j(isoJDN(r.date));const mo=months.find(x=>x.y===j.jy&&x.m===j.jm);if(mo)mo.sum+=r.cost});
+  const maxM=Math.max(...months.map(m=>m.sum),1)*1.18;
+  const cs=costStats(v);
+  const periods=[[90,'۳ ماه'],[180,'۶ ماه'],[365,'۱۲ ماه'],[0,'همه']];
+  return`<div class="page-title">هزینه‌ها</div><div class="page-sub">همهٔ پرداخت‌ها برای ${esc(vName(v))}: سوخت، سرویس و نگه‌داری</div>
+  <div class="periods">${periods.map(([d,l])=>`<button data-act="period" data-d="${d}" class="${ui.period===d?'on':''}">${l}</button>`).join('')}</div>
+  <div class="tiles" style="margin-top:0">
+    <div class="tile"><small>کل خرج این بازه</small><b>${fa(total)}</b><i>تومان · ${fa(recs.length)} پرداخت</i></div>
+    <div class="tile"><small>میانگین هر کیلومتر</small><b>${actual?fa(Math.round(actual)):'—'}</b><i>${actual?`تومان · روی ${fa(dist)} کیلومتر`:'کارکرد این بازه کم است'}</i></div>
+  </div>
+  <div class="panel"><h3>برای چی چقدر خرج کردی <span>${periods.find(p=>p[0]===ui.period)[1]} اخیر</span></h3>
+    ${cats.length?`<div class="hb">${cats.map(([c,val])=>`<span class="l">${esc(c)}</span><span class="t"><i style="width:${val/maxC*100}%"></i></span><span class="v">${fa(val)}<span>${fa(Math.round(val/total*100))}٪</span></span>`).join('')}</div>`:'<p class="svc-msg" style="font-size:12px;color:var(--t2)">در این بازه هزینه‌ای با مبلغ ثبت نشده.</p>'}
+  </div>
+  <div class="panel"><h3>خرج ماهانه <span>تومان</span></h3>
+    <div class="cols">${months.map((m,i)=>`<div class="col ${i===5?'':'dim'}" data-act="colInfo" data-info="${MONTHS[m.m-1]} ${faD(m.y)}: <b>${fa(m.sum)}</b> تومان">${m.sum?`<em style="bottom:${m.sum/maxM*100}%">${fa1(m.sum/1e6)}م</em>`:''}<i style="height:${m.sum/maxM*100}%"></i></div>`).join('')}</div>
+    <div class="col-l">${months.map(m=>`<span>${MONTHS[m.m-1]}</span>`).join('')}</div>
+    <div class="chart-info" id="chartInfo">اعداد به میلیون تومان. روی هر ماه بزنید تا مبلغ دقیق را ببینید.</div>
+  </div>
+  <div class="panel"><h3>برآورد بلندمدت هر کیلومتر <span>تومان</span></h3>
+    ${cs.known&&cs.total>0?`<div class="cost-big"><b>${fa(Math.round(cs.total))}</b><span>تومان برای هر کیلومتر</span></div>
+    <div class="cost-sub">${cs.month?`حدود <b>${fa(Math.round(cs.month/1000)*1000)}</b> تومان در ماه با ${fa(Math.round(cs.perDay))} کیلومتر در روز`:'برای تخمین ماهانه، کارکرد را مرتب ثبت کنید'}</div>
+    <div class="stack">${cs.parts.filter(x=>x.val>0).map(x=>`<i style="width:${x.val/cs.total*100}%;background:${x.color}"></i>`).join('')}</div>
+    <div class="legend">${cs.parts.map(x=>x.val!=null?`<div class="lg"><i style="background:${x.color}"></i><span>${x.label}</span><b>${fa(Math.round(x.val))} تومان</b><em>${cs.total?fa(Math.round(x.val/cs.total*100))+'٪':''}</em></div>`:`<div class="lg na"><i style="background:${x.color}"></i><span>${x.label}</span><b>${x.hint}</b></div>`).join('')}</div>
+    <div class="cost-note">برخلاف «میانگین هر کیلومتر» که خرج واقعی این بازه است، اینجا سرویس‌ها روی فاصلهٔ تعویضشان و سایر هزینه‌ها روی ۱۲ ماه پخش می‌شوند.</div>`
+    :'<p style="font-size:12px;color:var(--t2)">با ثبت مبلغ سوخت، سرویس‌ها و هزینه‌هایی مثل بیمه، برآورد هزینهٔ هر کیلومتر اینجا نمایش داده می‌شود.</p>'}
+  </div>`;
+}
+
+/* ---------- Add menu ---------- */
+function openAddMenu(){
+  const v=V();
+  const row=(act,type,img,t,s)=>`<button class="add-row" data-act="${act}" ${type?`data-type="${type}"`:''}><img src="${img}" alt=""><div><b>${t}</b><small>${s}</small></div><span class="chev">${I.chevL}</span></button>`;
+  openSheet(`<div class="sheet-body"><div class="grab"></div><div class="sheet-head"><div><h2>چه چیزی ثبت کنیم؟</h2><p>${esc(vName(v))}</p></div></div>
+    ${row('add','oil',IMG.oil,'تعویض روغن','روغن، فیلترها و کیلومتر تعویض')}
+    ${row('add','belt',IMG.belt,'تعویض '+beltName(v),'کیلومتر و هزینهٔ تعویض')}
+    ${row('fuel','',IMG.fuel,'سوخت‌گیری','لیتر، مبلغ و کیلومتر')}
+    ${row('expense','',IMG.expense,'هزینهٔ دیگر','بیمه، تعمیر، لاستیک، کارواش…')}
+  </div><div class="sheet-foot"><button class="btn text" data-act="close">بستن</button></div>`);
 }
 
 /* ================= Sheet helpers ================= */
@@ -393,13 +626,63 @@ function saveService(){
   save();render();closeSheet();toast(editing?'تغییرات ذخیره شد':'سرویس ثبت شد');
 }
 
+/* ================= Fuel ================= */
+function openFuel(rec=null){
+  const v=V(),u=usage(v);editing=rec?rec.id:null;
+  const kmDef=rec?rec.km:Math.round(u?u.estToday:v.odometer)||'';
+  openSheet(`<form class="sheet-body" id="fuelForm" novalidate>
+    <div class="grab"></div>
+    <div class="sheet-head"><img src="${IMG.fuel}" alt=""><div><h2>${rec?'ویرایش سوخت‌گیری':'ثبت سوخت‌گیری'}</h2><p>${esc(vName(v))}</p></div></div>
+    <div class="row2">${tf('date','تاریخ',rec?fmtSlash(rec.date):todaySlash(),'inputmode="numeric" autocomplete="off"')}${tf('km','کیلومتر فعلی',kmDef!==''?faD(kmDef):'','inputmode="numeric"')}</div>
+    <div class="row2">${tf('liters','مقدار (لیتر)',rec?.liters?faD(rec.liters):'','inputmode="decimal"')}${tf('cost','مبلغ (تومان)',rec?.cost?faD(rec.cost):'','inputmode="numeric"')}</div>
+    ${sel('fuelType','نوع سوخت',FUEL_TYPES,rec?.fuelType||'بنزین معمولی')}
+    <label class="chk"><input type="checkbox" name="full" ${rec?.full===false?'':'checked'}><i></i>باک را پر کردم</label>
+    <p class="hint" style="margin-top:4px">مصرف از فاصلهٔ بین دو باک پر حساب می‌شود. اگر باک را پر نکردی، تیک را بردار تا لیترها در محاسبهٔ بعدی جمع شوند.</p>
+    <label class="tf"><textarea name="note" placeholder=" ">${esc(rec?.note||'')}</textarea><span>یادداشت (مثلاً جایگاه)</span></label>
+  </form>${foot(['saveFuel','ذخیره'],rec?`<button class="btn icon" data-act="delRec" aria-label="حذف">${I.trash}</button>`:'')}`);
+  $('#fuelForm').addEventListener('submit',e=>{e.preventDefault();saveFuel()});
+}
+function saveFuel(){
+  const v=V(),f=$('#fuelForm'),date=parseJ(f.date.value),km=toNum(f.km.value),liters=toNum(f.liters.value);
+  setErr(f,'date',date?'':'مثل ۱۴۰۵/۰۷/۲۴');setErr(f,'km',km>=0?'':'کیلومتر را وارد کنید');setErr(f,'liters',liters>0?'':'مقدار را وارد کنید');
+  if(!date||!(km>=0)||!(liters>0))return;
+  const rec={id:editing||uid(),type:'fuel',date,km,liters,cost:toNum(f.cost.value)||null,fuelType:f.fuelType.value,full:f.full.checked,note:f.note.value.trim()};
+  const i=v.records.findIndex(r=>r.id===rec.id);if(i>-1)v.records[i]=rec;else v.records.push(rec);
+  if(km>v.odometer)v.odometer=km;
+  save();render();closeSheet();toast(editing?'تغییرات ذخیره شد':'سوخت‌گیری ثبت شد');
+}
+
+/* ================= Other expenses ================= */
+function openExpense(rec=null){
+  const v=V();editing=rec?rec.id:null;
+  openSheet(`<form class="sheet-body" id="expForm" novalidate>
+    <div class="grab"></div>
+    <div class="sheet-head"><img src="${IMG.expense}" alt=""><div><h2>${rec?'ویرایش هزینه':'ثبت هزینه'}</h2><p>${esc(vName(v))}</p></div></div>
+    ${sel('category','نوع هزینه',EXP_CATS,rec?.category||'')}
+    <div class="row2">${tf('cost','مبلغ (تومان)',rec?.cost?faD(rec.cost):'','inputmode="numeric"')}${tf('date','تاریخ',rec?fmtSlash(rec.date):todaySlash(),'inputmode="numeric" autocomplete="off"')}</div>
+    ${tf('km','کیلومتر (اختیاری)',rec&&Number.isFinite(rec.km)?faD(rec.km):'','inputmode="numeric"')}
+    <p class="hint">هزینه‌هایی مثل بیمه و معاینه فنی روی کارکرد ۱۲ ماه پخش می‌شوند. سوخت و سرویس‌ها را از بخش خودشان ثبت کنید.</p>
+    <label class="tf"><textarea name="note" placeholder=" ">${esc(rec?.note||'')}</textarea><span>توضیح</span></label>
+  </form>${foot(['saveExp','ذخیره'],rec?`<button class="btn icon" data-act="delRec" aria-label="حذف">${I.trash}</button>`:'')}`);
+  $('#expForm').addEventListener('submit',e=>{e.preventDefault();saveExpense()});
+}
+function saveExpense(){
+  const v=V(),f=$('#expForm'),date=parseJ(f.date.value),cost=toNum(f.cost.value),km=toNum(f.km.value);
+  setErr(f,'cost',cost>0?'':'مبلغ را وارد کنید');setErr(f,'date',date?'':'مثل ۱۴۰۵/۰۷/۲۴');
+  if(!(cost>0)||!date)return;
+  const rec={id:editing||uid(),type:'expense',category:f.category.value||'سایر',date,cost,km:km>=0?km:null,note:f.note.value.trim()};
+  const i=v.records.findIndex(r=>r.id===rec.id);if(i>-1)v.records[i]=rec;else v.records.push(rec);
+  if(km>v.odometer)v.odometer=km;
+  save();render();closeSheet();toast(editing?'تغییرات ذخیره شد':'هزینه ثبت شد');
+}
+
 /* ================= Odometer ================= */
 function openOdo(){
   const v=V();
-  openSheet(`<form class="sheet-body" id="odoForm" novalidate><div class="grab"></div><div class="sheet-head"><div><h2>بروزرسانی کارکرد</h2><p>عدد کیلومترشمار را وارد کنید</p></div></div>${tf('odo','کیلومتر فعلی',v.odometer?faD(v.odometer):'','inputmode="numeric"')}</form>${foot(['saveOdo','ذخیره'])}`);
+  openSheet(`<form class="sheet-body" id="odoForm" novalidate><div class="grab"></div><div class="sheet-head"><div><h2>بروزرسانی کارکرد</h2><p>عدد کیلومترشمار را وارد کنید. هر ثبت، تخمین میانگین حرکت را دقیق‌تر می‌کند.</p></div></div>${tf('odo','کیلومتر فعلی',v.odometer?faD(v.odometer):'','inputmode="numeric"')}</form>${foot(['saveOdo','ذخیره'])}`);
   const f=$('#odoForm');f.addEventListener('submit',e=>{e.preventDefault();saveOdo()});setTimeout(()=>f.odo.focus(),60);
 }
-function saveOdo(){const f=$('#odoForm'),n=toNum(f.odo.value);if(!(n>=0)){setErr(f,'odo','عدد معتبر وارد کنید');return}V().odometer=n;save();render();closeSheet();toast('کارکرد به‌روز شد')}
+function saveOdo(){const f=$('#odoForm'),n=toNum(f.odo.value);if(!(n>=0)){setErr(f,'odo','عدد معتبر وارد کنید');return}const v=V();v.odometer=n;v.readings=(v.readings||[]).filter(x=>x.date!==todayISO());v.readings.push({date:todayISO(),km:n});save();render();closeSheet();toast('کارکرد به‌روز شد')}
 
 /* ================= Vehicles ================= */
 function openVehicles(){
@@ -457,17 +740,23 @@ function openSettings(){
     <button class="menu-btn" data-act="export"><span>خروجی فایل پشتیبان</span><small>همهٔ وسیله‌ها و سرویس‌ها</small></button>
     <button class="menu-btn" data-act="import"><span>بارگذاری فایل پشتیبان</span>${I.chevL}</button>
     <button class="menu-btn danger" data-act="reset"><span>پاک کردن همهٔ داده‌ها</span></button>
-    <p class="hint" style="text-align:center;margin-top:20px">Car Care · نسخهٔ ۰.۴</p></div>
+    <p class="hint" style="text-align:center;margin-top:20px">Car Care · نسخهٔ ۰.۸</p></div>
     <div class="sheet-foot"><button class="btn text" data-act="close">بستن</button></div>`);
 }
 
 /* ================= Actions ================= */
 const ACT={
-  add:a=>openService(a.dataset.type||'oil'),
-  edit:a=>{const r=V().records.find(x=>x.id===a.dataset.id);if(r)openService(r.type,r)},
+  add:a=>{closeSheet();openService(a.dataset.type||'oil')},
+  edit:a=>{const r=V().records.find(x=>x.id===a.dataset.id);if(!r)return;r.type==='fuel'?openFuel(r):r.type==='expense'?openExpense(r):openService(r.type,r)},
+  expense:()=>{closeSheet();openExpense()}, saveExp:()=>saveExpense(),
+  fuel:()=>{closeSheet();openFuel()}, saveFuel:()=>saveFuel(),
   saveSvc:()=>saveService(),
   delRec:()=>{if(!editing||!confirm('این سرویس حذف شود؟'))return;const v=V();v.records=v.records.filter(r=>r.id!==editing);save();render();closeSheet();toast('سرویس حذف شد')},
   filter:a=>{filter=a.dataset.f;render()},
+  tab:a=>{ui.tab=a.dataset.tab;render();window.scrollTo(0,0)},
+  period:a=>{ui.period=+a.dataset.d;render()},
+  colInfo:a=>{const el=$('#chartInfo');if(el)el.innerHTML=a.dataset.info;document.querySelectorAll('.col').forEach(c=>c.classList.toggle('dim',c!==a))},
+  addMenu:()=>openAddMenu(),
   odo:()=>openOdo(), saveOdo:()=>saveOdo(),
   vehicles:()=>openVehicles(),
   pickVeh:a=>{state.activeId=a.dataset.id;filter='all';save();render();closeSheet()},
